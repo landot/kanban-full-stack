@@ -21,6 +21,7 @@ function App() {
 
   return (
     <ThemeContext.Provider value={theme}>
+      <div className='app' id={theme}></div>
       <button onClick={toggleTheme}>click here</button>
       <p>{theme}</p>
       <HeadingXL>asdfasdfasdfasdf </HeadingXL>
