@@ -1,6 +1,6 @@
-import './ButtonSmallv2.css';
+import './ButtonSmall.css';
 
-export function ButtonSmallv2(
+export function ButtonSmall(
     props: {
         label: string, 
         type: 'primary' | 'secondary' | 'destructive',

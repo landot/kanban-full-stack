@@ -1,0 +1,17 @@
+.button-large {
+    border: none;
+    padding: 15px;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 19px;
+    text-align: center;
+    border-radius: 20px;
+    cursor: pointer;
+    color: #FFFFFF;
+    background: #635FC7;
+}
+
+.button-large:hover {
+    background: #A8A4FF;
+}
