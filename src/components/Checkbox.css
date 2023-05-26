@@ -1,0 +1,35 @@
+.subtask, .subtask.completed:hover {
+    padding: 12px;
+    background: #F4F7FD;
+    border-radius: 4px;
+    display: flex;
+}
+
+.subtask input {
+    margin: 0;
+    accent-color: #635FC7;
+    width: 16px;
+    height: 16px;
+    border-radius: 2px;
+
+    border: 1px solid red;
+}
+
+.subtask p {
+    margin: 0 0 0 15px;
+}
+
+.subtask.completed {
+    background: #F4F7FD;
+}
+
+.subtask.completed p {
+    text-decoration: line-through;
+    color: #000112;
+    mix-blend-mode: normal;
+    opacity: 0.5;
+}
+
+.subtask:hover {
+    background: rgb(99, 95, 199, .25);
+}

@@ -1,0 +1,36 @@
+.text-input {
+    width: 100%;
+    position: relative;
+}
+
+.text-input.error input {
+    border: 1px solid #EA5555;
+}
+
+.text-input input {
+    width: 100%;
+    padding: 8px 0 9px 16px;
+    border: 1px solid rgba(130, 143, 163, 0.25);
+    border-radius: 4px;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 23px;
+    color: #000112;
+
+}
+
+.text-input input::placeholder {
+    mix-blend-mode: normal;
+    opacity: 0.25;
+}
+
+.text-input .validation-message {
+    position: absolute;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 23px;
+    color: #EA5555;
+    top: -5px;
+    right: 0px;
+}

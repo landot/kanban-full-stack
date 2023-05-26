@@ -1,5 +1,4 @@
 import { ButtonL } from '../styledComponents/button/ButtonL';
-import './button.css';
 
 export interface ButtonProps {
   color: string;
@@ -9,9 +8,6 @@ export interface ButtonProps {
   onClick?: () => void;
 }
 
-/**
- * Primary UI component for user interaction
- */
 export const ButtonPrimaryLarge = ({
   color,
   backgroundColor,

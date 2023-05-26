@@ -6,9 +6,7 @@ const meta = {
   title: 'buttons/ButtonPrimaryLarge',
   component: ButtonPrimaryLarge,
   tags: ['autodocs'],
-  argTypes: {
-    backgroundColor: { control: 'color' },
-  },
+  argTypes: {},
 } satisfies Meta<typeof ButtonPrimaryLarge>;
 
 export default meta;

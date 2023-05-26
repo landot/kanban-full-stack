@@ -1,10 +1,7 @@
 // todo move props interface
 import { ButtonProps } from './ButtonPrimaryLarge';
 import { ButtonS } from '../styledComponents/button/ButtonS';
-import './button.css';
-/**
- * Primary UI component for user interaction
- */
+
 export const ButtonPrimarySmall = ({
   color,
   backgroundColor,
