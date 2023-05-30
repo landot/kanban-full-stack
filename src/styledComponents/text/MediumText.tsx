@@ -5,5 +5,5 @@ export const MediumText = styled.p`
     font-weight: 500;
     font-size: 13px;
     line-height: 23px;
-    color: #2B2C37;
+    color: #828FA3;
 `
