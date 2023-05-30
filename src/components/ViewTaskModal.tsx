@@ -4,18 +4,19 @@ import { MediumText } from "../styledComponents/text/MediumText"
 import { Checkbox } from "./SubtaskCheckbox"
 import { Dropdown } from "./Dropdown";
 import { SubtaskMoreAction } from "./SubtaskMoreAction";
-import './ViewTask.css';
+import './ViewTaskModal.css';
 
 export interface Subtask {
     description: string;
     completed: boolean;
 }
 
-export function ViewTask(
+export function ViewTaskModal(
     props: {
         title: string, 
         description: string, 
-        subtasks: Subtask[]
+        subtasks: Subtask[],
+        status: 'done' | 'doing' | 'todo'
     }) {
 
     function getSubtaskRemainingText() {
@@ -45,7 +46,8 @@ export function ViewTask(
             </div>
             <div className="status-section">
                 <MediumText>Current Status</MediumText>
-                <Dropdown />
+                {/* todo handle status changes */}
+                <Dropdown value={props.status} handleChange={() => null}/>
             </div>
         </div>
     )

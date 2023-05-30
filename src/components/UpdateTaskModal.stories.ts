@@ -1,13 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { UpdateTask } from './UpdateTask';
+import { UpdateTaskModal } from './UpdateTaskModal';
 
 const meta = {
-  title: 'UpdateTask',
-  component: UpdateTask,
+  title: 'UpdateTaskModal',
+  component: UpdateTaskModal,
   tags: ['autodocs'],
   argTypes: {},
-} satisfies Meta<typeof UpdateTask>;
+} satisfies Meta<typeof UpdateTaskModal>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -24,7 +24,8 @@ export const Edit: Story = {
         prefill: {
             title: 'prefilled title',
             description: 'prefilled description',
-            subtasks: ['description 1', 'description 2']
+            subtasks: ['description 1', 'description 2'],
+            status: 'done'
         }
     },
   };

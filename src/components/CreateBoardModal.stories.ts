@@ -1,20 +1,16 @@
 import type { Meta, StoryObj } from '@storybook/react';
-
-import { Dropdown } from './Dropdown';
+import { CreateBoardModal } from './CreateBoardModal';
 
 const meta = {
-  title: 'Dropdown',
-  component: Dropdown,
+  title: 'CreateBoardModal',
+  component: CreateBoardModal,
   tags: ['autodocs'],
   argTypes: {},
-} satisfies Meta<typeof Dropdown>;
+} satisfies Meta<typeof CreateBoardModal>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = {
-  args: {
-    value: 'doing'
-  },
+  args: {},
 };
-

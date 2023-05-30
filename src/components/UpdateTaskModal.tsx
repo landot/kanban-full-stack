@@ -5,7 +5,7 @@ import { TextField } from './TextField';
 import DeleteIcon from '../../public/assets/images/icon-cross.svg';
 import { HeadingL } from '../styledComponents/header/HeadingL';
 import { useState } from 'react';
-import './UpdateTask.css';
+import './UpdateTaskModal.css';
 
 
 interface Task {
@@ -20,7 +20,7 @@ interface Error {
     index?: number;
 }
 
-export function UpdateTask(
+export function UpdateTaskModal(
     props: { 
         updateType: 'add' | 'edit' 
         prefill?: {
