@@ -1,0 +1,22 @@
+.delete-modal {
+    background: #FFFFFF;
+    padding: 32px 32px 40px 32px;
+    width: 100%;
+}
+
+.delete-modal h2 {
+    color: #EA5555;
+}
+
+.delete-modal button {
+    width: 40%;
+}
+
+.delete-modal button:first-of-type {
+    margin-right: 16px;
+}
+
+.delete-modal .action-buttons {
+    display: flex;
+    justify-content: center;
+}
