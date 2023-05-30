@@ -2,13 +2,14 @@ import { useState } from 'react';
 import chevronDown from '../../public/assets/images/icon-chevron-down.svg';
 import './Dropdown.css';
 
-export function Dropdown() {
-    const [status, setStatus] = useState('todo');
+export function Dropdown(props: {value: 'todo' | 'doing' | 'done', handleChange: (s: any) => void}) {
+    const [status, setStatus] = useState(props.value);
     const [showDropdownItems, setShowDropdownItems] = useState(false);
 
-    function handleDropdownUpdate(newStatus: string) {
+    function handleDropdownUpdate(newStatus: 'todo' | 'doing' | 'done') {
         setStatus(newStatus);
-        setShowDropdownItems(false)
+        setShowDropdownItems(false);
+        props.handleChange(newStatus);
     }
     
     return (

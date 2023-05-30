@@ -1,0 +1,50 @@
+.update-task {
+    width: 100%;
+    background: #FFFFFF;
+    border-radius: 6px;
+    padding: 32px;
+}
+
+.update-task h2 {
+    text-transform: capitalize;
+}
+
+.update-task .section {
+    width: 100%;
+}
+
+.update-task .section {
+    margin-top: 24px;
+}
+
+.update-task .section:last-of-type {
+    margin-bottom: 24px;
+}
+
+.update-task .edit-subtask {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: center;
+}
+
+.update-task .edit-subtask  {
+    margin-bottom: 12px;
+}
+
+.update-task .edit-subtask .text-input {
+    margin-right: 16px;
+
+}
+
+.update-task .edit-subtask img {
+    margin-left: 16px;
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+}
+
+/* see if this can be refactored later */
+.update-task button {
+    width: 100%;
+}
