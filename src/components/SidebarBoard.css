@@ -1,0 +1,47 @@
+.sidebar-board {
+    padding-left: 32px;
+    width: 100%;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    border-radius: 0px 100px 100px 0px;
+    cursor: pointer;
+}
+
+.sidebar-board svg {
+    width: 16px;
+    height: 16px;
+    margin-right: 16px;
+    fill: #828FA3;
+}
+
+.sidebar-board h3 {
+    color: #828FA3;
+}
+
+/* hover state */
+.sidebar-board:hover {
+    background: rgb(99, 95, 199, .1);
+}
+
+.sidebar-board:hover svg {
+    fill: #635FC7;
+}
+
+.sidebar-board:hover h3 {
+    color: #635FC7;
+}
+
+/* selected state */
+.sidebar-board.selected {
+    background: #635FC7;
+}
+
+.sidebar-board.selected svg {
+    fill: #FFFFFF;
+}
+
+.sidebar-board.selected h3 {
+    color: #FFFFFF;
+}
+

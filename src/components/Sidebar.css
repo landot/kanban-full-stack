@@ -1,0 +1,28 @@
+.sidebar {
+    /* todo temporary background remove later */
+    background-color: lightgray;
+    /* background: #FFFFFF; */
+    padding: 32px 24px 32px 0;
+    width: 300px;
+    height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.sidebar .create-new-board {
+    display: flex;
+    align-items: center;
+    margin-top: 14px;
+    margin-left: 32px;
+}
+
+.sidebar .create-new-board svg {
+    margin-right: 16px;
+    fill: #635FC7;
+}
+
+.sidebar .create-new-board h3 {
+    color: #635FC7;
+    cursor: pointer;
+}
