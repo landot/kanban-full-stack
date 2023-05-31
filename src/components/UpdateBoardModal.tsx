@@ -7,7 +7,7 @@ import { ModalError } from './UpdateTaskModal';
 import DeleteIcon from '../../public/assets/images/icon-cross.svg';
 import './UpdateBoardModal.css';
 
-// todo update css and remove debug marks
+// todo create a common component with the general layout of an update model ie: title, padding, content since this duplicates logic
 export function UpdateBoardModal(
     props: {
         updateType: 'add' | 'edit',
@@ -19,7 +19,7 @@ export function UpdateBoardModal(
 ) {
     const [boardInfo, setBoardInfo] = useState({
         name: props.prefill?.name || '',
-        columns: props.prefill?.columns || []
+        columns: props.prefill?.columns || ['', '']
     });
     const [errors, setErrors] = useState<ModalError[]>([]);
 
@@ -79,9 +79,6 @@ export function UpdateBoardModal(
 
     return (
         <div className='update-board'>
-            <p>{boardInfo.name}</p>
-            <p>{boardInfo.columns.toString()}</p>
-            <p>{JSON.stringify(errors)}</p>
             <HeadingL>{props.updateType} New Board</HeadingL>
             <div className='section name'>
                 <HeadingS>Name</HeadingS> 
@@ -89,7 +86,8 @@ export function UpdateBoardModal(
                     showValidationError={false} 
                     placeholder='e.g. Web Design' 
                     value={boardInfo.name} 
-                    handleChange={(e: ChangeEvent<HTMLInputElement>) =>  handleNameUpdate(e) } />   
+                    handleChange={(e: ChangeEvent<HTMLInputElement>) =>  handleNameUpdate(e) } 
+                />   
             </div>   
             <div>
                 <HeadingS>Columns</HeadingS> 
@@ -115,11 +113,13 @@ export function UpdateBoardModal(
                     type='secondary'
                     onClick={handleNewColumn}
                 />
-                <ButtonSmall 
-                    label={props.updateType === 'add' ? 'Create New Board': 'Save Changes'} 
-                    type='primary' 
-                    onClick={handleSubmit}
-                />
+                <div className='section submit'>
+                    <ButtonSmall 
+                        label={props.updateType === 'add' ? 'Create New Board': 'Save Changes'} 
+                        type='primary' 
+                        onClick={handleSubmit}
+                    />
+                </div>
             </div>         
         </div>
     )

@@ -29,3 +29,7 @@
 .update-board button {
     width: 100%;
 }
+
+.update-board .section.submit {
+    margin-top: 24px;
+}

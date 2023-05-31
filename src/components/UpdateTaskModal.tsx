@@ -167,12 +167,6 @@ export function UpdateTaskModal(
                 type='primary' 
                 onClick={handleSubmit}
             />
-            
-            {/* for debugging */}
-            <>
-                <p>{JSON.stringify(taskInfo)}</p>
-                <p>{JSON.stringify(errors)}</p>
-            </>
         </div>
     )
 }
