@@ -15,7 +15,7 @@ interface Task {
     status: 'todo' | 'doing' | 'done' // todo turn into enum
 }
 
-interface Error {
+export interface ModalError {
     section: string;
     index?: number;
 }
@@ -36,7 +36,7 @@ export function UpdateTaskModal(
         subtasks: props.prefill?.subtasks || ['', ''],
         status: props.prefill?.status || 'todo'
     });
-    const [errors, setErrors] = useState<Error[]>([]);
+    const [errors, setErrors] = useState<ModalError[]>([]);
 
     function handleTitleChange(e: React.ChangeEvent<HTMLInputElement>) {
         setTaskInfo(prev => {
@@ -95,7 +95,6 @@ export function UpdateTaskModal(
     }
 
     function handleSubmit() {
-        console.log('submitting')
         const newErrors = [];
         taskInfo.title === '' ? newErrors.push({section: 'title'}): null;
         taskInfo.description === '' ? newErrors.push({section: 'description'}): null;

@@ -1,0 +1,31 @@
+.update-board h2 {
+    text-transform: capitalize;
+}
+
+.update-board .edit-column {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: center;
+}
+
+.update-board .edit-column  {
+    margin-bottom: 12px;
+}
+
+.update-board .edit-column .text-input {
+    margin-right: 16px;
+
+}
+
+.update-board .edit-column img {
+    margin-left: 16px;
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+}
+
+/* see if this can be refactored later */
+.update-board button {
+    width: 100%;
+}
