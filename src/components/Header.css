@@ -1,0 +1,36 @@
+.header {
+    height: 97px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 24px;
+}
+
+.header .header-title {
+    display: flex;
+    align-items: center;
+}
+
+.header .header-title hr {
+    height: 97px;
+    width: 2px;
+    background: #E4EBFA;
+    margin: 0 32px;
+    border: none;
+}
+
+.header .header-title img {
+    width: 152px;
+    height: 25px;
+
+}
+
+.header .header-actions {
+    display: flex;
+    align-items: center;
+}
+
+.header .header-actions button {
+    margin-right: 24px;
+}

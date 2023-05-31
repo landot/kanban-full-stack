@@ -3,7 +3,7 @@ import { HeadingS } from "../styledComponents/header/HeadingS";
 import { MediumText } from "../styledComponents/text/MediumText"
 import { Checkbox } from "./SubtaskCheckbox"
 import { Dropdown } from "./Dropdown";
-import { SubtaskMoreAction } from "./SubtaskMoreAction";
+import { MoreAction } from "./MoreAction";
 import './ViewTaskModal.css';
 
 export interface Subtask {
@@ -29,7 +29,7 @@ export function ViewTaskModal(
         <div className="view-task">
             <div className='view-task-header'>
                 <HeadingL>{props.title}</HeadingL>
-                <SubtaskMoreAction 
+                <MoreAction 
                     // todo fill these in
                     handleDeleteClick={() => null}
                     handleEditClick={() => null}

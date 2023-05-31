@@ -1,12 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { SubtaskMoreAction } from './SubtaskMoreAction';
+import { MoreAction } from './MoreAction';
 
 const meta = {
   title: 'SubtaskMoreAction',
-  component: SubtaskMoreAction,
+  component: MoreAction,
   tags: ['autodocs'],
   argTypes: {},
-} satisfies Meta<typeof SubtaskMoreAction>;
+} satisfies Meta<typeof MoreAction>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
