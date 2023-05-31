@@ -1,4 +1,6 @@
 .header {
+    /* todo temporary background remove later*/
+    background-color: gray;
     height: 97px;
     display: flex;
     flex-direction: row;

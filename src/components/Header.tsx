@@ -9,8 +9,9 @@ export function Header(props: {boardName: string}) {
     return (
         <div className='header'>
             <div className="header-title">
-                <img src={logoDark} alt="logo" />
-                <hr />
+                {/* todo see if this is even needed later */}
+                {/* <img src={logoDark} alt="logo" />
+                <hr /> */}
                 <HeadingL>{props.boardName}</HeadingL>
             </div>
             <div className='header-actions'>
