@@ -5,7 +5,7 @@ import {
   import { 
     RootState, 
   } from "../../app/store"
-  import { Board, Data, Task } from '../../src/types/data';
+  import { Board, Column, Data, Task } from '../../src/types/data';
   import { sampleBoard } from '../../src/data/sampleData';
   
   export interface KanbanState {
@@ -21,6 +21,15 @@ import {
     },
     status: "idle",
   }
+  
+  function getBoardsWithId(id: string, boards: Board[]): Board[] {
+    return boards.filter(board => board.id === id);
+  }
+
+  function getColumnsWithId(id: string, columns: Column[]): Column[] {
+    return columns.filter(columns => columns.id === id);
+  }
+  
   
   export const kanbanSlice = createSlice({
     name: "kanban",
@@ -49,18 +58,18 @@ import {
       },
       addTask: (state, action: PayloadAction<{boardId: string, columnId: string, task: Task}>) => {
         const newValue = {...state.value};
-        const [boardToUpdate] = newValue.boards.filter(board => board.id === action.payload.boardId);
+        const [boardToUpdate] = getBoardsWithId(action.payload.boardId, newValue.boards);
         if(!boardToUpdate) return;
-        const [columnToUpdate] = boardToUpdate.columns.filter(column => column.id === action.payload.columnId)
+        const [columnToUpdate] = getColumnsWithId(action.payload.columnId, boardToUpdate.columns);
         if(!columnToUpdate) return;
         columnToUpdate.tasks = columnToUpdate.tasks.concat(action.payload.task);
         state.value = newValue;
       },
       deleteTask: (state, action: PayloadAction<{boardId: string, columnId: string, taskId: string}>) => {
         const newValue = {...state.value};
-        const [boardToUpdate] = newValue.boards.filter(board => board.id === action.payload.boardId);
+        const [boardToUpdate] = getBoardsWithId(action.payload.boardId, newValue.boards);
         if(!boardToUpdate) return;
-        const [columnToUpdate] = boardToUpdate.columns.filter(column => column.id === action.payload.columnId)
+        const [columnToUpdate] = getColumnsWithId(action.payload.columnId, boardToUpdate.columns);
         if(!columnToUpdate) return;
         columnToUpdate.tasks = columnToUpdate.tasks.filter(task => task.id !== action.payload.taskId);
         state.value = newValue;
@@ -69,6 +78,14 @@ import {
       updateTask: (state) => {
         state.value = state.value;
       },
+      // todo unless this isn't needed
+      updateSubtask: (state) => {
+        state.value = state.value;
+      },
+      // todo unless this isn't needed
+      updateTaskStatus: (state) => {
+        state.value = state.value;
+      }
     },
   })
   
