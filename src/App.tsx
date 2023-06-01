@@ -4,6 +4,8 @@ import { Header } from './components/Header';
 import { Sidebar } from './components/Sidebar';
 import { ThemeContext, ThemeContextType } from './context/ThemeContext';
 import { Column } from './components/Column';
+import { Task } from '../features/task/Task';
+import { KanbanTest } from '../features/kanban/KanbanTest';
 import { Status, Column as IColumn } from './types/data';
 import './App.css'
 
@@ -106,11 +108,13 @@ function App() {
         <Sidebar boards={['Test1', 'Test2']} selectedBoardIndex={0} handleToggleTheme={toggleTheme}/>
         <Header boardName={'Test1'} />
         <div className='content'>
-          <DragDropContext onDragEnd={handleDragEnd}>
+          <Task />
+          <KanbanTest />
+          {/* <DragDropContext onDragEnd={handleDragEnd}>
             <Column name={boardData[0].name} id={boardData[0].id} tasks={boardData[0].tasks} color={boardData[0].color} />
             <Column name={boardData[1].name} id={boardData[1].id} tasks={boardData[1].tasks} color={boardData[1].color} />
             <Column name={boardData[2].name} id={boardData[2].id} tasks={boardData[2].tasks} color={boardData[2].color} />
-          </DragDropContext>
+          </DragDropContext> */}
         </div>
       </div>
     </ThemeContext.Provider>
