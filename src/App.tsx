@@ -1,48 +1,82 @@
 import { useState } from 'react';
-import { DragDropContext, Droppable, Draggable, DropResult } from 'react-beautiful-dnd';
+import { DragDropContext, DropResult } from 'react-beautiful-dnd';
 import { Header } from './components/Header';
 import { Sidebar } from './components/Sidebar';
 import { ThemeContext, ThemeContextType } from './context/ThemeContext';
+import { Column } from './components/Column';
+import { Status, Column as IColumn } from './types/data';
 import './App.css'
-
-interface Item {
-  id: string;
-  name: string;
-}
-
-interface IColumn {
-  name: string;
-  id: string;
-  items: Item[];
-}
 
 function App() {
   const [theme, setTheme] = useState<ThemeContextType>(localStorage.getItem('theme') as ThemeContextType  || 'light');
-  const [dropData, setDropData] = useState<IColumn[]>([
+  const [boardData, setBoardData] = useState<IColumn[]>([
     {
       name: 'Column1',
       id: 'col1', 
-      items: [
-        {id: '1', name: 'one'},
-        {id: '2', name: 'two'},
-      ]
+      color: '#49C4E5',
+      tasks: [
+        {
+            id: '5555',
+            title: 'Build UI for onboarding',
+            description: 'this is the description for the task asdfasdfasdfasfd',
+            status: Status.Todo,
+            subtasks: [
+                {
+                    id: '123456',
+                    title: 'create design for UI',
+                    isCompleted: true
+                },
+                {
+                    id: '123457',
+                    title: 'develop MVP',
+                    isCompleted: false
+                },
+                {
+                    id: '123458',
+                    title: 'test MVP',
+                    isCompleted: false
+                }
+            ]
+        },
+        {
+            id: '6666',
+            title: 'Test new UI',
+            description: 'this is the description for the task asdfasdfasdfasfd',
+            status: Status.Todo,
+            subtasks: [
+                {
+                    id: '1123456',
+                    title: 'accessibility testing',
+                    isCompleted: true
+                },
+                {
+                    id: '1123457',
+                    title: 'performance testing',
+                    isCompleted: false
+                },
+                {
+                    id: '1123458',
+                    title: 'sign off from QA',
+                    isCompleted: false
+                }
+            ]
+        }
+    ]
     },
     {
       name: 'Column2',
       id: 'col2', 
-      items: [
-        {id: '3', name: 'three'},
-      ]
+      color: '#8471F2',
+      tasks: []
     },
     {
       name: 'Column3',
       id: 'col3', 
-      items: [
-        {id: '4', name: 'four'},
-      ]
+      color: '#67E2AE',
+      tasks: []
     }
   ]);
-  console.log(dropData);
+  console.log(boardData);
 
   function toggleTheme() {
     if (theme === 'light') {
@@ -56,12 +90,12 @@ function App() {
     const {destination, source} = result;
     if (!destination) return;
     if (source.droppableId === destination.droppableId && source.index === destination.index) return;
-    setDropData(prev => {
+    setBoardData(prev => {
       const updatedData = [...prev]
       const sourceColumnData = updatedData.filter(d => d.id === source.droppableId)[0];
       const destinationColumnData = source.droppableId === destination.droppableId ? sourceColumnData: updatedData.filter(d => d.id === destination.droppableId)[0]
-      const [movedItem] = sourceColumnData.items.splice(source.index, 1);
-      destinationColumnData.items.splice(destination.index, 0, movedItem);
+      const [movedItem] = sourceColumnData.tasks.splice(source.index, 1);
+      destinationColumnData.tasks.splice(destination.index, 0, movedItem);
       return updatedData;
     });
   }
@@ -73,9 +107,9 @@ function App() {
         <Header boardName={'Test1'} />
         <div className='content'>
           <DragDropContext onDragEnd={handleDragEnd}>
-            <Column columnData={dropData.filter(data => data.id === 'col1')[0]} />
-            <Column columnData={dropData.filter(data => data.id === 'col2')[0]} />
-            <Column columnData={dropData.filter(data => data.id === 'col3')[0]} />
+            <Column name={boardData[0].name} id={boardData[0].id} tasks={boardData[0].tasks} color={boardData[0].color} />
+            <Column name={boardData[1].name} id={boardData[1].id} tasks={boardData[1].tasks} color={boardData[1].color} />
+            <Column name={boardData[2].name} id={boardData[2].id} tasks={boardData[2].tasks} color={boardData[2].color} />
           </DragDropContext>
         </div>
       </div>
@@ -83,30 +117,30 @@ function App() {
   )
 }
 
-function Column(props: {columnData: IColumn}) {
-  return (
-    <Droppable droppableId={props.columnData.id}>
-      {(provided) => (
-        <div {...provided.droppableProps} ref={provided.innerRef}>
-          <div className='column'>
-            <h3>{props.columnData.name}</h3>
-            <div className='column-items'>
-              {props.columnData.items.map((item: {id: string, name: string}, index: number)=> (
-                <Draggable draggableId={item.id} key={item.id} index={index}>
-                  {(provided) => (
-                    <div {...provided.dragHandleProps} {...provided.draggableProps} ref={provided.innerRef}>
-                      <h3>{item.name}</h3>
-                    </div>
-                  )}
-                </Draggable>
-              ))}
-              {provided.placeholder}
-            </div>
-          </div>
-        </div>
-      )}
-    </Droppable>
-  )
-}
+// function Column(props: {columnData: IColumn}) {
+//   return (
+//     <Droppable droppableId={props.columnData.id}>
+//       {(provided) => (
+//         <div {...provided.droppableProps} ref={provided.innerRef}>
+//           <div className='column'>
+//             <h3>{props.columnData.name}</h3>
+//             <div className='column-items'>
+//               {props.columnData.items.map((item: {id: string, name: string}, index: number)=> (
+//                 <Draggable draggableId={item.id} key={item.id} index={index}>
+//                   {(provided) => (
+//                     <div {...provided.dragHandleProps} {...provided.draggableProps} ref={provided.innerRef}>
+//                       <Task description={item.name} subtasksTotal={0} subtasksRemaining={0} />
+//                     </div>
+//                   )}
+//                 </Draggable>
+//               ))}
+//               {provided.placeholder}
+//             </div>
+//           </div>
+//         </div>
+//       )}
+//     </Droppable>
+//   )
+// }
 
 export default App
