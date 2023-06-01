@@ -5,7 +5,7 @@ import {
   import { 
     RootState, 
   } from "../../app/store"
-  import { Board, Data } from '../../src/types/data';
+  import { Board, Data, Task } from '../../src/types/data';
   import { sampleBoard } from '../../src/data/sampleData';
   
   export interface KanbanState {
@@ -43,15 +43,29 @@ import {
             ]
         };
       },
+      // todo
       updateBoard: (state) => {
         state.value = state.value;
       },
-      addTask: (state) => {
-        state.value = state.value;
+      addTask: (state, action: PayloadAction<{boardId: string, columnId: string, task: Task}>) => {
+        const newValue = {...state.value};
+        const [boardToUpdate] = newValue.boards.filter(board => board.id === action.payload.boardId);
+        if(!boardToUpdate) return;
+        const [columnToUpdate] = boardToUpdate.columns.filter(column => column.id === action.payload.columnId)
+        if(!columnToUpdate) return;
+        columnToUpdate.tasks = columnToUpdate.tasks.concat(action.payload.task);
+        state.value = newValue;
       },
-      deleteTask: (state) => {
-        state.value = state.value;
+      deleteTask: (state, action: PayloadAction<{boardId: string, columnId: string, taskId: string}>) => {
+        const newValue = {...state.value};
+        const [boardToUpdate] = newValue.boards.filter(board => board.id === action.payload.boardId);
+        if(!boardToUpdate) return;
+        const [columnToUpdate] = boardToUpdate.columns.filter(column => column.id === action.payload.columnId)
+        if(!columnToUpdate) return;
+        columnToUpdate.tasks = columnToUpdate.tasks.filter(task => task.id !== action.payload.taskId);
+        state.value = newValue;
       },
+      // todo
       updateTask: (state) => {
         state.value = state.value;
       },
