@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "react": "^18.2.0",
+    "react-beautiful-dnd": "^13.1.1",
     "react-dom": "^18.2.0",
     "styled-components": "^5.3.10",
     "vite-plugin-svgr": "^3.2.0"
@@ -26,6 +27,7 @@
     "@storybook/react-vite": "^7.0.17",
     "@storybook/testing-library": "^0.0.14-next.2",
     "@types/react": "^18.0.28",
+    "@types/react-beautiful-dnd": "^13.1.4",
     "@types/react-dom": "^18.0.11",
     "@types/styled-components": "^5.1.26",
     "@typescript-eslint/eslint-plugin": "^5.57.1",
