@@ -3,9 +3,16 @@ import { ReactComponent as BoardIcon } from '../../public/assets/images/icon-boa
 import './SidebarBoard.css';
 
 
-export function SidebarBoard(props: {text: string, selected: boolean}) {
+export function SidebarBoard(props: {
+    text: string, 
+    selected: boolean,
+    handleClick: () => void
+}) {
     return (
-        <div className={`sidebar-board${props.selected ? ' selected': ''}`}>
+        <div 
+            className={`sidebar-board${props.selected ? ' selected': ''}`}
+            onClick={props.handleClick}
+        >
             <BoardIcon className='board-icon' alt='board icon'/>
             <HeadingM>{props.text}</HeadingM>
         </div>

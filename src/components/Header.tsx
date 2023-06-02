@@ -5,7 +5,10 @@ import logoDark from '../../public/assets/images/logo-dark.svg';
 import logoLight from '../../public/assets/images/logo-light.svg';
 import './Header.css';
 
-export function Header(props: {boardName: string}) {
+export function Header(props: {
+    boardName: string, 
+    handleDeleteBoard: (show: boolean) => void
+}) {
     return (
         <div className='header'>
             <div className="header-title">
@@ -17,7 +20,7 @@ export function Header(props: {boardName: string}) {
             <div className='header-actions'>
                 <ButtonLarge label={'+ Add New Task'} />
                 {/* add configurable left css  */}
-                <MoreAction text={"Board"} handleEditClick={() => null} handleDeleteClick={() => null} />
+                <MoreAction text={"Board"} handleEditClick={() => null} handleDeleteClick={() => props.handleDeleteBoard(true)} />
             </div>
         </div>
     )

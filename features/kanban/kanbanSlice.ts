@@ -33,19 +33,23 @@ import { generateRandomHex } from "../../src/utils/generateRandomHex";
     status: "idle",
   }
   
-  function getBoardsWithId(id: string, boards: Board[]): Board[] {
+  export function getBoardsWithId(id: string, boards: Board[]): Board[] {
     return boards.filter(board => board.id === id);
   }
 
-  function getColumnsWithId(id: string, columns: Column[]): Column[] {
+  export function getBoardIndexWithId(id: string, boards: Board[]) {
+    return boards.findIndex(board => board.id === id);
+  }
+
+  export function getColumnsWithId(id: string, columns: Column[]): Column[] {
     return columns.filter(columns => columns.id === id);
   }
 
-  function getColumnIndexWithId(id: string, columns: Column[]) {
+  export function getColumnIndexWithId(id: string, columns: Column[]) {
     return columns.findIndex(column => column.id === id);
   }
 
-  function getTaskIndexWithId(id: string, tasks: Task[]): number {
+  export function getTaskIndexWithId(id: string, tasks: Task[]): number {
     return tasks.findIndex(task => task.id === id);
   }
   

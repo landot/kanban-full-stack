@@ -14,6 +14,7 @@ import kanbanReducer, {
     BoardUpdateValue
 } from './kanbanSlice';
 
+// todo clean up this file and create better initial state test data
 describe("kanban reducer", () => {
     const initialState: KanbanState = {
         value: {

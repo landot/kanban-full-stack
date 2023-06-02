@@ -19,7 +19,7 @@ export function MoreAction(
             {showMoreActions && (
                 <ul>
                     <li className='edit' onClick={props.handleEditClick}>Edit {props.text}</li>
-                    <li className='delete' onClick={props.handleEditClick}>Delete {props.text}</li>
+                    <li className='delete' onClick={props.handleDeleteClick}>Delete {props.text}</li>
                 </ul>
             )}
         </div>

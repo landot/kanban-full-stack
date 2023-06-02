@@ -6,20 +6,38 @@ import { ButtonSmall } from './ButtonSmall';
 import { ModalError } from './UpdateTaskModal';
 import DeleteIcon from '../../public/assets/images/icon-cross.svg';
 import './UpdateBoardModal.css';
+import { Board } from '../types/data';
+import { getUUID } from '../utils/createUUID';
+import { generateRandomHex } from '../utils/generateRandomHex';
+import { BoardUpdateValue } from '../../features/kanban/kanbanSlice';
 
 // todo create a common component with the general layout of an update model ie: title, padding, content since this duplicates logic
 export function UpdateBoardModal(
     props: {
         updateType: 'add' | 'edit',
-        prefill?: {
-            name: string,
-            columns: string[]
-        }
+        handleAddBoard: (board: Board) => void,
+        handleUpdateBoard: (boardId: string, values: BoardUpdateValue) => void,
+        hideModal: () => void,
+        prefill?: Board
     }
 ) {
-    const [boardInfo, setBoardInfo] = useState({
+    const [boardInfo, setBoardInfo] = useState<Board>({
+        id: props.prefill?.id || getUUID(),
         name: props.prefill?.name || '',
-        columns: props.prefill?.columns || ['', '']
+        columns: props.prefill?.columns || [
+            {
+                id: getUUID(),
+                name: '',
+                tasks: [],
+                color: generateRandomHex()
+            },
+            {
+                id: getUUID(),
+                name: '',
+                tasks: [],
+                color: generateRandomHex()
+            }
+        ]
     });
     const [errors, setErrors] = useState<ModalError[]>([]);
 
@@ -44,7 +62,7 @@ export function UpdateBoardModal(
     function handleColumnEdit(e: React.ChangeEvent<HTMLInputElement>, index: number) {
         setBoardInfo(prev => {
             const columns = [...prev.columns];
-            columns[index] = e.target.value;
+            columns[index].name = e.target.value;
             return {
                 ...prev,
                 columns: columns
@@ -56,7 +74,12 @@ export function UpdateBoardModal(
         setBoardInfo(prev => {
             return {
                 ...prev,
-                columns: prev.columns.concat('')
+                columns: prev.columns.concat({
+                    id: getUUID(),
+                    name: '',
+                    tasks: [],
+                    color: generateRandomHex()
+                })
             }
         })
     }
@@ -65,16 +88,22 @@ export function UpdateBoardModal(
         const newErrors = [];
         boardInfo.name === '' ? newErrors.push({section: 'name'}): null;
         boardInfo.columns.map((column, index)=> {
-            if(column === '') {
+            if(column.name === '') {
                 newErrors.push({section: 'column', index: index});
             }
         })
         setErrors(newErrors);
         if(newErrors.length > 0) {
             console.log('errors occurred. task not created')
-        } else {
-            // something here to add a task to the main dashboard
+            return
         }
+        if(props.updateType === 'add') {
+            props.handleAddBoard(boardInfo);
+        } else {
+            props.handleUpdateBoard(boardInfo.id, boardInfo);
+
+        }
+        props.hideModal();
     }
 
     return (
@@ -97,7 +126,7 @@ export function UpdateBoardModal(
                             <TextField 
                                 showValidationError={errors.some(e => e.section === 'column' && e.index === index)} 
                                 placeholder='e.g. Todo' 
-                                value={column}
+                                value={column.name}
                                 handleChange={(e) => handleColumnEdit(e, index)} 
                             />
                             <img 

@@ -8,7 +8,7 @@ export function DeleteModal(props: {
     name: 'task' | 'board', 
     text: string,
     handleDelete: () => void;
-    handleToggleModal: () => void;
+    hideModal: () => void;
 }) {
     return (
         <div className='delete-modal'>
@@ -16,7 +16,7 @@ export function DeleteModal(props: {
             <MediumText>{props.text}</MediumText>
             <div className='action-buttons'>
                 <ButtonSmall label={'Delete'} type={'destructive'} onClick={props.handleDelete}/>
-                <ButtonSmall label={'Cancel'} type={'secondary'} onClick={props.handleToggleModal}/>
+                <ButtonSmall label={'Cancel'} type={'secondary'} onClick={props.hideModal}/>
             </div>
         </div>
     )
