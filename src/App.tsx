@@ -6,13 +6,14 @@ import { ThemeContext, ThemeContextType } from './context/ThemeContext';
 import { Column } from './components/Column';
 import { KanbanTest } from '../features/kanban/KanbanTest';
 import { Column as IColumn } from './types/data';
-import { sampleBoard } from './data/sampleData';
 import './App.css'
+import { useAppSelector } from '../app/hooks';
+import { selectKanban } from '../features/kanban/kanbanSlice';
 
 function App() {
   const [theme, setTheme] = useState<ThemeContextType>(localStorage.getItem('theme') as ThemeContextType  || 'light');
-  const [boardData, setBoardData] = useState<IColumn[]>(sampleBoard.columns);
-  console.log(boardData);
+  const kanban = useAppSelector(selectKanban);
+  const [boardData, setBoardData] = useState<IColumn[]>([...kanban.boards[0].columns]);
 
   function toggleTheme() {
     if (theme === 'light') {

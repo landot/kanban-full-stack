@@ -10,7 +10,8 @@ import kanbanReducer, {
     deleteBoard, 
     deleteColumn, 
     deleteTask,
-    KanbanState
+    KanbanState,
+    BoardUpdateValue
 } from './kanbanSlice';
 
 describe("kanban reducer", () => {
@@ -67,33 +68,85 @@ describe("kanban reducer", () => {
         expect(actual.value.boards[0].columns[0].tasks.length).toBe(1);
     })
 
-    // it("should handle updateBoard - removing a column", () => {
-    //     const updatedBoard = {name: 'board', id: '1234', columns: []};
-    //     const actual = kanbanReducer(initialState, updateBoard({boardId: 'asdf', updatedBoard: {name: 'newboard'}}))
-    //     expect(actual.value.boards.length).toBe(1);
-    //     expect(actual.value.boards[0]).toStrictEqual(updatedBoard);
-    // })
+    it("should handle updateBoard - removing a column", () => {
+        const boardId = 'asdf';
+        const updateBoardArguments: BoardUpdateValue = {
+            columns: [
+                {
+                    name: 'Column1',
+                    id: 'col1'
+                },
+                {
+                    name: 'Column2',
+                    id: 'col2'
+                },
+        ]
+        };
+        const actual = kanbanReducer(initialState, updateBoard({boardId: boardId, updatedBoard: updateBoardArguments}))
+        expect(actual.value.boards[0].columns.map(c => c.id)).toEqual(['col1', 'col2']);
+    })
 
-    // it("should handle updateBoard - adding a column", () => {
-    //     const updatedBoard = {name: 'board', id: '1234', columns: []};
-    //     const actual = kanbanReducer(initialState, updateBoard({boardId: 'asdf', updatedBoard: {name: 'newboard'}}))
-    //     expect(actual.value.boards.length).toBe(1);
-    //     expect(actual.value.boards[0]).toStrictEqual(updatedBoard);
-    // })
+    it("should handle updateBoard - adding a column", () => {
+        const boardId = 'asdf';
+        const updateBoardArguments: BoardUpdateValue = {
+            columns: [
+                {
+                    name: 'Column1',
+                    id: 'col1'
+                },
+                {
+                    name: 'Column2',
+                    id: 'col2'
+                },
+                {
+                    name: 'Column3',
+                    id: 'col3'
+                },
+                {
+                    name: 'Column4',
+                    id: 'col4'
+                },
+        ]
+        };
+        const actual = kanbanReducer(initialState, updateBoard({boardId: boardId, updatedBoard: updateBoardArguments}))
+        expect(actual.value.boards[0].columns.length).toBe(4);
+        expect(actual.value.boards[0].columns[3].name).toBe('Column4');
+        expect(actual.value.boards[0].columns[3].id).toBe('col4');
+        expect(actual.value.boards[0].columns[3].tasks).toStrictEqual([]);
+        
+    })
 
-    // it("should handle updateBoard - adding and removing a column", () => {
-    //     const updatedBoard = {name: 'board', id: '1234', columns: []};
-    //     const actual = kanbanReducer(initialState, updateBoard({boardId: 'asdf', updatedBoard: {name: 'newboard'}}))
-    //     expect(actual.value.boards.length).toBe(1);
-    //     expect(actual.value.boards[0]).toStrictEqual(updatedBoard);
-    // })
+    it("should handle updateBoard - adding and removing a column", () => {
+        const boardId = 'asdf';
+        const updateBoardArguments: BoardUpdateValue = {
+            columns: [
+                {
+                    name: 'Column1',
+                    id: 'col1'
+                },
+                {
+                    name: 'Column3',
+                    id: 'col3'
+                },
+                {
+                    name: 'Column4',
+                    id: 'col4'
+                },
+        ]
+        };
+        const actual = kanbanReducer(initialState, updateBoard({boardId: boardId, updatedBoard: updateBoardArguments}))
+        expect(actual.value.boards[0].columns.length).toBe(3);
+        expect(actual.value.boards[0].columns[2].name).toBe('Column4');
+        expect(actual.value.boards[0].columns[2].id).toBe('col4');
+        expect(actual.value.boards[0].columns[2].tasks).toStrictEqual([]);
+        expect(actual.value.boards[0].columns.filter(c => c.id === 'col2').length).toBe(0);
+    })
 
-    // it("should handle updateBoard - updating name", () => {
-    //     const updatedBoard = {name: 'board', id: '1234', columns: []};
-    //     const actual = kanbanReducer(initialState, updateBoard({boardId: 'asdf', updatedBoard: {name: 'newboard'}}))
-    //     expect(actual.value.boards.length).toBe(1);
-    //     expect(actual.value.boards[0]).toStrictEqual(updatedBoard);
-    // })
+    it("should handle updateBoard - updating name", () => {
+        const actual = kanbanReducer(initialState, updateBoard({boardId: 'asdf', updatedBoard: {name: 'newboard'}}))
+        expect(actual.value.boards.length).toBe(1);
+        expect(actual.value.boards[0].name).toStrictEqual('newboard');
+    })
 
 
     it("should handle updateColumn", () => {

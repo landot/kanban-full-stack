@@ -7,15 +7,21 @@ import {
   } from "../../app/store"
   import { Board, Column, Data, Task } from '../../src/types/data';
   import { sampleBoard } from '../../src/data/sampleData';
+import { generateRandomHex } from "../../src/utils/generateRandomHex";
   
   export interface KanbanState {
     value: Data
     status: "idle" | "loading" | "failed"
   }
 
-  export interface BoardUpdateValues {
+  export interface ColumnUpdateValue {
+    name: string;
+    id: string;
+  }
+
+  export interface BoardUpdateValue {
     name?: string,
-    columnIds?: string[]
+    columns?: ColumnUpdateValue[]
 }
   
   const initialState: KanbanState = {
@@ -65,19 +71,35 @@ import {
             ]
         };
       },
-      updateBoard: (state, action: PayloadAction<{boardId: string, updatedBoard: BoardUpdateValues}>) => {
+      updateBoard: (state, action: PayloadAction<{boardId: string, updatedBoard: BoardUpdateValue}>) => {
         const newValue = {...state.value};
+        console.log('newValue.boards[0].columns', JSON.stringify(newValue.boards[0].columns))
         const [boardToUpdate] = getBoardsWithId(action.payload.boardId, newValue.boards);
         if(!boardToUpdate) return;
-        // id shouldn't change based on user actions
-        // update name
         if(action.payload.updatedBoard.name) {
           boardToUpdate.name = action.payload.updatedBoard.name;
         }
-        if(action.payload.updatedBoard.columnIds) {
-          // filter out that were removed
-          boardToUpdate.columns = boardToUpdate.columns.filter(column => action.payload.updatedBoard.columnIds?.includes(column.id));
-          // todo update the ordering of new columns
+        if(action.payload.updatedBoard.columns) {
+          console.log('action.payload.updatedBoard.columns', action.payload.updatedBoard.columns)
+          const previousColumnIds = boardToUpdate.columns.map(column => column.id);
+          console.log('previousColumnIds', previousColumnIds)
+          const updatedColumnIds = action.payload.updatedBoard.columns?.map(column => column.id);
+          console.log('updatedColumnIds', updatedColumnIds)
+          const matchingColumnIds = previousColumnIds.filter(cid => updatedColumnIds.includes(cid));
+          console.log('matchingColumnIds', matchingColumnIds)
+          const newColumns = action.payload.updatedBoard.columns?.filter(column => !previousColumnIds.includes(column.id));
+          console.log('newColumns', newColumns)
+          if(previousColumnIds !== matchingColumnIds) {
+            boardToUpdate.columns = boardToUpdate.columns.filter(column => matchingColumnIds.includes(column.id));
+            newColumns.map(column => {
+              boardToUpdate.columns = boardToUpdate.columns.concat({
+                name: column.name,
+                id: column.id,
+                tasks: [],
+                color: generateRandomHex()
+              })
+            });
+          }
         }
         state.value = newValue;
       },
