@@ -10,12 +10,18 @@ export function DeleteModal(props: {
     handleDelete: () => void;
     hideModal: () => void;
 }) {
+
+    function handleDelete() {
+        props.handleDelete();
+        props.hideModal();
+    }
+
     return (
         <div className='delete-modal'>
             <HeadingL>Delete this {props.name}?</HeadingL>
             <MediumText>{props.text}</MediumText>
             <div className='action-buttons'>
-                <ButtonSmall label={'Delete'} type={'destructive'} onClick={props.handleDelete}/>
+                <ButtonSmall label={'Delete'} type={'destructive'} onClick={handleDelete}/>
                 <ButtonSmall label={'Cancel'} type={'secondary'} onClick={props.hideModal}/>
             </div>
         </div>

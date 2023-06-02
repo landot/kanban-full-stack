@@ -7,7 +7,7 @@ import './Header.css';
 
 export function Header(props: {
     boardName: string, 
-    handleDeleteBoard: (show: boolean) => void
+    handleDeleteBoard: (show: boolean) => void,
 }) {
     return (
         <div className='header'>
@@ -20,7 +20,11 @@ export function Header(props: {
             <div className='header-actions'>
                 <ButtonLarge label={'+ Add New Task'} />
                 {/* add configurable left css  */}
-                <MoreAction text={"Board"} handleEditClick={() => null} handleDeleteClick={() => props.handleDeleteBoard(true)} />
+                <MoreAction 
+                    text={"Board"} 
+                    handleEditClick={() => null} 
+                    handleDeleteClick={() => props.handleDeleteBoard(true)} 
+                />
             </div>
         </div>
     )

@@ -33,10 +33,16 @@ function App() {
   }
 
   function handleBoardChange(boardId: string) {
-    console.log('board id', boardId);
     const [board] = getBoardsWithId(boardId, kanban.boards);
-    console.log(board);
     if(board) setSelectedBoard(board);
+  }
+
+  function handleBoardDelete(boardId: string) {
+    // delete board
+    dispatch(deleteBoard(boardId))
+    // reset selectedBoard to the first board
+    // todo maybe I could just show the previous board
+    setSelectedBoard(kanban.boards[0]);
   }
 
   function handleDragEnd(result: DropResult) {
@@ -63,7 +69,10 @@ function App() {
           handleAddBoard={setShowAddBoardOverlay}
           handleBoardSelect={(boardId: string) => handleBoardChange(boardId)}
         />
-        <Header boardName={selectedBoard.name} handleDeleteBoard={setShowDeleteBoardOverlay} />
+        <Header 
+          boardName={selectedBoard.name} 
+          handleDeleteBoard={setShowDeleteBoardOverlay} 
+        />
         <div className='content'>
           <p>{showDeleteBoardOverlay.toString()}</p>
           {showAddBoardOverlay && (
@@ -82,7 +91,7 @@ function App() {
               <DeleteModal 
                 name={'board'}
                 text={`Are you sure you want to delete the ‘${selectedBoard.name}’ board? This action will remove all columns and tasks and cannot be reversed.`}
-                handleDelete={() => dispatch(deleteBoard(selectedBoard.id))} 
+                handleDelete={() => handleBoardDelete(selectedBoard.id)} 
                 hideModal={() => setShowDeleteBoardOverlay(false)}
               />
             }/>
