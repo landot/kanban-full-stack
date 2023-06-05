@@ -6,14 +6,15 @@ import { Dropdown } from "./Dropdown";
 import { MoreAction } from "./MoreAction";
 import { Board, Subtask, Task } from "../types/data";
 import { useAppDispatch } from "../../app/hooks";
-import { getColumnsWithName, getSubtaskIndexWithId, updateTask } from "../../features/kanban/kanbanSlice";
+import { addTask, deleteTask, getColumnsWithName } from "../../features/kanban/kanbanSlice";
 import './ViewTaskModal.css';
 
 export function ViewTaskModal(props: {
     task: Task, 
     statuses: string[],
     board: Board,
-    handleDeleteTask: () => void
+    handleDeleteTask: () => void,
+    handleUpdateSelectedColumnId: (columnId: string) => void
 }) {
     const dispatch = useAppDispatch()
 
@@ -24,38 +25,43 @@ export function ViewTaskModal(props: {
     }
 
     function handleStatusUpdate(status: string) {
+        if(status === props.task.status) return;
         const task = {...props.task};
         task.status = status;
-        dispatch(updateTask({
-            boardId: props.board.id,
+        dispatch(deleteTask({
+            boardId: props.board.id, 
             columnId: getColumnsWithName(props.task.status, props.board.columns)[0].id,
-            taskId: props.task.id,
-            updatedTask: task
+            taskId: props.task.id
         }))
+        dispatch(addTask({
+            boardId: props.board.id,
+            task: task
+        }))
+        props.handleUpdateSelectedColumnId(getColumnsWithName(task.status, props.board.columns)[0].id);
     }
 
     // still not working properly
     function handleSubtaskCheckboxClick(subtaskId: string) {
-        console.log(subtaskId)
-        const task = {...props.task};
-        console.log('task before', task)
-        const subtaskIndex = getSubtaskIndexWithId(subtaskId, props.task.subtasks);
-        console.log(subtaskIndex)
-        const subtasks = [...props.task.subtasks];
-        console.log('subtask before', subtasks[subtaskIndex].isCompleted)
-        subtasks[subtaskIndex] = {
-            ...task.subtasks[subtaskIndex],
-            isCompleted: !task.subtasks[subtaskIndex].isCompleted
-        }
-        console.log('subtask after', subtasks[subtaskIndex].isCompleted)
-        task.subtasks = subtasks;
-        console.log('task after', task)
-        dispatch(updateTask({
-            boardId: props.board.id,
-            columnId: getColumnsWithName(props.task.status, props.board.columns)[0].id,
-            taskId: props.task.id,
-            updatedTask: task
-        }))
+        // console.log(subtaskId)
+        // const task = {...props.task};
+        // // console.log('task before', task)
+        // const subtaskIndex = getSubtaskIndexWithId(subtaskId, props.task.subtasks);
+        // // console.log(subtaskIndex)
+        // const subtasks = [...props.task.subtasks];
+        // // console.log('subtask before', subtasks[subtaskIndex].isCompleted)
+        // subtasks[subtaskIndex] = {
+        //     ...task.subtasks[subtaskIndex],
+        //     isCompleted: !task.subtasks[subtaskIndex].isCompleted
+        // }
+        // // console.log('subtask after', subtasks[subtaskIndex].isCompleted)
+        // task.subtasks = subtasks;
+        // // console.log('task after', task)
+        // dispatch(updateTask({
+        //     boardId: props.board.id,
+        //     columnId: getColumnsWithName(props.task.status, props.board.columns)[0].id,
+        //     taskId: props.task.id,
+        //     updatedTask: task
+        // }))
     }
 
     return (

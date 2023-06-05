@@ -6,7 +6,6 @@ import {
     RootState, 
   } from "../../app/store"
   import { Board, Column, Data, Subtask, Task } from '../../src/types/data';
-  import { sampleBoard } from '../../src/data/sampleData';
 import { generateRandomHex } from "../../src/utils/generateRandomHex";
   
   export interface KanbanState {
@@ -97,6 +96,10 @@ import { generateRandomHex } from "../../src/utils/generateRandomHex";
     return tasks.findIndex(task => task.id === id);
   }
 
+  export function getTasksWithId(id: string, tasks: Task[]): Task[] {
+    return tasks.filter(task => task.id === id);
+  }
+
   export function getSubtasksWithId(id: string, subtasks: Subtask[]): Subtask[] {
     return subtasks.filter(subtask => subtask.id === id);
   }
@@ -175,7 +178,6 @@ import { generateRandomHex } from "../../src/utils/generateRandomHex";
       },
       updateColumn: (state, action: PayloadAction<{boardId: string, columnId: string, updatedColumn: Column}>) => {
         const newValue = {...state.value};
-        console.log(action.payload)
         const [boardToUpdate] = getBoardsWithId(action.payload.boardId, newValue.boards);
         if(!boardToUpdate) return;
         const columnIndex = getColumnIndexWithId(action.payload.columnId, boardToUpdate.columns);
@@ -190,7 +192,7 @@ import { generateRandomHex } from "../../src/utils/generateRandomHex";
         const [columnToUpdate] = getColumnsWithName(action.payload.task.status, boardToUpdate.columns);
         if(!columnToUpdate) return;
         columnToUpdate.tasks = columnToUpdate.tasks.concat(action.payload.task);
-        state.value = newValue;
+         state.value = newValue;
       },
       deleteTask: (state, action: PayloadAction<{boardId: string, columnId: string, taskId: string}>) => {
         const newValue = {...state.value};
@@ -202,15 +204,21 @@ import { generateRandomHex } from "../../src/utils/generateRandomHex";
         state.value = newValue;
       },
       updateTask: (state, action: PayloadAction<{boardId: string, columnId: string, taskId: string, updatedTask: Task}>) => {
+        console.log('updated task', action.payload.updatedTask);
         const newValue = {...state.value};
+        console.log('starting value', newValue)
         const [boardToUpdate] = getBoardsWithId(action.payload.boardId, newValue.boards);
+        console.log('boardToUpdate', boardToUpdate)
         if(!boardToUpdate) return;
         const [columnToUpdate] = getColumnsWithId(action.payload.columnId, boardToUpdate.columns);
+        console.log('columnToUpdate', columnToUpdate)
         if(!columnToUpdate) return;
         const taskIndex = getTaskIndexWithId(action.payload.taskId, columnToUpdate.tasks);
+        console.log('taskIndex', taskIndex)
         if(taskIndex === -1) return;
         columnToUpdate.tasks[taskIndex] = action.payload.updatedTask;
         state.value = newValue;
+        console.log('ending value', state.value)
       },
       // todo unless this isn't needed
       updateSubtask: (state) => {

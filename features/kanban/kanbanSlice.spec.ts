@@ -45,10 +45,16 @@ describe("kanban reducer", () => {
     })
 
     it("should handle addTask", () => {
-        const newTask = {id: '1234', title: 'newtask', description: 'new task description', status: Status.Doing, subtasks: [] }
-        const actual = kanbanReducer(initialState, addTask({boardId: 'asdf', columnId: 'col1', task: newTask}))
+        const newTask = {id: '1234', title: 'newtask', description: 'new task description', status: initialState.value.boards[0].columns[0].name, subtasks: [] }
+        const actual = kanbanReducer(initialState, addTask({boardId: 'asdf', task: newTask}))
         expect(actual.value.boards[0].columns[0].tasks.length).toBe(3);
         expect(actual.value.boards[0].columns[0].tasks[2]).toStrictEqual(newTask);
+    })
+
+    it("should handle addTask - no new task when status does not exist", () => {
+        const newTask = {id: '1234', title: 'newtask', description: 'new task description', status: 'thisstatusdoesnotexist', subtasks: [] }
+        const actual = kanbanReducer(initialState, addTask({boardId: 'asdf', task: newTask}))
+        expect(actual.value.boards[0].columns[0].tasks.length).toBe(2);
     })
 
     it("should handle deleteBoard", () => {
@@ -158,7 +164,7 @@ describe("kanban reducer", () => {
     })
 
     it("should handle updateTask", () => {
-        const updatedTask = {id: '5555', title: 'updatetask', description: 'updated task description', status: Status.Doing, subtasks: [] }
+        const updatedTask = {id: '5555', title: 'updatetask', description: 'updated task description', status: 'doing', subtasks: [] }
         const actual = kanbanReducer(initialState, updateTask({boardId: 'asdf', columnId: 'col1', taskId: updatedTask.id, updatedTask: updatedTask}))
         expect(actual.value.boards[0].columns[0].tasks.length).toBe(2);
         expect(actual.value.boards[0].columns[0].tasks[0]).toStrictEqual(updatedTask);

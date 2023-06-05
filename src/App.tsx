@@ -4,10 +4,10 @@ import { Header } from './components/Header';
 import { Sidebar } from './components/Sidebar';
 import { ThemeContext, ThemeContextType } from './context/ThemeContext';
 import { KanbanTest } from '../features/kanban/KanbanTest';
-import { Board, Task } from './types/data';
+import { Board, Column as IColumn, Task } from './types/data';
 import './App.css'
 import { useAppSelector, useAppDispatch } from '../app/hooks';
-import { addBoard, addTask, BoardUpdateValue, deleteBoard, deleteTask, getBoardIndexWithId, getBoardsWithId, getColumnsWithName, selectKanban, updateBoard } from '../features/kanban/kanbanSlice';
+import { addBoard, addTask, BoardUpdateValue, deleteBoard, deleteTask, getBoardIndexWithId, getBoardsWithId, getColumnsWithId, getColumnsWithName, getTasksWithId, selectKanban, updateBoard } from '../features/kanban/kanbanSlice';
 import { Overlay } from './components/Overlay';
 import { UpdateBoardModal } from './components/UpdateBoardModal';
 import { DeleteModal } from './components/DeleteModal';
@@ -37,17 +37,8 @@ function App() {
   const [showAddTaskOverlay, setShowAddTaskOverlay] = useState(false);
   const [showViewTaskOverlay, setShowViewTaskOverlay] = useState(false);
   const [showDeleteTaskOverlay, setShowDeleteTaskOverlay] = useState(false);
-  const [selectedTask, setSelectedTask] = useState<Task>({
-    id: 'ffff',
-    title: 'tasktitle',
-    description: 'task description',
-    status: 'status1',
-    subtasks: [{
-      id: 'dsffffff',
-      title: 'subtask title',
-      isCompleted: false
-    }]
-  }); // undo
+  const [selectedTaskColumnId, setSelectedTaskColumnId] = useState('');
+  const [selectedTaskId, setSelectedTaskId] = useState('');
 
   function toggleTheme() {
     if (theme === 'light') {
@@ -74,10 +65,11 @@ function App() {
   function handleTaskDelete() {
     dispatch(deleteTask({
       boardId: selectedBoardId,
-      columnId: getColumnsWithName(selectedTask.status, getBoardsWithId(selectedBoardId, kanban.boards)[0].columns)[0].id,
-      taskId: selectedTask.id
+      columnId: selectedTaskColumnId,
+      taskId: selectedTaskId
     }));
-    setSelectedTask(undefined);
+    setSelectedTaskId('');
+    setSelectedTaskColumnId('');
     setShowDeleteTaskOverlay(false);
   }
 
@@ -96,6 +88,28 @@ function App() {
     //   destinationColumnData.tasks.splice(destination.index, 0, movedItem);
     //   return updatedData;
     // });
+  }
+
+  function getSelectedTask(): Task {
+    return getTasksWithId(
+      selectedTaskId,
+      getSelectedColumn().tasks
+    )[0]
+  }
+
+  function getSelectedColumn(): IColumn {
+    return getColumnsWithId(
+      selectedTaskColumnId, 
+      getBoardsWithId(selectedBoardId, kanban.boards)[0].columns
+    )[0]
+  }
+
+  function getSelectedBoard(): Board {
+    return getBoardsWithId(selectedBoardId, kanban.boards)[0];
+  }
+
+  function getBoardStatuses(): string[] {
+    return getSelectedBoard().columns.map(column => column.name);
   }
 
   return (
@@ -117,7 +131,7 @@ function App() {
         />
         <div className='content'>
           {showAddBoardOverlay && (
-            <Overlay children={
+            <Overlay handleClose={() => setShowAddBoardOverlay(false)} children={
               <UpdateBoardModal 
                 updateType={'add'} 
                 handleAddBoard={(board: Board) => dispatch(addBoard(board))} 
@@ -128,7 +142,7 @@ function App() {
             )
           }
           {showDeleteBoardOverlay && (
-            <Overlay children={
+            <Overlay handleClose={() => setShowDeleteBoardOverlay(false)} children={
               <DeleteModal 
                 name={'board'}
                 text={`Are you sure you want to delete the ‘${getBoardsWithId(selectedBoardId, kanban.boards)[0].name}’ board? This action will remove all columns and tasks and cannot be reversed.`}
@@ -138,7 +152,7 @@ function App() {
             }/>
           )}
           {showEditBoardOverlay && (
-            <Overlay children={
+            <Overlay handleClose={() => setShowEditBoardOverlay(false)} children={
               <UpdateBoardModal 
                 updateType={'edit'} 
                 handleAddBoard={(board: Board) => dispatch(addBoard(board))} 
@@ -149,7 +163,7 @@ function App() {
             }/>
           )}
           {showAddTaskOverlay && (
-            <Overlay children={
+            <Overlay handleClose={() => setShowAddTaskOverlay(false)} children={
               <UpdateTaskModal 
                 updateType={'add'}
                 statuses={getBoardsWithId(selectedBoardId, kanban.boards)[0].columns.map(column => column.name)} 
@@ -158,21 +172,22 @@ function App() {
               />
             }/>
           )}
-          {showViewTaskOverlay && selectedTask && (
-            <Overlay children={
+          {showViewTaskOverlay && selectedTaskId && selectedTaskColumnId && (
+            <Overlay handleClose={() => setShowViewTaskOverlay(false)} children={
               <ViewTaskModal 
-                task={selectedTask} 
-                statuses={getBoardsWithId(selectedBoardId, kanban.boards)[0].columns.map(column => column.name)}
-                board={getBoardsWithId(selectedBoardId, kanban.boards)[0]}
+                task={getSelectedTask()} 
+                statuses={getBoardStatuses()}
+                board={getSelectedBoard()}
                 handleDeleteTask={() => setShowDeleteTaskOverlay(true)}
+                handleUpdateSelectedColumnId={setSelectedTaskColumnId}
               />
             }/>
           )}
-          {showDeleteTaskOverlay && selectedTask && (
-            <Overlay children={
+          {showDeleteTaskOverlay && selectedTaskId && selectedTaskColumnId && (
+            <Overlay handleClose={() => setShowDeleteTaskOverlay(false)} children={
               <DeleteModal 
                 name={'task'} 
-                text={`Are you sure you want to delete the ‘${selectedTask.title}’ task and its subtasks? This action cannot be reversed.`} 
+                text={`Are you sure you want to delete the ‘${getSelectedTask().title}’ task and its subtasks? This action cannot be reversed.`} 
                 handleDelete={handleTaskDelete}
                 hideModal={() => setShowDeleteTaskOverlay(false)}
               />
@@ -184,7 +199,8 @@ function App() {
               <Column 
                 column={column} 
                 handleViewTask={setShowViewTaskOverlay}
-                handleSelectedTask={setSelectedTask}
+                handleSelectedTask={setSelectedTaskId}
+                handleSelectedTaskColumn={setSelectedTaskColumnId}
               />
             ))}
           </DragDropContext>

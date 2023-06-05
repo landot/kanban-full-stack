@@ -1,7 +1,6 @@
 import { Draggable, Droppable } from 'react-beautiful-dnd';
 import { HeadingS } from '../styledComponents/header/HeadingS';
 import { Column as IColumn } from '../types/data';
-import { Task as ITask } from '../types/data';
 import { Task } from './Task';
 import './Column.css';
 
@@ -9,13 +8,15 @@ export function Column(
     props: {
         column: IColumn,
         handleViewTask: (show: boolean) => void,
-        handleSelectedTask: (task: ITask) => void,
+        handleSelectedTask: (taskId: string) => void,
+        handleSelectedTaskColumn: (columnId: string) => void
     }
     ) {
 
-    function handleTaskClick(task: ITask) {
+    function handleTaskClick(task: string) {
         props.handleViewTask(true);
         props.handleSelectedTask(task);
+        props.handleSelectedTaskColumn(props.column.id);
     }
 
     return (
@@ -36,7 +37,7 @@ export function Column(
                                 <div {...provided.dragHandleProps} {...provided.draggableProps} ref={provided.innerRef}>
                                     <Task 
                                         task={task} 
-                                        handleClick={() => handleTaskClick(task)}
+                                        handleClick={() => handleTaskClick(task.id)}
                                     />
                                 </div>
                             )}
