@@ -5,9 +5,11 @@ import { TextField } from './TextField';
 import DeleteIcon from '../../public/assets/images/icon-cross.svg';
 import { HeadingL } from '../styledComponents/header/HeadingL';
 import { useState } from 'react';
-import { Task } from '../types/data';
+import { Board, Task } from '../types/data';
 import { getUUID } from '../utils/createUUID';
 import './UpdateTaskModal.css';
+import { useAppDispatch } from '../../app/hooks';
+import { addTask, deleteTask, getColumnsWithName } from '../../features/kanban/kanbanSlice';
 
 export interface ModalError {
     section: string;
@@ -17,16 +19,19 @@ export interface ModalError {
 export function UpdateTaskModal(
     props: { 
         updateType: 'add' | 'edit',
+        board: Board,
         statuses: string[],
         handleAddTask: (task: Task) => void,
+        handleUpdateTask: (task: Task) => void,
         hideModal: () => void,
         prefill?: Task
     }) {
+    const dispatch = useAppDispatch()
     const [taskInfo, setTaskInfo] = useState<Task>({
         id: getUUID(),
         title: props.prefill?.title || '',
         description: props.prefill?.description || '',
-        subtasks: props.prefill?.subtasks || [
+        subtasks: props.prefill && props.prefill.subtasks ? [...props.prefill.subtasks]: [
             {
                 id: getUUID(),
                 title: '',
@@ -41,6 +46,8 @@ export function UpdateTaskModal(
         status: props.prefill?.status || props.statuses[0],
     });
     const [errors, setErrors] = useState<ModalError[]>([]);
+    console.log(taskInfo);
+    console.log(taskInfo.subtasks);
 
     function handleTitleChange(e: React.ChangeEvent<HTMLInputElement>) {
         setTaskInfo(prev => {
@@ -85,7 +92,9 @@ export function UpdateTaskModal(
     function handleSubtaskEdit(e: React.ChangeEvent<HTMLInputElement>, index: number) {
         setTaskInfo(prev => {
             const subtasks = [...prev.subtasks];
-            subtasks[index].title = e.target.value;
+            const updatedSubtask = {...subtasks[index]};
+            updatedSubtask.title = e.target.value;
+            subtasks[index] = updatedSubtask;
             return {
                 ...prev,
                 subtasks: subtasks
@@ -93,13 +102,30 @@ export function UpdateTaskModal(
         })
     }
 
-    function handleStatusUpdate(status: 'todo' | 'doing' | 'done') {
+    function handleStatusUpdate(status: string) {
         setTaskInfo(prev => {
             return {
                 ...prev,
                 status: status
             }
         })
+    }
+
+    function handleUpdateTask() {
+        if(taskInfo === props.prefill) return;
+        if(taskInfo.status === props.prefill?.status) {
+            props.handleUpdateTask(taskInfo);
+        } else {
+            dispatch(deleteTask({
+                boardId: props.board.id, 
+                columnId: getColumnsWithName(props.prefill?.status, props.board.columns)[0].id,
+                taskId: props.prefill?.id
+            }))
+            dispatch(addTask({
+                boardId: props.board.id,
+                task: taskInfo
+            }))
+        }
     }
 
     function handleSubmit() {
@@ -118,7 +144,11 @@ export function UpdateTaskModal(
             // hide modal
             props.hideModal();
             // something here to add a task to the main dashboard
-            props.handleAddTask(taskInfo)
+            if(props.updateType === 'add') {
+                props.handleAddTask(taskInfo);
+            } else {
+                handleUpdateTask();
+            }
         }
     }
 

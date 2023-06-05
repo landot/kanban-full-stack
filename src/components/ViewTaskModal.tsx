@@ -13,8 +13,10 @@ export function ViewTaskModal(props: {
     task: Task, 
     statuses: string[],
     board: Board,
+    handleEditTask: () => void,
     handleDeleteTask: () => void,
-    handleUpdateSelectedColumnId: (columnId: string) => void
+    handleUpdateSelectedColumnId: (columnId: string) => void,
+    hideModal: () => void
 }) {
     const dispatch = useAppDispatch()
 
@@ -57,15 +59,19 @@ export function ViewTaskModal(props: {
         }))
     }
 
+    function handleEditTask() {
+        props.hideModal();
+        props.handleEditTask();
+    }
+
     return (
         <div className="view-task">
             <div className='view-task-header'>
                 <HeadingL>{props.task.title}</HeadingL>
                 <MoreAction 
-                    // todo fill these in
                     text="task"
                     handleDeleteClick={props.handleDeleteTask}
-                    handleEditClick={() => null}
+                    handleEditClick={handleEditTask}
                 />
             </div>
             <MediumText>{props.task.description}</MediumText>

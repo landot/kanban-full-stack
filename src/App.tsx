@@ -7,7 +7,7 @@ import { KanbanTest } from '../features/kanban/KanbanTest';
 import { Board, Column as IColumn, Task } from './types/data';
 import './App.css'
 import { useAppSelector, useAppDispatch } from '../app/hooks';
-import { addBoard, addTask, BoardUpdateValue, deleteBoard, deleteTask, getBoardIndexWithId, getBoardsWithId, getColumnsWithId, getColumnsWithName, getTasksWithId, selectKanban, updateBoard } from '../features/kanban/kanbanSlice';
+import { addBoard, addTask, BoardUpdateValue, deleteBoard, deleteTask, getBoardIndexWithId, getBoardsWithId, getColumnsWithId, getColumnsWithName, getTasksWithId, selectKanban, updateBoard, updateTask } from '../features/kanban/kanbanSlice';
 import { Overlay } from './components/Overlay';
 import { UpdateBoardModal } from './components/UpdateBoardModal';
 import { DeleteModal } from './components/DeleteModal';
@@ -37,6 +37,7 @@ function App() {
   const [showAddTaskOverlay, setShowAddTaskOverlay] = useState(false);
   const [showViewTaskOverlay, setShowViewTaskOverlay] = useState(false);
   const [showDeleteTaskOverlay, setShowDeleteTaskOverlay] = useState(false);
+  const [showEditTaskOverlay, setShowEditTaskOverlay] = useState(false);
   const [selectedTaskColumnId, setSelectedTaskColumnId] = useState('');
   const [selectedTaskId, setSelectedTaskId] = useState('');
 
@@ -166,8 +167,10 @@ function App() {
             <Overlay handleClose={() => setShowAddTaskOverlay(false)} children={
               <UpdateTaskModal 
                 updateType={'add'}
-                statuses={getBoardsWithId(selectedBoardId, kanban.boards)[0].columns.map(column => column.name)} 
+                board={getSelectedBoard()}
+                statuses={getBoardStatuses()} 
                 handleAddTask={(task: Task) => dispatch(addTask({boardId: selectedBoardId, task: task}))} 
+                handleUpdateTask={(task: Task) => dispatch(updateTask({boardId: selectedBoardId, columnId: selectedTaskColumnId, taskId: selectedTaskId, updatedTask: task}))} 
                 hideModal={() => setShowAddTaskOverlay(false)}
               />
             }/>
@@ -178,8 +181,23 @@ function App() {
                 task={getSelectedTask()} 
                 statuses={getBoardStatuses()}
                 board={getSelectedBoard()}
+                handleEditTask={() => setShowEditTaskOverlay(true)}
                 handleDeleteTask={() => setShowDeleteTaskOverlay(true)}
                 handleUpdateSelectedColumnId={setSelectedTaskColumnId}
+                hideModal={() => setShowViewTaskOverlay(false)}
+              />
+            }/>
+          )}
+          {showEditTaskOverlay && selectedTaskId && selectedTaskColumnId && (
+            <Overlay handleClose={() => setShowEditTaskOverlay(false)} children={
+              <UpdateTaskModal 
+                updateType={'edit'}
+                board={getSelectedBoard()}
+                statuses={getBoardStatuses()} 
+                handleAddTask={(task: Task) => dispatch(addTask({boardId: selectedBoardId, task: task}))} 
+                handleUpdateTask={(task: Task) => dispatch(updateTask({boardId: selectedBoardId, columnId: selectedTaskColumnId, taskId: selectedTaskId, updatedTask: task}))} 
+                hideModal={() => setShowEditTaskOverlay(false)}
+                prefill={getSelectedTask()}
               />
             }/>
           )}
