@@ -5,15 +5,9 @@ import { TextField } from './TextField';
 import DeleteIcon from '../../public/assets/images/icon-cross.svg';
 import { HeadingL } from '../styledComponents/header/HeadingL';
 import { useState } from 'react';
+import { Task } from '../types/data';
+import { getUUID } from '../utils/createUUID';
 import './UpdateTaskModal.css';
-
-
-interface Task {
-    title: string;
-    description: string;
-    subtasks: string[];
-    status: 'todo' | 'doing' | 'done' // todo turn into enum
-}
 
 export interface ModalError {
     section: string;
@@ -22,19 +16,29 @@ export interface ModalError {
 
 export function UpdateTaskModal(
     props: { 
-        updateType: 'add' | 'edit' 
-        prefill?: {
-            title: string,
-            description: string,
-            subtasks: string[],
-            status: 'todo' | 'doing' | 'done' // todo turn into enum
-        }
+        updateType: 'add' | 'edit',
+        statuses: string[],
+        handleAddTask: (task: Task) => void,
+        hideModal: () => void,
+        prefill?: Task
     }) {
     const [taskInfo, setTaskInfo] = useState<Task>({
+        id: getUUID(),
         title: props.prefill?.title || '',
         description: props.prefill?.description || '',
-        subtasks: props.prefill?.subtasks || ['', ''],
-        status: props.prefill?.status || 'todo'
+        subtasks: props.prefill?.subtasks || [
+            {
+                id: getUUID(),
+                title: '',
+                isCompleted: false
+            },
+            {
+                id: getUUID(),
+                title: '',
+                isCompleted: false
+            }
+        ],
+        status: props.prefill?.status || props.statuses[0],
     });
     const [errors, setErrors] = useState<ModalError[]>([]);
 
@@ -60,7 +64,11 @@ export function UpdateTaskModal(
         setTaskInfo(prev => {
             return {
                 ...prev,
-                subtasks: prev.subtasks.concat('')
+                subtasks: prev.subtasks.concat({
+                    id: getUUID(),
+                    title: '',
+                    isCompleted: false
+                })
             }
         })
     }
@@ -77,7 +85,7 @@ export function UpdateTaskModal(
     function handleSubtaskEdit(e: React.ChangeEvent<HTMLInputElement>, index: number) {
         setTaskInfo(prev => {
             const subtasks = [...prev.subtasks];
-            subtasks[index] = e.target.value;
+            subtasks[index].title = e.target.value;
             return {
                 ...prev,
                 subtasks: subtasks
@@ -99,7 +107,7 @@ export function UpdateTaskModal(
         taskInfo.title === '' ? newErrors.push({section: 'title'}): null;
         taskInfo.description === '' ? newErrors.push({section: 'description'}): null;
         taskInfo.subtasks.map((subtask, index)=> {
-            if(subtask === '') {
+            if(subtask.title === '') {
                 newErrors.push({section: 'subtask', index: index});
             }
         })
@@ -107,7 +115,10 @@ export function UpdateTaskModal(
         if(newErrors.length > 0) {
             console.log('errors occurred. task not created')
         } else {
+            // hide modal
+            props.hideModal();
             // something here to add a task to the main dashboard
+            props.handleAddTask(taskInfo)
         }
     }
 
@@ -141,7 +152,7 @@ export function UpdateTaskModal(
                             <TextField 
                                 showValidationError={errors.some(e => e.section === 'subtask' && e.index === index)} 
                                 placeholder='e.g. Make coffee' 
-                                value={subtask}
+                                value={subtask.title}
                                 handleChange={(e) => handleSubtaskEdit(e, index)} 
                             />
                             <img 
@@ -160,7 +171,7 @@ export function UpdateTaskModal(
             </div>
             <div className='section status-section'>
                 <HeadingS>Status</HeadingS>
-                <Dropdown value={taskInfo.status} handleChange={handleStatusUpdate}/>
+                <Dropdown values={props.statuses} value={taskInfo.status} handleChange={handleStatusUpdate}/>
             </div>
             <ButtonSmall 
                 label={props.updateType === 'add' ? 'Create Task': 'Save changes'} 

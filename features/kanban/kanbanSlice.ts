@@ -5,7 +5,7 @@ import {
   import { 
     RootState, 
   } from "../../app/store"
-  import { Board, Column, Data, Task } from '../../src/types/data';
+  import { Board, Column, Data, Subtask, Task } from '../../src/types/data';
   import { sampleBoard } from '../../src/data/sampleData';
 import { generateRandomHex } from "../../src/utils/generateRandomHex";
   
@@ -27,7 +27,47 @@ import { generateRandomHex } from "../../src/utils/generateRandomHex";
   const initialState: KanbanState = {
     value: {
         boards: [
-            sampleBoard
+            // sampleBoard
+            {
+              name: 'board1', 
+              id: '494594959333', 
+              columns: [
+                {
+                  id: '12341234',
+                  name: 'status1',
+                  color: '#FFFFFF',
+                  tasks: [
+                    {
+                      id: 'ffff',
+                      title: 'tasktitle',
+                      description: 'task description',
+                      status: 'status1',
+                      subtasks: [{
+                        id: 'dsffffff',
+                        title: 'subtask title',
+                        isCompleted: false
+                      }]
+                    },
+                    {
+                    id: 'aaaaa',
+                    title: 'tasktitle2',
+                    description: 'task description2',
+                    status: 'status1',
+                    subtasks: [{
+                      id: 'asdfasdf999',
+                      title: 'subtask title2',
+                      isCompleted: false
+                    }]
+                  },
+                  ]
+                },
+                {
+                  id: '55555555',
+                  name: 'status2',
+                  color: '#FFFFFF',
+                  tasks: []
+                }
+            ]}
         ]
     },
     status: "idle",
@@ -42,7 +82,11 @@ import { generateRandomHex } from "../../src/utils/generateRandomHex";
   }
 
   export function getColumnsWithId(id: string, columns: Column[]): Column[] {
-    return columns.filter(columns => columns.id === id);
+    return columns.filter(column => column.id === id);
+  }
+
+  export function getColumnsWithName(name: string, columns: Column[]): Column[] {
+    return columns.filter(column => column.name === name);
   }
 
   export function getColumnIndexWithId(id: string, columns: Column[]) {
@@ -51,6 +95,14 @@ import { generateRandomHex } from "../../src/utils/generateRandomHex";
 
   export function getTaskIndexWithId(id: string, tasks: Task[]): number {
     return tasks.findIndex(task => task.id === id);
+  }
+
+  export function getSubtasksWithId(id: string, subtasks: Subtask[]): Subtask[] {
+    return subtasks.filter(subtask => subtask.id === id);
+  }
+
+  export function getSubtaskIndexWithId(id: string, subtasks: Subtask[]): number {
+    return subtasks.findIndex(subtask => subtask.id === id);
   }
   
   
@@ -131,11 +183,11 @@ import { generateRandomHex } from "../../src/utils/generateRandomHex";
         boardToUpdate.columns[columnIndex] = action.payload.updatedColumn;
         state.value = newValue;
       },
-      addTask: (state, action: PayloadAction<{boardId: string, columnId: string, task: Task}>) => {
+      addTask: (state, action: PayloadAction<{boardId: string, task: Task}>) => {
         const newValue = {...state.value};
         const [boardToUpdate] = getBoardsWithId(action.payload.boardId, newValue.boards);
         if(!boardToUpdate) return;
-        const [columnToUpdate] = getColumnsWithId(action.payload.columnId, boardToUpdate.columns);
+        const [columnToUpdate] = getColumnsWithName(action.payload.task.status, boardToUpdate.columns);
         if(!columnToUpdate) return;
         columnToUpdate.tasks = columnToUpdate.tasks.concat(action.payload.task);
         state.value = newValue;

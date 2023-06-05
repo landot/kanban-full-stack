@@ -138,7 +138,7 @@ export function UpdateBoardModal(
                     )
                 })}
                 <ButtonSmall 
-                    label='+ Add New Subtask' 
+                    label='+ Add New Column' 
                     type='secondary'
                     onClick={handleNewColumn}
                 />

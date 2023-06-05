@@ -1,27 +1,43 @@
 import { Draggable, Droppable } from 'react-beautiful-dnd';
 import { HeadingS } from '../styledComponents/header/HeadingS';
 import { Column as IColumn } from '../types/data';
+import { Task as ITask } from '../types/data';
 import { Task } from './Task';
 import './Column.css';
 
-export function Column(props: IColumn) {
+export function Column(
+    props: {
+        column: IColumn,
+        handleViewTask: (show: boolean) => void,
+        handleSelectedTask: (task: ITask) => void,
+    }
+    ) {
+
+    function handleTaskClick(task: ITask) {
+        props.handleViewTask(true);
+        props.handleSelectedTask(task);
+    }
+
     return (
-        <Droppable droppableId={props.id}>
+        <Droppable droppableId={props.column.id}>
             {(provided) => (
                 <div {...provided.droppableProps} ref={provided.innerRef}>
                     <div className='column'>
                         <div className='column-header'>
                             <span className='dot' style={{
-                                backgroundColor: props.color
+                                backgroundColor: props.column.color
                             }}/> 
-                            <HeadingS>{props.name} ({props.tasks.length})</HeadingS>
+                            <HeadingS>{props.column.name} ({props.column.tasks.length})</HeadingS>
                         </div>
                         <div className='column-items'>
-                        {props.tasks.map((task, index)=> (
+                        {props.column.tasks.map((task, index)=> (
                             <Draggable draggableId={task.id} key={task.id} index={index}>
                             {(provided) => (
                                 <div {...provided.dragHandleProps} {...provided.draggableProps} ref={provided.innerRef}>
-                                <Task description={task.title} subtasksTotal={task.subtasks.length} subtasksRemaining={task.subtasks.filter(t => !t.isCompleted).length} />
+                                    <Task 
+                                        task={task} 
+                                        handleClick={() => handleTaskClick(task)}
+                                    />
                                 </div>
                             )}
                             </Draggable>

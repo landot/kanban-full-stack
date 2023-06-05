@@ -4,50 +4,84 @@ import { MediumText } from "../styledComponents/text/MediumText"
 import { Checkbox } from "./SubtaskCheckbox"
 import { Dropdown } from "./Dropdown";
 import { MoreAction } from "./MoreAction";
+import { Board, Subtask, Task } from "../types/data";
+import { useAppDispatch } from "../../app/hooks";
+import { getColumnsWithName, getSubtaskIndexWithId, updateTask } from "../../features/kanban/kanbanSlice";
 import './ViewTaskModal.css';
 
-export interface Subtask {
-    description: string;
-    completed: boolean;
-}
-
-export function ViewTaskModal(
-    props: {
-        title: string, 
-        description: string, 
-        subtasks: Subtask[],
-        status: 'done' | 'doing' | 'todo'
-    }) {
+export function ViewTaskModal(props: {
+    task: Task, 
+    statuses: string[],
+    board: Board,
+    handleDeleteTask: () => void
+}) {
+    const dispatch = useAppDispatch()
 
     function getSubtaskRemainingText() {
         return (
-            `${props.subtasks.filter(prop => prop.completed).length} of ${props.subtasks.length}`
+            `${props.task.subtasks.filter(prop => prop.isCompleted).length} of ${props.task.subtasks.length}`
         )
+    }
+
+    function handleStatusUpdate(status: string) {
+        const task = {...props.task};
+        task.status = status;
+        dispatch(updateTask({
+            boardId: props.board.id,
+            columnId: getColumnsWithName(props.task.status, props.board.columns)[0].id,
+            taskId: props.task.id,
+            updatedTask: task
+        }))
+    }
+
+    // still not working properly
+    function handleSubtaskCheckboxClick(subtaskId: string) {
+        console.log(subtaskId)
+        const task = {...props.task};
+        console.log('task before', task)
+        const subtaskIndex = getSubtaskIndexWithId(subtaskId, props.task.subtasks);
+        console.log(subtaskIndex)
+        const subtasks = [...props.task.subtasks];
+        console.log('subtask before', subtasks[subtaskIndex].isCompleted)
+        subtasks[subtaskIndex] = {
+            ...task.subtasks[subtaskIndex],
+            isCompleted: !task.subtasks[subtaskIndex].isCompleted
+        }
+        console.log('subtask after', subtasks[subtaskIndex].isCompleted)
+        task.subtasks = subtasks;
+        console.log('task after', task)
+        dispatch(updateTask({
+            boardId: props.board.id,
+            columnId: getColumnsWithName(props.task.status, props.board.columns)[0].id,
+            taskId: props.task.id,
+            updatedTask: task
+        }))
     }
 
     return (
         <div className="view-task">
             <div className='view-task-header'>
-                <HeadingL>{props.title}</HeadingL>
+                <HeadingL>{props.task.title}</HeadingL>
                 <MoreAction 
                     // todo fill these in
-                    handleDeleteClick={() => null}
+                    text="task"
+                    handleDeleteClick={props.handleDeleteTask}
                     handleEditClick={() => null}
                 />
             </div>
-            <MediumText>{props.description}</MediumText>
+            <MediumText>{props.task.description}</MediumText>
             <div className="subtask-section">
                 <HeadingS>Subtasks ({getSubtaskRemainingText()})</HeadingS>
-                {props.subtasks.map((subtask: Subtask) => {
+                {props.task.subtasks.map((subtask: Subtask) => {
                     return (
-                        <Checkbox text={subtask.description} completed={subtask.completed}/>
+                        <Checkbox subtask={subtask} handleClick={() => handleSubtaskCheckboxClick(subtask.id)}/>
                     )
                 })}
             </div>
             <div className="status-section">
                 <MediumText>Current Status</MediumText>
                 {/* todo handle status changes */}
-                <Dropdown value={props.status} handleChange={() => null}/>
+                <Dropdown value={props.task.status} handleChange={(status: string) => handleStatusUpdate(status)} values={props.statuses}/>
             </div>
         </div>
     )

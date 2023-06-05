@@ -19,18 +19,8 @@ export interface Task {
     id:          string;
     title:       string;
     description: string;
-    status:      Status;
+    status:      string;
     subtasks:    Subtask[];
-}
-
-// todo status could be any value 
-// status types will be decided when a board is created
-// todo remove this later
-export enum Status {
-    Doing = "Doing",
-    Done = "Done",
-    Empty = "",
-    Todo = "Todo",
 }
 
 export interface Subtask {

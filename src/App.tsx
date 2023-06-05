@@ -4,25 +4,50 @@ import { Header } from './components/Header';
 import { Sidebar } from './components/Sidebar';
 import { ThemeContext, ThemeContextType } from './context/ThemeContext';
 import { KanbanTest } from '../features/kanban/KanbanTest';
-import { Board } from './types/data';
+import { Board, Task } from './types/data';
 import './App.css'
 import { useAppSelector, useAppDispatch } from '../app/hooks';
-import { addBoard, BoardUpdateValue, deleteBoard, getBoardIndexWithId, getBoardsWithId, selectKanban, updateBoard } from '../features/kanban/kanbanSlice';
+import { addBoard, addTask, BoardUpdateValue, deleteBoard, deleteTask, getBoardIndexWithId, getBoardsWithId, getColumnsWithName, selectKanban, updateBoard } from '../features/kanban/kanbanSlice';
 import { Overlay } from './components/Overlay';
 import { UpdateBoardModal } from './components/UpdateBoardModal';
 import { DeleteModal } from './components/DeleteModal';
+import { Column } from './components/Column';
+import { UpdateTaskModal } from './components/UpdateTaskModal';
+import { ViewTaskModal } from './components/ViewTaskModal';
 
+// todo deal with scenario where there aren't any boards
+// todo add "add column" column on right side of screen
+// todo add padding to modals
+// todo add button that enables the dragging of elements
+// todo allow columns to be draggable/organized
+// when dragging is enabled:
+//   clicking tasks starts drag effect
+//   clicking columns starts drag effect
+// when dragging is disabled:
+// clicking tasks opens the view task modal
+// clicking columns does nothing
 function App() {
+  const dispatch = useAppDispatch()
   const [theme, setTheme] = useState<ThemeContextType>(localStorage.getItem('theme') as ThemeContextType  || 'light');
   const kanban = useAppSelector(selectKanban);
-  const [selectedBoard, setSelectedBoard] = useState<Board>(kanban.boards[0]);
+  const [selectedBoardId, setSelectedBoardId] = useState(kanban.boards[0].id);
   const [showAddBoardOverlay, setShowAddBoardOverlay] = useState(false);
   const [showEditBoardOverlay, setShowEditBoardOverlay] = useState(false);
   const [showDeleteBoardOverlay, setShowDeleteBoardOverlay] = useState(false);
-
-  const dispatch = useAppDispatch()
-
-  // const [boardData, setBoardData] = useState<IColumn[]>([...kanban.boards[0].columns]);
+  const [showAddTaskOverlay, setShowAddTaskOverlay] = useState(false);
+  const [showViewTaskOverlay, setShowViewTaskOverlay] = useState(false);
+  const [showDeleteTaskOverlay, setShowDeleteTaskOverlay] = useState(false);
+  const [selectedTask, setSelectedTask] = useState<Task>({
+    id: 'ffff',
+    title: 'tasktitle',
+    description: 'task description',
+    status: 'status1',
+    subtasks: [{
+      id: 'dsffffff',
+      title: 'subtask title',
+      isCompleted: false
+    }]
+  }); // undo
 
   function toggleTheme() {
     if (theme === 'light') {
@@ -34,16 +59,30 @@ function App() {
 
   function handleBoardChange(boardId: string) {
     const [board] = getBoardsWithId(boardId, kanban.boards);
-    if(board) setSelectedBoard(board);
+    if(board) setSelectedBoardId(board.id);
   }
 
   function handleBoardDelete(boardId: string) {
-    // delete board
     dispatch(deleteBoard(boardId))
-    // reset selectedBoard to the first board
-    // todo maybe I could just show the previous board
-    setSelectedBoard(kanban.boards[0]);
+    setSelectedBoardId(kanban.boards.filter(board => board.id !== boardId)[0].id);
   }
+
+  function handleBoardEdit(boardId: string, updatedBoard: BoardUpdateValue) {
+    dispatch(updateBoard({boardId: boardId, updatedBoard: updatedBoard}));
+  }
+
+  function handleTaskDelete() {
+    dispatch(deleteTask({
+      boardId: selectedBoardId,
+      columnId: getColumnsWithName(selectedTask.status, getBoardsWithId(selectedBoardId, kanban.boards)[0].columns)[0].id,
+      taskId: selectedTask.id
+    }));
+    setSelectedTask(undefined);
+    setShowDeleteTaskOverlay(false);
+  }
+
+  console.log(kanban);
+  console.log(selectedBoardId);
 
   function handleDragEnd(result: DropResult) {
     const {destination, source} = result;
@@ -62,19 +101,21 @@ function App() {
   return (
     <ThemeContext.Provider value={theme}>
       <div className='app' id={theme}>
+        <p>{showDeleteTaskOverlay.toString()}</p>
         <Sidebar 
           boards={kanban.boards} 
-          selectedBoardIndex={getBoardIndexWithId(selectedBoard.id, kanban.boards)} 
+          selectedBoardIndex={getBoardIndexWithId(selectedBoardId, kanban.boards)} 
           handleToggleTheme={toggleTheme} 
           handleAddBoard={setShowAddBoardOverlay}
           handleBoardSelect={(boardId: string) => handleBoardChange(boardId)}
         />
         <Header 
-          boardName={selectedBoard.name} 
+          boardName={getBoardsWithId(selectedBoardId, kanban.boards)[0].name} 
+          handleEditBoard={setShowEditBoardOverlay}
           handleDeleteBoard={setShowDeleteBoardOverlay} 
+          handleAddTask={setShowAddTaskOverlay}
         />
         <div className='content'>
-          <p>{showDeleteBoardOverlay.toString()}</p>
           {showAddBoardOverlay && (
             <Overlay children={
               <UpdateBoardModal 
@@ -90,18 +131,63 @@ function App() {
             <Overlay children={
               <DeleteModal 
                 name={'board'}
-                text={`Are you sure you want to delete the ‘${selectedBoard.name}’ board? This action will remove all columns and tasks and cannot be reversed.`}
-                handleDelete={() => handleBoardDelete(selectedBoard.id)} 
+                text={`Are you sure you want to delete the ‘${getBoardsWithId(selectedBoardId, kanban.boards)[0].name}’ board? This action will remove all columns and tasks and cannot be reversed.`}
+                handleDelete={() => handleBoardDelete(selectedBoardId)} 
                 hideModal={() => setShowDeleteBoardOverlay(false)}
               />
             }/>
           )}
-          <KanbanTest />
-          {/* <DragDropContext onDragEnd={handleDragEnd}>
-            <Column name={boardData[0].name} id={boardData[0].id} tasks={boardData[0].tasks} color={boardData[0].color} />
-            <Column name={boardData[1].name} id={boardData[1].id} tasks={boardData[1].tasks} color={boardData[1].color} />
-            <Column name={boardData[2].name} id={boardData[2].id} tasks={boardData[2].tasks} color={boardData[2].color} />
-          </DragDropContext> */}
+          {showEditBoardOverlay && (
+            <Overlay children={
+              <UpdateBoardModal 
+                updateType={'edit'} 
+                handleAddBoard={(board: Board) => dispatch(addBoard(board))} 
+                handleUpdateBoard={(boardId: string, values: BoardUpdateValue) => handleBoardEdit(boardId, values)} 
+                hideModal={() => setShowEditBoardOverlay(false)}
+                prefill={getBoardsWithId(selectedBoardId, kanban.boards)[0]}
+              />
+            }/>
+          )}
+          {showAddTaskOverlay && (
+            <Overlay children={
+              <UpdateTaskModal 
+                updateType={'add'}
+                statuses={getBoardsWithId(selectedBoardId, kanban.boards)[0].columns.map(column => column.name)} 
+                handleAddTask={(task: Task) => dispatch(addTask({boardId: selectedBoardId, task: task}))} 
+                hideModal={() => setShowAddTaskOverlay(false)}
+              />
+            }/>
+          )}
+          {showViewTaskOverlay && selectedTask && (
+            <Overlay children={
+              <ViewTaskModal 
+                task={selectedTask} 
+                statuses={getBoardsWithId(selectedBoardId, kanban.boards)[0].columns.map(column => column.name)}
+                board={getBoardsWithId(selectedBoardId, kanban.boards)[0]}
+                handleDeleteTask={() => setShowDeleteTaskOverlay(true)}
+              />
+            }/>
+          )}
+          {showDeleteTaskOverlay && selectedTask && (
+            <Overlay children={
+              <DeleteModal 
+                name={'task'} 
+                text={`Are you sure you want to delete the ‘${selectedTask.title}’ task and its subtasks? This action cannot be reversed.`} 
+                handleDelete={handleTaskDelete}
+                hideModal={() => setShowDeleteTaskOverlay(false)}
+              />
+            }/>
+          )}
+          {/* <KanbanTest /> */}
+          <DragDropContext onDragEnd={handleDragEnd}>
+            {getBoardsWithId(selectedBoardId, kanban.boards)[0].columns.map(column => (
+              <Column 
+                column={column} 
+                handleViewTask={setShowViewTaskOverlay}
+                handleSelectedTask={setSelectedTask}
+              />
+            ))}
+          </DragDropContext>
         </div>
       </div>
     </ThemeContext.Provider>

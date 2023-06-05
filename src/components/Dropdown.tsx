@@ -2,11 +2,15 @@ import { useState } from 'react';
 import chevronDown from '../../public/assets/images/icon-chevron-down.svg';
 import './Dropdown.css';
 
-export function Dropdown(props: {value: 'todo' | 'doing' | 'done', handleChange: (s: any) => void}) {
+export function Dropdown(props: {
+    values: string[],
+    value: string, 
+    handleChange: (status: string) => void
+}) {
     const [status, setStatus] = useState(props.value);
     const [showDropdownItems, setShowDropdownItems] = useState(false);
 
-    function handleDropdownUpdate(newStatus: 'todo' | 'doing' | 'done') {
+    function handleDropdownUpdate(newStatus: string) {
         setStatus(newStatus);
         setShowDropdownItems(false);
         props.handleChange(newStatus);
@@ -20,9 +24,7 @@ export function Dropdown(props: {value: 'todo' | 'doing' | 'done', handleChange:
             </div>
             {showDropdownItems && (
                 <ul className='dropdown-items'>
-                    <li onClick={() => handleDropdownUpdate('todo')}>Todo</li>
-                    <li onClick={() => handleDropdownUpdate('doing')}>Doing</li>
-                    <li onClick={() => handleDropdownUpdate('done')}>Done</li>
+                    {props.values.map(value => <li onClick={() => handleDropdownUpdate(value)}>{value}</li>)}
                 </ul>
             )}
         </div>
