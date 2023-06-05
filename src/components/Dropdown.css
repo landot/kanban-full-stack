@@ -1,7 +1,6 @@
 .status-dropdown {
     position: relative;
     cursor: pointer;
-    text-transform: capitalize;
 }
 
 .status-dropdown .selected-status {
