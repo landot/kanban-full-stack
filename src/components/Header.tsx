@@ -11,23 +11,26 @@ export function Header(props: {
     handleEditBoard: (show: boolean) => void,
     handleAddTask: (show: boolean) => void
 }) {
+    const boardExists = props.boardName !== '';
     return (
         <div className='header'>
             <div className="header-title">
                 {/* todo see if this is even needed later */}
                 {/* <img src={logoDark} alt="logo" />
                 <hr /> */}
-                <HeadingL>{props.boardName}</HeadingL>
+                <HeadingL>{boardExists ? props.boardName: 'Create a board'}</HeadingL>
             </div>
-            <div className='header-actions'>
-                <ButtonLarge label={'+ Add New Task'} onClick={() => props.handleAddTask(true)} />
-                {/* add configurable left css  */}
-                <MoreAction 
-                    text={"Board"} 
-                    handleEditClick={() => props.handleEditBoard(true)} 
-                    handleDeleteClick={() => props.handleDeleteBoard(true)} 
-                />
-            </div>
+            {boardExists && (
+                <div className='header-actions'>
+                    <ButtonLarge label={'+ Add New Task'} onClick={() => props.handleAddTask(true)} />
+                    {/* add configurable left css  */}
+                    <MoreAction 
+                        text={"Board"} 
+                        handleEditClick={() => props.handleEditBoard(true)} 
+                        handleDeleteClick={() => props.handleDeleteBoard(true)} 
+                    />
+                </div>
+            )}
         </div>
     )
 }

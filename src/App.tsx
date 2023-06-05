@@ -3,7 +3,6 @@ import { DragDropContext, DropResult } from 'react-beautiful-dnd';
 import { Header } from './components/Header';
 import { Sidebar } from './components/Sidebar';
 import { ThemeContext, ThemeContextType } from './context/ThemeContext';
-import { KanbanTest } from '../features/kanban/KanbanTest';
 import { Board, Column as IColumn, Task } from './types/data';
 import './App.css'
 import { useAppSelector, useAppDispatch } from '../app/hooks';
@@ -14,23 +13,15 @@ import { DeleteModal } from './components/DeleteModal';
 import { Column } from './components/Column';
 import { UpdateTaskModal } from './components/UpdateTaskModal';
 import { ViewTaskModal } from './components/ViewTaskModal';
+import { AddNewColumn } from './components/AddNewColumn';
 
-// todo deal with scenario where there aren't any boards
-// todo add "add column" column on right side of screen
 // todo add padding to modals
-// todo add button that enables the dragging of elements
 // todo allow columns to be draggable/organized
-// when dragging is enabled:
-//   clicking tasks starts drag effect
-//   clicking columns starts drag effect
-// when dragging is disabled:
-// clicking tasks opens the view task modal
-// clicking columns does nothing
 function App() {
   const dispatch = useAppDispatch()
   const [theme, setTheme] = useState<ThemeContextType>(localStorage.getItem('theme') as ThemeContextType  || 'light');
   const kanban = useAppSelector(selectKanban);
-  const [selectedBoardId, setSelectedBoardId] = useState(kanban.boards[0].id);
+  const [selectedBoardId, setSelectedBoardId] = useState(kanban.boards.length > 0 ? kanban.boards[0].id: '');
   const [showAddBoardOverlay, setShowAddBoardOverlay] = useState(false);
   const [showEditBoardOverlay, setShowEditBoardOverlay] = useState(false);
   const [showDeleteBoardOverlay, setShowDeleteBoardOverlay] = useState(false);
@@ -56,7 +47,8 @@ function App() {
 
   function handleBoardDelete(boardId: string) {
     dispatch(deleteBoard(boardId))
-    setSelectedBoardId(kanban.boards.filter(board => board.id !== boardId)[0].id);
+    const remainingBoards = kanban.boards.filter(board => board.id !== boardId);
+    setSelectedBoardId(remainingBoards.length > 0 ? remainingBoards[0].id: '');
   }
 
   function handleBoardEdit(boardId: string, updatedBoard: BoardUpdateValue) {
@@ -116,7 +108,6 @@ function App() {
   return (
     <ThemeContext.Provider value={theme}>
       <div className='app' id={theme}>
-        <p>{showDeleteTaskOverlay.toString()}</p>
         <Sidebar 
           boards={kanban.boards} 
           selectedBoardIndex={getBoardIndexWithId(selectedBoardId, kanban.boards)} 
@@ -125,7 +116,7 @@ function App() {
           handleBoardSelect={(boardId: string) => handleBoardChange(boardId)}
         />
         <Header 
-          boardName={getBoardsWithId(selectedBoardId, kanban.boards)[0].name} 
+          boardName={selectedBoardId ? getBoardsWithId(selectedBoardId, kanban.boards)[0].name: ''} 
           handleEditBoard={setShowEditBoardOverlay}
           handleDeleteBoard={setShowDeleteBoardOverlay} 
           handleAddTask={setShowAddTaskOverlay}
@@ -211,47 +202,25 @@ function App() {
               />
             }/>
           )}
-          {/* <KanbanTest /> */}
-          <DragDropContext onDragEnd={handleDragEnd}>
-            {getBoardsWithId(selectedBoardId, kanban.boards)[0].columns.map(column => (
-              <Column 
-                column={column} 
-                handleViewTask={setShowViewTaskOverlay}
-                handleSelectedTask={setSelectedTaskId}
-                handleSelectedTaskColumn={setSelectedTaskColumnId}
-              />
-            ))}
-          </DragDropContext>
+          {(selectedBoardId && kanban.boards.length > 0) && (
+            <DragDropContext onDragEnd={handleDragEnd}>
+              {getBoardsWithId(selectedBoardId, kanban.boards)[0].columns.map(column => (
+                <Column 
+                  column={column} 
+                  handleViewTask={setShowViewTaskOverlay}
+                  handleSelectedTask={setSelectedTaskId}
+                  handleSelectedTaskColumn={setSelectedTaskColumnId}
+                />
+              ))}
+            </DragDropContext>
+          )}
+          {selectedBoardId && (
+            <AddNewColumn handleClick={() => setShowEditBoardOverlay(true)}/>
+          )}
         </div>
       </div>
     </ThemeContext.Provider>
   )
 }
-
-// function Column(props: {columnData: IColumn}) {
-//   return (
-//     <Droppable droppableId={props.columnData.id}>
-//       {(provided) => (
-//         <div {...provided.droppableProps} ref={provided.innerRef}>
-//           <div className='column'>
-//             <h3>{props.columnData.name}</h3>
-//             <div className='column-items'>
-//               {props.columnData.items.map((item: {id: string, name: string}, index: number)=> (
-//                 <Draggable draggableId={item.id} key={item.id} index={index}>
-//                   {(provided) => (
-//                     <div {...provided.dragHandleProps} {...provided.draggableProps} ref={provided.innerRef}>
-//                       <Task description={item.name} subtasksTotal={0} subtasksRemaining={0} />
-//                     </div>
-//                   )}
-//                 </Draggable>
-//               ))}
-//               {provided.placeholder}
-//             </div>
-//           </div>
-//         </div>
-//       )}
-//     </Droppable>
-//   )
-// }
 
 export default App
