@@ -1,0 +1,14 @@
+.show-sidebar {
+    position: absolute;
+    width: 56px;
+    height: 48px;
+    border-radius: 0px 100px 100px 0px;
+    background: #635FC7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.show-sidebar:hover {
+    background: #A8A4FF;
+}

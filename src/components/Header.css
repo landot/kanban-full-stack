@@ -5,6 +5,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 0 24px;
+    border-bottom: solid #E4EBFA;
 }
 
 .header .header-title {

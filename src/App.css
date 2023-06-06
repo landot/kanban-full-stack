@@ -16,16 +16,29 @@ img {
   -webkit-user-select: none;
 }
 
-.app {
+.app.sidebar-visible {
   display: grid;
+  overflow-x: hidden;
   grid-template-columns: 1fr 4fr;
   grid-template-rows: 97px auto;
   grid-template-areas: 
-  "sidebar  header"
+  "sidebar header"
   "sidebar board"
   "sidebar board"
   "sidebar board";
 }
+
+.app.sidebar-hidden {
+  height: 100dvh;
+  display: grid;
+  overflow-x: hidden;
+  grid-template-columns: 1fr;
+  grid-template-rows: 97px auto;
+  grid-template-areas: 
+  "header"
+  "board";
+}
+
 
 .sidebar {
   grid-area: sidebar;
@@ -42,10 +55,16 @@ img {
   height: 100%;
   display: flex;
   flex-direction: row;
+  overflow-x: scroll;
 }
 
 .content .column {
   width: 250px;
-  height: 100%;
+  height: 100% - 100px;
   margin: 0 24px 0 24px;
+}
+
+.content .show-sidebar {
+  position: absolute;
+  bottom: 50px;
 }

@@ -1,13 +1,24 @@
 .sidebar {
-    /* todo temporary background remove later */
-    background-color: lightgray;
-    /* background: #FFFFFF; */
+    background: #FFFFFF;
     padding: 32px 24px 32px 0;
     width: 300px;
     height: 100dvh;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    border-right: solid #E4EBFA;
+}
+
+.sidebar .sidebar-boards img, .sidebar .sidebar-boards h4 {
+    margin-left: 32px;
+}
+
+.sidebar h4 {
+    margin-top: 54px;
+}
+
+.sidebar .sidebar-board:first-of-type {
+    margin-top: 19px;
 }
 
 .sidebar .create-new-board {
@@ -25,4 +36,9 @@
 .sidebar .create-new-board h3 {
     color: #635FC7;
     cursor: pointer;
+}
+
+.sidebar .dark-mode-toggle {
+    margin: 0 24px 0 24px;
+    width: 250px;
 }

@@ -5,6 +5,7 @@ import {
   import { 
     RootState, 
   } from "../../app/store"
+import { sampleBoard } from "../../src/data/sampleData";
   import { Board, Column, Data, Subtask, Task } from '../../src/types/data';
 import { generateRandomHex } from "../../src/utils/generateRandomHex";
   
@@ -26,47 +27,47 @@ import { generateRandomHex } from "../../src/utils/generateRandomHex";
   const initialState: KanbanState = {
     value: {
         boards: [
-            // sampleBoard
-            {
-              name: 'board1', 
-              id: '494594959333', 
-              columns: [
-                {
-                  id: '12341234',
-                  name: 'status1',
-                  color: '#FFFFFF',
-                  tasks: [
-                    {
-                      id: 'ffff',
-                      title: 'tasktitle',
-                      description: 'task description',
-                      status: 'status1',
-                      subtasks: [{
-                        id: 'dsffffff',
-                        title: 'subtask title',
-                        isCompleted: false
-                      }]
-                    },
-                    {
-                    id: 'aaaaa',
-                    title: 'tasktitle2',
-                    description: 'task description2',
-                    status: 'status1',
-                    subtasks: [{
-                      id: 'asdfasdf999',
-                      title: 'subtask title2',
-                      isCompleted: false
-                    }]
-                  },
-                  ]
-                },
-                {
-                  id: '55555555',
-                  name: 'status2',
-                  color: '#FFFFFF',
-                  tasks: []
-                }
-            ]}
+            sampleBoard
+            // {
+            //   name: 'board1', 
+            //   id: '494594959333', 
+            //   columns: [
+            //     {
+            //       id: '12341234',
+            //       name: 'status1',
+            //       color: '#FFFFFF',
+            //       tasks: [
+            //         {
+            //           id: 'ffff',
+            //           title: 'tasktitle',
+            //           description: 'task description',
+            //           status: 'status1',
+            //           subtasks: [{
+            //             id: 'dsffffff',
+            //             title: 'subtask title',
+            //             isCompleted: false
+            //           }]
+            //         },
+            //         {
+            //         id: 'aaaaa',
+            //         title: 'tasktitle2',
+            //         description: 'task description2',
+            //         status: 'status1',
+            //         subtasks: [{
+            //           id: 'asdfasdf999',
+            //           title: 'subtask title2',
+            //           isCompleted: false
+            //         }]
+            //       },
+            //       ]
+            //     },
+            //     {
+            //       id: '55555555',
+            //       name: 'status2',
+            //       color: '#FFFFFF',
+            //       tasks: []
+            //     }
+            // ]}
         ]
     },
     status: "idle",

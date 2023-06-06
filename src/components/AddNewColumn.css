@@ -1,7 +1,7 @@
 .add-new-column {
     cursor: pointer;
     margin: 50px 0 50px 0;
-    width: 280px;
+    min-width: 280px;
     height: 100% - 100px;
     background: rgb(175, 182, 185, .1);
     /* background: linear-gradient(180deg, #AFB6B9 0%, rgba(233, 239, 250, 0.5) 100%); */

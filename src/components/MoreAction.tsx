@@ -15,6 +15,11 @@ export function MoreAction(
         props.handleDeleteClick();
     }
 
+    function handleEdit() {
+        setShowMoreActions(false);
+        props.handleEditClick();
+    }
+
     return (
         <div className='more-actions'>
             <img 
@@ -24,7 +29,7 @@ export function MoreAction(
             />
             {showMoreActions && (
                 <ul>
-                    <li className='edit' onClick={props.handleEditClick}>Edit {props.text}</li>
+                    <li className='edit' onClick={handleEdit}>Edit {props.text}</li>
                     <li className='delete' onClick={handleDelete}>Delete {props.text}</li>
                 </ul>
             )}

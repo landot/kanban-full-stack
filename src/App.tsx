@@ -14,6 +14,7 @@ import { Column } from './components/Column';
 import { UpdateTaskModal } from './components/UpdateTaskModal';
 import { ViewTaskModal } from './components/ViewTaskModal';
 import { AddNewColumn } from './components/AddNewColumn';
+import { ShowSidebar } from './components/ShowSidebar';
 
 // todo add padding to modals
 // todo allow columns to be draggable/organized
@@ -21,7 +22,11 @@ function App() {
   const dispatch = useAppDispatch()
   const [theme, setTheme] = useState<ThemeContextType>(localStorage.getItem('theme') as ThemeContextType  || 'light');
   const kanban = useAppSelector(selectKanban);
+  const [showSidebar, setShowSidebar] = useState(false);
   const [selectedBoardId, setSelectedBoardId] = useState(kanban.boards.length > 0 ? kanban.boards[0].id: '');
+  const [selectedTaskColumnId, setSelectedTaskColumnId] = useState('');
+  const [selectedTaskId, setSelectedTaskId] = useState('');
+
   const [showAddBoardOverlay, setShowAddBoardOverlay] = useState(false);
   const [showEditBoardOverlay, setShowEditBoardOverlay] = useState(false);
   const [showDeleteBoardOverlay, setShowDeleteBoardOverlay] = useState(false);
@@ -29,8 +34,6 @@ function App() {
   const [showViewTaskOverlay, setShowViewTaskOverlay] = useState(false);
   const [showDeleteTaskOverlay, setShowDeleteTaskOverlay] = useState(false);
   const [showEditTaskOverlay, setShowEditTaskOverlay] = useState(false);
-  const [selectedTaskColumnId, setSelectedTaskColumnId] = useState('');
-  const [selectedTaskId, setSelectedTaskId] = useState('');
 
   function toggleTheme() {
     if (theme === 'light') {
@@ -110,14 +113,17 @@ function App() {
 
   return (
     <ThemeContext.Provider value={theme}>
-      <div className='app' id={theme}>
-        <Sidebar 
-          boards={kanban.boards} 
-          selectedBoardIndex={getBoardIndexWithId(selectedBoardId, kanban.boards)} 
-          handleToggleTheme={toggleTheme} 
-          handleAddBoard={setShowAddBoardOverlay}
-          handleBoardSelect={(boardId: string) => handleBoardChange(boardId)}
-        />
+      <div className={`app ${showSidebar ? 'sidebar-visible': 'sidebar-hidden'}`} id={theme}>
+        {showSidebar && (
+          <Sidebar 
+            boards={kanban.boards} 
+            selectedBoardIndex={getBoardIndexWithId(selectedBoardId, kanban.boards)} 
+            handleToggleTheme={toggleTheme} 
+            handleAddBoard={setShowAddBoardOverlay}
+            handleBoardSelect={(boardId: string) => handleBoardChange(boardId)}
+            handleHideSidebar={() => setShowSidebar(false)}
+          />
+        )}
         <Header 
           boardName={selectedBoardId ? getBoardsWithId(selectedBoardId, kanban.boards)[0].name: ''} 
           handleEditBoard={setShowEditBoardOverlay}
@@ -220,6 +226,9 @@ function App() {
           )}
           {selectedBoardId && (
             <AddNewColumn handleClick={() => setShowEditBoardOverlay(true)}/>
+          )}
+          {!showSidebar && (
+            <ShowSidebar handleClick={() => setShowSidebar(true)}/>
           )}
         </div>
       </div>

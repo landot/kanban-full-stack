@@ -13,12 +13,13 @@ export function Sidebar(props: {
     selectedBoardIndex: number, 
     handleToggleTheme: (theme: string) => void,
     handleAddBoard: (show: boolean) => void,
-    handleBoardSelect: (boardId: string) => void
+    handleBoardSelect: (boardId: string) => void,
+    handleHideSidebar: () => void
 }) {
 
     return (
         <div className='sidebar'>
-            <div>
+            <div className='sidebar-boards'>
                 <img src={logoDark} alt="logo" />
                 <HeadingS>ALL BOARDS ({props.boards.length})</HeadingS>
                 {props.boards.map((board, index) => {
@@ -39,7 +40,7 @@ export function Sidebar(props: {
             <div>
                 <DarkModeToggle toggleTheme={props.handleToggleTheme}/>
                 {/* todo eventually make icon configurable in sidebarboard */}
-                <SidebarBoard text={'Hide Sidebar'} selected={false} />
+                <SidebarBoard text={'Hide Sidebar'} selected={false} handleClick={props.handleHideSidebar}/>
             </div>
         </div>
     )
