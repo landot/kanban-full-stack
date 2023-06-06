@@ -6,7 +6,17 @@
     align-items: center;
     padding: 0 24px;
     border-bottom: solid #E4EBFA;
+    background: #FFFFFF;
 }
+
+#dark .header {
+    background: #2B2C37;
+}
+
+#dark .header h2 {
+    color: #FFFFFF;
+}
+
 
 .header .header-title {
     display: flex;

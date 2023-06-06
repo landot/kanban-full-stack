@@ -25,6 +25,11 @@
     border-radius: 8px;
 }
 
+
+#dark .more-actions ul {
+    background: #20212C;
+}
+
 .more-actions ul li {
     list-style-type: none;
     font-style: normal;
