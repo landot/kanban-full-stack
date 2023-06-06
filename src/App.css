@@ -16,10 +16,14 @@ img {
   -webkit-user-select: none;
 }
 
+.app {
+  position: relative;
+}
+
 .app.sidebar-visible {
   display: grid;
   overflow-x: hidden;
-  grid-template-columns: 1fr 4fr;
+  grid-template-columns: 300px 1fr;
   grid-template-rows: 97px auto;
   grid-template-areas: 
   "sidebar header"
@@ -33,7 +37,7 @@ img {
   display: grid;
   overflow-x: hidden;
   grid-template-columns: 1fr;
-  grid-template-rows: 97px auto;
+  grid-template-rows: 97px 1fr;
   grid-template-areas: 
   "header"
   "board";

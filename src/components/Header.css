@@ -11,6 +11,7 @@
 
 #dark .header {
     background: #2B2C37;
+    border-bottom: solid #3E3F4E;
 }
 
 #dark .header h2 {

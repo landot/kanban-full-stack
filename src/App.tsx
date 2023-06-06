@@ -114,22 +114,6 @@ function App() {
   return (
     <ThemeContext.Provider value={theme}>
       <div className={`app ${showSidebar ? 'sidebar-visible': 'sidebar-hidden'}`} id={theme}>
-        {showSidebar && (
-          <Sidebar 
-            boards={kanban.boards} 
-            selectedBoardIndex={getBoardIndexWithId(selectedBoardId, kanban.boards)} 
-            handleToggleTheme={toggleTheme} 
-            handleAddBoard={setShowAddBoardOverlay}
-            handleBoardSelect={(boardId: string) => handleBoardChange(boardId)}
-            handleHideSidebar={() => setShowSidebar(false)}
-          />
-        )}
-        <Header 
-          boardName={selectedBoardId ? getBoardsWithId(selectedBoardId, kanban.boards)[0].name: ''} 
-          handleEditBoard={setShowEditBoardOverlay}
-          handleDeleteBoard={setShowDeleteBoardOverlay} 
-          handleAddTask={setShowAddTaskOverlay}
-        />
         <div className='modal'>
           {showAddBoardOverlay && (
             <Overlay handleClose={() => setShowAddBoardOverlay(false)} children={
@@ -212,6 +196,22 @@ function App() {
             }/>
           )}
         </div>
+        {showSidebar && (
+          <Sidebar 
+            boards={kanban.boards} 
+            selectedBoardIndex={getBoardIndexWithId(selectedBoardId, kanban.boards)} 
+            handleToggleTheme={toggleTheme} 
+            handleAddBoard={setShowAddBoardOverlay}
+            handleBoardSelect={(boardId: string) => handleBoardChange(boardId)}
+            handleHideSidebar={() => setShowSidebar(false)}
+          />
+        )}
+        <Header 
+          boardName={selectedBoardId ? getBoardsWithId(selectedBoardId, kanban.boards)[0].name: ''} 
+          handleEditBoard={setShowEditBoardOverlay}
+          handleDeleteBoard={setShowDeleteBoardOverlay} 
+          handleAddTask={setShowAddTaskOverlay}
+        />
         <div className='content'>
           {(selectedBoardId && kanban.boards.length > 0) && (
             <DragDropContext onDragEnd={handleDragEnd}>
