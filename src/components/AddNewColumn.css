@@ -4,11 +4,14 @@
     min-width: 280px;
     height: 100% - 100px;
     background: rgb(175, 182, 185, .1);
-    /* background: linear-gradient(180deg, #AFB6B9 0%, rgba(233, 239, 250, 0.5) 100%); */
     border-radius: 6px;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+#dark .add-new-column {
+    background: #20212C;
 }
 
 .add-new-column h3 {

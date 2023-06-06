@@ -62,6 +62,10 @@ img {
   overflow-x: scroll;
 }
 
+#dark .content {
+  background: #20212C;
+}
+
 .content .column {
   width: 250px;
   height: 100% - 100px;
