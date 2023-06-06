@@ -16,12 +16,16 @@
 }
 
 .update-board .edit-column  {
-    margin-bottom: 12px;
+    margin-bottom: 16px;
 }
 
 .update-board .edit-column .text-input {
     margin-right: 16px;
 
+}
+
+.update-board .update-columns {
+    margin-top: 24px;
 }
 
 .update-board .edit-column img {

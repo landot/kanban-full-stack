@@ -13,10 +13,10 @@
     padding: 16px;
     z-index: 5;
     position: absolute;
-    top: 60px;
-    left: -80px;
+    top: 50px;
+    left: -120px;
     background: #FFFFFF;
-    width: 192px;
+    width: 150px;
     height: 94px;
     display: flex;
     flex-direction: column;

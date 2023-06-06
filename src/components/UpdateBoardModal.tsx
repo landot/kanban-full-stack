@@ -118,7 +118,7 @@ export function UpdateBoardModal(
                     handleChange={(e: ChangeEvent<HTMLInputElement>) =>  handleNameUpdate(e) } 
                 />   
             </div>   
-            <div>
+            <div className='update-columns'>
                 <HeadingS>Columns</HeadingS> 
                 {boardInfo.columns.map((column, index) => {
                     return (
@@ -142,14 +142,14 @@ export function UpdateBoardModal(
                     type='secondary'
                     onClick={handleNewColumn}
                 />
-                <div className='section submit'>
-                    <ButtonSmall 
-                        label={props.updateType === 'add' ? 'Create New Board': 'Save Changes'} 
-                        type='primary' 
-                        onClick={handleSubmit}
-                    />
-                </div>
             </div>         
+            <div className='section submit'>
+                <ButtonSmall 
+                    label={props.updateType === 'add' ? 'Create New Board': 'Save Changes'} 
+                    type='primary' 
+                    onClick={handleSubmit}
+                />
+            </div>
         </div>
     )
 }

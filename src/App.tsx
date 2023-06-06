@@ -22,7 +22,7 @@ function App() {
   const dispatch = useAppDispatch()
   const [theme, setTheme] = useState<ThemeContextType>(localStorage.getItem('theme') as ThemeContextType  || 'light');
   const kanban = useAppSelector(selectKanban);
-  const [showSidebar, setShowSidebar] = useState(false);
+  const [showSidebar, setShowSidebar] = useState(true);
   const [selectedBoardId, setSelectedBoardId] = useState(kanban.boards.length > 0 ? kanban.boards[0].id: '');
   const [selectedTaskColumnId, setSelectedTaskColumnId] = useState('');
   const [selectedTaskId, setSelectedTaskId] = useState('');
@@ -130,7 +130,7 @@ function App() {
           handleDeleteBoard={setShowDeleteBoardOverlay} 
           handleAddTask={setShowAddTaskOverlay}
         />
-        <div className='content'>
+        <div className='modal'>
           {showAddBoardOverlay && (
             <Overlay handleClose={() => setShowAddBoardOverlay(false)} children={
               <UpdateBoardModal 
@@ -211,6 +211,8 @@ function App() {
               />
             }/>
           )}
+        </div>
+        <div className='content'>
           {(selectedBoardId && kanban.boards.length > 0) && (
             <DragDropContext onDragEnd={handleDragEnd}>
               {getBoardsWithId(selectedBoardId, kanban.boards)[0].columns.map(column => (

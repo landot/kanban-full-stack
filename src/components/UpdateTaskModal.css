@@ -1,7 +1,6 @@
 .update-task {
     width: 480px;
     background: #FFFFFF;
-    border-radius: 6px;
     padding: 32px;
 }
 
@@ -29,7 +28,7 @@
 }
 
 .update-task .edit-subtask  {
-    margin-bottom: 12px;
+    margin-bottom: 16px;
 }
 
 .update-task .edit-subtask .text-input {
