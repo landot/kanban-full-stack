@@ -1,5 +1,7 @@
 .update-board {
     background: #FFFFFF;
+    width: 480px;
+    padding: 32px;
 }
 
 .update-board h2 {

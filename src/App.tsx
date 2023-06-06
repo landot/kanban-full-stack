@@ -66,19 +66,15 @@ function App() {
     setShowDeleteTaskOverlay(false);
   }
 
-  // there's an issue when you try and re-arrange things in the same column
-  // todo fix this
   function handleDragEnd(result: DropResult) {
     const {destination, source} = result;
     if (!destination) return;
     if (source.droppableId === destination.droppableId && source.index === destination.index) return;
     const boardData = {...getSelectedBoard()};
-    console.log('source', source);
-    console.log('destination', destination);
-
-    const sourceColumn = getColumnsWithId(source.droppableId, boardData.columns)[0];
+    const sourceColumn = {...getColumnsWithId(source.droppableId, boardData.columns)[0]};
     const sourceColumnTasks = [...sourceColumn.tasks];
     const movedItem = {...sourceColumnTasks.splice(source.index, 1)[0]}; 
+    sourceColumn.tasks = [...sourceColumnTasks];
     const destinationColumn = source.droppableId === destination.droppableId ? {...sourceColumn} : {...getColumnsWithId(destination.droppableId, getSelectedBoard().columns)[0]};
     if(source.droppableId !== destination.droppableId) {
       movedItem.status = destinationColumn.name;
