@@ -6,7 +6,7 @@ import { ThemeContext, ThemeContextType } from './context/ThemeContext';
 import { Board, Column as IColumn, Task } from './types/data';
 import './App.css'
 import { useAppSelector, useAppDispatch } from '../app/hooks';
-import { addBoard, addTask, BoardUpdateValue, deleteBoard, deleteTask, getBoardIndexWithId, getBoardsWithId, getColumnsWithId, getColumnsWithName, getTasksWithId, selectKanban, updateBoard, updateTask } from '../features/kanban/kanbanSlice';
+import { addBoard, addTask, BoardUpdateValue, deleteBoard, deleteTask, getBoardIndexWithId, getBoardsWithId, getColumnsWithId, getColumnsWithName, getTasksWithId, selectKanban, updateBoard, updateColumn, updateTask } from '../features/kanban/kanbanSlice';
 import { Overlay } from './components/Overlay';
 import { UpdateBoardModal } from './components/UpdateBoardModal';
 import { DeleteModal } from './components/DeleteModal';
@@ -66,21 +66,28 @@ function App() {
     setShowDeleteTaskOverlay(false);
   }
 
-  console.log(kanban);
-  console.log(selectedBoardId);
-
+  // there's an issue when you try and re-arrange things in the same column
+  // todo fix this
   function handleDragEnd(result: DropResult) {
     const {destination, source} = result;
-    // if (!destination) return;
-    // if (source.droppableId === destination.droppableId && source.index === destination.index) return;
-    // setBoardData(prev => {
-    //   const updatedData = [...prev]
-    //   const sourceColumnData = updatedData.filter(d => d.id === source.droppableId)[0];
-    //   const destinationColumnData = source.droppableId === destination.droppableId ? sourceColumnData: updatedData.filter(d => d.id === destination.droppableId)[0]
-    //   const [movedItem] = sourceColumnData.tasks.splice(source.index, 1);
-    //   destinationColumnData.tasks.splice(destination.index, 0, movedItem);
-    //   return updatedData;
-    // });
+    if (!destination) return;
+    if (source.droppableId === destination.droppableId && source.index === destination.index) return;
+    const boardData = {...getSelectedBoard()};
+    console.log('source', source);
+    console.log('destination', destination);
+
+    const sourceColumn = getColumnsWithId(source.droppableId, boardData.columns)[0];
+    const sourceColumnTasks = [...sourceColumn.tasks];
+    const movedItem = {...sourceColumnTasks.splice(source.index, 1)[0]}; 
+    const destinationColumn = source.droppableId === destination.droppableId ? {...sourceColumn} : {...getColumnsWithId(destination.droppableId, getSelectedBoard().columns)[0]};
+    if(source.droppableId !== destination.droppableId) {
+      movedItem.status = destinationColumn.name;
+    }
+    dispatch(deleteTask({boardId: selectedBoardId, columnId: sourceColumn.id, taskId: movedItem.id}));
+    const updatedDestinationColumnTasks = [...destinationColumn.tasks];
+    updatedDestinationColumnTasks.splice(destination.index, 0, movedItem);
+    destinationColumn.tasks = updatedDestinationColumnTasks;
+    dispatch(updateColumn({boardId: selectedBoardId, columnId: destinationColumn.id, updatedColumn: destinationColumn}))
   }
 
   function getSelectedTask(): Task {
@@ -206,6 +213,7 @@ function App() {
             <DragDropContext onDragEnd={handleDragEnd}>
               {getBoardsWithId(selectedBoardId, kanban.boards)[0].columns.map(column => (
                 <Column 
+                  key={column.id}
                   column={column} 
                   handleViewTask={setShowViewTaskOverlay}
                   handleSelectedTask={setSelectedTaskId}

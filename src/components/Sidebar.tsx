@@ -23,7 +23,7 @@ export function Sidebar(props: {
                 <HeadingS>ALL BOARDS ({props.boards.length})</HeadingS>
                 {props.boards.map((board, index) => {
                     return (
-                        <SidebarBoard text={board.name} selected={index === props.selectedBoardIndex} handleClick={() => props.handleBoardSelect(board.id)} />
+                        <SidebarBoard key={board.id} text={board.name} selected={index === props.selectedBoardIndex} handleClick={() => props.handleBoardSelect(board.id)} />
                     )
                 })}
                 {/* open new board modal when this is clicked */}
