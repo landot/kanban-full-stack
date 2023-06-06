@@ -8,6 +8,11 @@
     padding: 15px;
 }
 
+#dark .dark-mode-toggle {
+  background: #20212C;
+  ;
+}
+
 .dark-mode-toggle img {
     width: 20px;
     height: 20px;

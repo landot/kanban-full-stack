@@ -32,10 +32,19 @@
     color: #635FC7;
 }
 
+#dark .sidebar-board:hover {
+    background: #FFFFFF;
+}
+
 /* selected state */
 .sidebar-board.selected {
     background: #635FC7;
 }
+
+#dark .sidebar-board.selected:hover {
+    background: #635FC7;
+}
+
 
 .sidebar-board.selected svg {
     fill: #FFFFFF;

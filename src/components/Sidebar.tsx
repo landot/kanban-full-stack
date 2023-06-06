@@ -20,11 +20,19 @@ export function Sidebar(props: {
     return (
         <div className='sidebar'>
             <div className='sidebar-boards'>
-                <img src={logoDark} alt="logo" />
+                
+                <img className='logo-dark' src={logoDark} alt="logo" />
+                <img className='logo-light' src={logoLight} alt="logo" />
                 <HeadingS>ALL BOARDS ({props.boards.length})</HeadingS>
                 {props.boards.map((board, index) => {
                     return (
-                        <SidebarBoard key={board.id} text={board.name} selected={index === props.selectedBoardIndex} handleClick={() => props.handleBoardSelect(board.id)} />
+                        <SidebarBoard 
+                            key={board.id} 
+                            text={board.name} 
+                            selected={index === props.selectedBoardIndex} 
+                            handleClick={() => props.handleBoardSelect(board.id)}
+                            icon='board' 
+                        />
                     )
                 })}
                 {/* open new board modal when this is clicked */}
@@ -40,7 +48,12 @@ export function Sidebar(props: {
             <div>
                 <DarkModeToggle toggleTheme={props.handleToggleTheme}/>
                 {/* todo eventually make icon configurable in sidebarboard */}
-                <SidebarBoard text={'Hide Sidebar'} selected={false} handleClick={props.handleHideSidebar}/>
+                <SidebarBoard 
+                    text={'Hide Sidebar'} 
+                    selected={false} 
+                    handleClick={props.handleHideSidebar} 
+                    icon='hide'
+                />
             </div>
         </div>
     )

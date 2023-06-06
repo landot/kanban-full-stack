@@ -13,7 +13,7 @@ export const sampleBoard: Board = {
               id: '5555',
               title: 'Build UI for onboarding',
               description: 'this is the description for the task asdfasdfasdfasfd',
-              status: 'todo',
+              status: 'Column1',
               subtasks: [
                   {
                       id: '123456',
@@ -36,7 +36,7 @@ export const sampleBoard: Board = {
               id: '6666',
               title: 'Test new UI',
               description: 'this is the description for the task asdfasdfasdfasfd',
-              status: 'todo',
+              status: 'Column1',
               subtasks: [
                   {
                       id: '1123456',

@@ -9,6 +9,19 @@
     border-right: solid #E4EBFA;
 }
 
+.sidebar .logo-light, #dark .sidebar .logo-dark {
+    display: none;
+}
+
+.sidebar .logo-dark, #dark .sidebar .logo-light {
+    display: block;
+}
+
+#dark .sidebar {
+    background: #2B2C37;
+}
+
+
 .sidebar .sidebar-boards img, .sidebar .sidebar-boards h4 {
     margin-left: 32px;
 }

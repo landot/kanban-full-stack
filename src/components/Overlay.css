@@ -8,7 +8,7 @@
     bottom: 0;
     background: rgb(0, 0, 0, .5);
     mix-blend-mode: normal;
-    z-index: 100;
+    z-index: 10;
     display: flex;
     justify-content: center;
     align-items: center;

@@ -19,9 +19,18 @@ export const Selected: Story = {
   },
 };
 
-export const NotSelected: Story = {
+export const NotSelectedBoard: Story = {
     args: {
       text: 'Platform Launch',
       selected: false,
+      icon: 'board'
     },
+};
+
+export const NotSelectedHide: Story = {
+  args: {
+    text: 'Hide Sidebar',
+    selected: false,
+    icon: 'hide'
+  },
 };
