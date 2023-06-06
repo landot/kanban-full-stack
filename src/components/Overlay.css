@@ -18,7 +18,7 @@
 .overlay .overlay-content {
     position: relative;
     overflow-y: auto;
-    height: 50dvh;
+    max-height: 50dvh;
     border-radius: 6px;
 }
 

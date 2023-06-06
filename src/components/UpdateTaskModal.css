@@ -1,5 +1,7 @@
 .update-task {
     width: 480px;
+    /* height: fit-content; */
+    height: fit-content;
     background: #FFFFFF;
     padding: 32px;
 }

@@ -1,11 +1,13 @@
 .delete-modal {
     background: #FFFFFF;
+    height: fit-content;
     padding: 32px 32px 40px 32px;
     width: 100%;
 }
 
 .delete-modal h2 {
     color: #EA5555;
+    margin-bottom: 24px;
 }
 
 .delete-modal button {
@@ -17,6 +19,7 @@
 }
 
 .delete-modal .action-buttons {
+    margin-top: 24px;
     display: flex;
     justify-content: center;
 }
