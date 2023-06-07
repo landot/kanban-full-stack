@@ -6,7 +6,9 @@ import {
     RootState, 
   } from "../../app/store"
 import { sampleBoard } from "../../src/data/sampleData";
-  import { Board, Column, Data, Subtask, Task } from '../../src/types/data';
+  import { Board, Column, Data, Task } from '../../src/types/data';
+import { getBoardsWithId, getColumnsWithName, getColumnsWithId } from "../../src/utils/filterUtils";
+import { getColumnIndexWithId, getTaskIndexWithId } from "../../src/utils/findIndexUtils";
 import { generateRandomHex } from "../../src/utils/generateRandomHex";
   
   export interface KanbanState {
@@ -32,43 +34,6 @@ import { generateRandomHex } from "../../src/utils/generateRandomHex";
     },
     status: "idle",
   }
-  
-  export function getBoardsWithId(id: string, boards: Board[]): Board[] {
-    return boards.filter(board => board.id === id);
-  }
-
-  export function getBoardIndexWithId(id: string, boards: Board[]) {
-    return boards.findIndex(board => board.id === id);
-  }
-
-  export function getColumnsWithId(id: string, columns: Column[]): Column[] {
-    return columns.filter(column => column.id === id);
-  }
-
-  export function getColumnsWithName(name: string, columns: Column[]): Column[] {
-    return columns.filter(column => column.name === name);
-  }
-
-  export function getColumnIndexWithId(id: string, columns: Column[]) {
-    return columns.findIndex(column => column.id === id);
-  }
-
-  export function getTaskIndexWithId(id: string, tasks: Task[]): number {
-    return tasks.findIndex(task => task.id === id);
-  }
-
-  export function getTasksWithId(id: string, tasks: Task[]): Task[] {
-    return tasks.filter(task => task.id === id);
-  }
-
-  export function getSubtasksWithId(id: string, subtasks: Subtask[]): Subtask[] {
-    return subtasks.filter(subtask => subtask.id === id);
-  }
-
-  export function getSubtaskIndexWithId(id: string, subtasks: Subtask[]): number {
-    return subtasks.findIndex(subtask => subtask.id === id);
-  }
-  
   
   export const kanbanSlice = createSlice({
     name: "kanban",

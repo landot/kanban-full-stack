@@ -1,5 +1,6 @@
 import './ButtonSmall.css';
 
+// todo update so that we don't need this anymore
 export function ButtonSmall(
     props: {
         label: string, 

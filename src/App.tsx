@@ -5,7 +5,17 @@ import { Sidebar } from './components/Sidebar';
 import { ThemeContext, ThemeContextType } from './context/ThemeContext';
 import { Board, Column as IColumn, Task } from './types/data';
 import { useAppSelector, useAppDispatch } from '../app/hooks';
-import { addBoard, addTask, BoardUpdateValue, deleteBoard, deleteTask, getBoardIndexWithId, getBoardsWithId, getColumnsWithId, getTasksWithId, selectKanban, updateBoard, updateColumn, updateTask } from '../features/kanban/kanbanSlice';
+import { 
+  addBoard, 
+  addTask, 
+  BoardUpdateValue, 
+  deleteBoard, 
+  deleteTask, 
+  selectKanban, 
+  updateBoard, 
+  updateColumn, 
+  updateTask 
+} from '../features/kanban/kanbanSlice';
 import { Overlay } from './components/Overlay';
 import { UpdateBoardModal } from './components/UpdateBoardModal';
 import { DeleteModal } from './components/DeleteModal';
@@ -15,7 +25,23 @@ import { ViewTaskModal } from './components/ViewTaskModal';
 import { AddNewColumn } from './components/AddNewColumn';
 import { ShowSidebar } from './components/ShowSidebar';
 import './App.css'
+import { getBoardsWithId, getColumnsWithId, getTasksWithId } from './utils/filterUtils';
+import { getBoardIndexWithId } from './utils/findIndexUtils';
 
+
+// move out utils in kanbanSlice.ts
+// refactor reducers
+// set up tablet styling
+// set up mobile styling
+// fix accessibility issues
+// make all clickable elements tab-accessible
+// convert styles to styled components
+// fix up redux tests for new test data
+// fix up storybook stories that are not loading
+// allow columns to be dragged around?
+// add RTL tests for components
+// integrate with firebase for auth
+// integrate with firebase for data manipulation
 function App() {
   const dispatch = useAppDispatch()
   // todo add logic to save theme to local storage
@@ -34,6 +60,7 @@ function App() {
   const [showDeleteTaskOverlay, setShowDeleteTaskOverlay] = useState(false);
   const [showEditTaskOverlay, setShowEditTaskOverlay] = useState(false);
 
+  console.log(kanban)
   function toggleTheme() {
     if (theme === 'light') {
         setTheme('dark');
