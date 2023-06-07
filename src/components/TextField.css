@@ -1,6 +1,11 @@
 .text-input {
     width: 100%;
     position: relative;
+    background: #FFFFFF;
+}
+
+#dark .text-input {
+    background: #2B2C37;
 }
 
 .text-input.error input {
@@ -20,9 +25,18 @@
 
 }
 
+#dark .text-input input {
+    background: #2B2C37;
+    color: #FFFFFF;
+}
+
 .text-input input::placeholder {
     mix-blend-mode: normal;
     opacity: 0.25;
+}
+
+#dark .text-input input::placeholder {
+    color: #FFFFFF;
 }
 
 .text-input .validation-message {

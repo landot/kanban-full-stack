@@ -13,6 +13,10 @@
     padding: 8px 16px 9px 16px;
 }
 
+#dark .status-dropdown .selected-status {
+    color: #FFFFFF;
+}
+
 .status-dropdown .selected-status p {
     margin: 0;
 }

@@ -4,6 +4,18 @@
     background-color: #FFFFFF;
 }
 
+#dark .view-task {
+    background: #2B2C37;
+}
+
+#dark .view-task h2 {
+    color: #FFFFFF;
+}
+
+#dark .view-task h4 {
+    color: #FFFFFF;
+}
+
 .view-task .view-task-header {
     width: 100%;
     display: flex;
@@ -24,6 +36,22 @@
     margin-bottom: 8px;
 }
 
+.view-task .subtask-section {
+    margin-top: 24px;
+}
+
+.view-task .subtask-section h4 {
+    margin-top: 16px;
+}
+
 .view-task .status-section {
     margin-top: 24px;
+}
+
+.view-task .status-section p {
+    margin-bottom: 8px;
+}
+
+#dark .view-task .status-section p {
+    color: #FFFFFF;
 }

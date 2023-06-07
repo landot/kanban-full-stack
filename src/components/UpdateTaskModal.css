@@ -6,8 +6,21 @@
     padding: 32px;
 }
 
+#dark .update-task {
+    background: #2B2C37;
+}
+
 .update-task h2 {
     text-transform: capitalize;
+}
+
+#dark .update-task h2 {
+    color: #FFFFFF;
+}
+
+
+#dark .update-task h4 {
+    color: #FFFFFF;
 }
 
 .update-task .section {

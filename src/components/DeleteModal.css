@@ -5,6 +5,10 @@
     width: 100%;
 }
 
+#dark .delete-modal {
+    background: #2B2C37;
+}
+
 .delete-modal h2 {
     color: #EA5555;
     margin-bottom: 24px;

@@ -5,8 +5,21 @@
     padding: 32px;
 }
 
+#dark .update-board {
+    background: #2B2C37;
+}
+
 .update-board h2 {
     text-transform: capitalize;
+}
+
+
+#dark .update-board h4 {
+    color: #FFFFFF;
+}
+
+#dark .update-board h2 {
+    color: #FFFFFF;
 }
 
 .update-board .edit-column {
