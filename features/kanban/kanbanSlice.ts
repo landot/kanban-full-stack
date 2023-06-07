@@ -28,46 +28,6 @@ import { generateRandomHex } from "../../src/utils/generateRandomHex";
     value: {
         boards: [
             sampleBoard
-            // {
-            //   name: 'board1', 
-            //   id: '494594959333', 
-            //   columns: [
-            //     {
-            //       id: '12341234',
-            //       name: 'status1',
-            //       color: '#FFFFFF',
-            //       tasks: [
-            //         {
-            //           id: 'ffff',
-            //           title: 'tasktitle',
-            //           description: 'task description',
-            //           status: 'status1',
-            //           subtasks: [{
-            //             id: 'dsffffff',
-            //             title: 'subtask title',
-            //             isCompleted: false
-            //           }]
-            //         },
-            //         {
-            //         id: 'aaaaa',
-            //         title: 'tasktitle2',
-            //         description: 'task description2',
-            //         status: 'status1',
-            //         subtasks: [{
-            //           id: 'asdfasdf999',
-            //           title: 'subtask title2',
-            //           isCompleted: false
-            //         }]
-            //       },
-            //       ]
-            //     },
-            //     {
-            //       id: '55555555',
-            //       name: 'status2',
-            //       color: '#FFFFFF',
-            //       tasks: []
-            //     }
-            // ]}
         ]
     },
     status: "idle",
@@ -133,22 +93,16 @@ import { generateRandomHex } from "../../src/utils/generateRandomHex";
       },
       updateBoard: (state, action: PayloadAction<{boardId: string, updatedBoard: BoardUpdateValue}>) => {
         const newValue = {...state.value};
-        console.log('newValue.boards[0].columns', JSON.stringify(newValue.boards[0].columns))
         const [boardToUpdate] = getBoardsWithId(action.payload.boardId, newValue.boards);
         if(!boardToUpdate) return;
         if(action.payload.updatedBoard.name) {
           boardToUpdate.name = action.payload.updatedBoard.name;
         }
         if(action.payload.updatedBoard.columns) {
-          console.log('action.payload.updatedBoard.columns', action.payload.updatedBoard.columns)
           const previousColumnIds = boardToUpdate.columns.map(column => column.id);
-          console.log('previousColumnIds', previousColumnIds)
           const updatedColumnIds = action.payload.updatedBoard.columns?.map(column => column.id);
-          console.log('updatedColumnIds', updatedColumnIds)
           const matchingColumnIds = previousColumnIds.filter(cid => updatedColumnIds.includes(cid));
-          console.log('matchingColumnIds', matchingColumnIds)
           const newColumns = action.payload.updatedBoard.columns?.filter(column => !previousColumnIds.includes(column.id));
-          console.log('newColumns', newColumns)
           if(previousColumnIds !== matchingColumnIds) {
             boardToUpdate.columns = boardToUpdate.columns.filter(column => matchingColumnIds.includes(column.id));
             newColumns.map(column => {
@@ -205,30 +159,16 @@ import { generateRandomHex } from "../../src/utils/generateRandomHex";
         state.value = newValue;
       },
       updateTask: (state, action: PayloadAction<{boardId: string, columnId: string, taskId: string, updatedTask: Task}>) => {
-        console.log('updated task', action.payload.updatedTask);
         const newValue = {...state.value};
-        console.log('starting value', newValue)
         const [boardToUpdate] = getBoardsWithId(action.payload.boardId, newValue.boards);
-        console.log('boardToUpdate', boardToUpdate)
         if(!boardToUpdate) return;
         const [columnToUpdate] = getColumnsWithId(action.payload.columnId, boardToUpdate.columns);
-        console.log('columnToUpdate', columnToUpdate)
         if(!columnToUpdate) return;
         const taskIndex = getTaskIndexWithId(action.payload.taskId, columnToUpdate.tasks);
-        console.log('taskIndex', taskIndex)
         if(taskIndex === -1) return;
         columnToUpdate.tasks[taskIndex] = action.payload.updatedTask;
         state.value = newValue;
-        console.log('ending value', state.value)
       },
-      // todo unless this isn't needed
-      updateSubtask: (state) => {
-        state.value = state.value;
-      },
-      // todo unless this isn't needed
-      updateTaskStatus: (state) => {
-        state.value = state.value;
-      }
     },
   })
   

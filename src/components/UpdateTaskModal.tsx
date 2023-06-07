@@ -7,9 +7,9 @@ import { HeadingL } from '../styledComponents/header/HeadingL';
 import { useState } from 'react';
 import { Board, Task } from '../types/data';
 import { getUUID } from '../utils/createUUID';
-import './UpdateTaskModal.css';
 import { useAppDispatch } from '../../app/hooks';
 import { addTask, deleteTask, getColumnsWithName } from '../../features/kanban/kanbanSlice';
+import './UpdateTaskModal.css';
 
 export interface ModalError {
     section: string;
@@ -46,8 +46,6 @@ export function UpdateTaskModal(
         status: props.prefill?.status || props.statuses[0],
     });
     const [errors, setErrors] = useState<ModalError[]>([]);
-    console.log(taskInfo);
-    console.log(taskInfo.subtasks);
 
     function handleTitleChange(e: React.ChangeEvent<HTMLInputElement>) {
         setTaskInfo(prev => {
@@ -139,11 +137,10 @@ export function UpdateTaskModal(
         })
         setErrors(newErrors);
         if(newErrors.length > 0) {
+            // todo make better
             console.log('errors occurred. task not created')
         } else {
-            // hide modal
             props.hideModal();
-            // something here to add a task to the main dashboard
             if(props.updateType === 'add') {
                 props.handleAddTask(taskInfo);
             } else {

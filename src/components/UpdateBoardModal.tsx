@@ -94,6 +94,7 @@ export function UpdateBoardModal(
         })
         setErrors(newErrors);
         if(newErrors.length > 0) {
+            // todo make better
             console.log('errors occurred. task not created')
             return
         }

@@ -12,15 +12,27 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Primary: Story = {
+export const NoTextTyped: Story = {
   args: {
-    showValidationError: false
+    showValidationError: false,
+    placeholder: 'this is the placeholder',
+    value: ''
+  },
+};
+
+export const WithText: Story = {
+  args: {
+    showValidationError: false,
+    placeholder: 'this is the placeholder',
+    value: 'this is text'
   },
 };
 
 export const WithError: Story = {
     args: {
-        showValidationError: true
+        showValidationError: true,
+        placeholder: 'this is the placeholder',
+        value: ''
     },
   };
 

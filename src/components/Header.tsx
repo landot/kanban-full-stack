@@ -1,8 +1,6 @@
 import { HeadingL } from "../styledComponents/header/HeadingL";
 import { ButtonLarge } from "./ButtonLarge";
 import { MoreAction } from "./MoreAction";
-import logoDark from '../../public/assets/images/logo-dark.svg';
-import logoLight from '../../public/assets/images/logo-light.svg';
 import './Header.css';
 
 export function Header(props: {
@@ -15,9 +13,6 @@ export function Header(props: {
     return (
         <div className='header'>
             <div className="header-title">
-                {/* todo see if this is even needed later */}
-                {/* <img src={logoDark} alt="logo" />
-                <hr /> */}
                 <HeadingL>{boardExists ? props.boardName: 'Create a board'}</HeadingL>
             </div>
             {boardExists && (

@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { sampleBoard } from '../data/sampleData';
 
 import { Sidebar } from './Sidebar';
 
@@ -14,7 +15,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = {
   args: {
-    boards: ['Platform Launch', 'Marketing Plan', 'Roadmap'],
+    boards: [sampleBoard],
     selectedBoardIndex: 1
   },
 };

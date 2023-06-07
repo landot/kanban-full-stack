@@ -16,6 +16,7 @@ export const Selected: Story = {
   args: {
     text: 'Platform Launch',
     selected: true,
+    icon: 'board'
   },
 };
 

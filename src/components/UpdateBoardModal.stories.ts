@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { sampleBoard } from '../data/sampleData';
 import { UpdateBoardModal } from './UpdateBoardModal';
 
 const meta = {
@@ -20,9 +21,6 @@ export const Add: Story = {
 export const Edit: Story = {
   args: {
     updateType: 'edit',
-    prefill: {
-      name: 'Board Name',
-      columns: ['Todo', 'Doing']
-    }
+    prefill: sampleBoard
   },
 };

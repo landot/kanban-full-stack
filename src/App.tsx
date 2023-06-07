@@ -4,9 +4,8 @@ import { Header } from './components/Header';
 import { Sidebar } from './components/Sidebar';
 import { ThemeContext, ThemeContextType } from './context/ThemeContext';
 import { Board, Column as IColumn, Task } from './types/data';
-import './App.css'
 import { useAppSelector, useAppDispatch } from '../app/hooks';
-import { addBoard, addTask, BoardUpdateValue, deleteBoard, deleteTask, getBoardIndexWithId, getBoardsWithId, getColumnsWithId, getColumnsWithName, getTasksWithId, selectKanban, updateBoard, updateColumn, updateTask } from '../features/kanban/kanbanSlice';
+import { addBoard, addTask, BoardUpdateValue, deleteBoard, deleteTask, getBoardIndexWithId, getBoardsWithId, getColumnsWithId, getTasksWithId, selectKanban, updateBoard, updateColumn, updateTask } from '../features/kanban/kanbanSlice';
 import { Overlay } from './components/Overlay';
 import { UpdateBoardModal } from './components/UpdateBoardModal';
 import { DeleteModal } from './components/DeleteModal';
@@ -15,11 +14,11 @@ import { UpdateTaskModal } from './components/UpdateTaskModal';
 import { ViewTaskModal } from './components/ViewTaskModal';
 import { AddNewColumn } from './components/AddNewColumn';
 import { ShowSidebar } from './components/ShowSidebar';
+import './App.css'
 
-// todo add padding to modals
-// todo allow columns to be draggable/organized
 function App() {
   const dispatch = useAppDispatch()
+  // todo add logic to save theme to local storage
   const [theme, setTheme] = useState<ThemeContextType>(localStorage.getItem('theme') as ThemeContextType  || 'light');
   const kanban = useAppSelector(selectKanban);
   const [showSidebar, setShowSidebar] = useState(true);

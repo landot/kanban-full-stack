@@ -14,24 +14,84 @@ type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = {
     args: {
-        description: 'Design settings and search pages',
-        subtasksRemaining: 1,
-        subtasksTotal: 3
+        task: {
+            description: 'Design settings and search pages',
+            id: 'adsf',
+            title: 'task title',
+            status: 'todo',
+            subtasks: [
+                {
+                    title: 'subtask title1',
+                    id: '123',
+                    isCompleted: true
+                },
+                {
+                    title: 'subtask title2',
+                    id: '1234',
+                    isCompleted: false
+                },
+                {
+                    title: 'subtask title3',
+                    id: '12345',
+                    isCompleted: false
+                }
+            ]
+        }
     },
 };
 
-export const NoTasksRemaining: Story = {
+export const NoSubtasksRemaining: Story = {
     args: {
-        description: 'Design settings and search pages',
-        subtasksRemaining: 0,
-        subtasksTotal: 3
+        task: {
+            description: 'Design settings and search pages',
+            id: 'adsf',
+            title: 'task title',
+            status: 'todo',
+            subtasks: [
+                {
+                    title: 'subtask title1',
+                    id: '123',
+                    isCompleted: true
+                },
+                {
+                    title: 'subtask title2',
+                    id: '1234',
+                    isCompleted: true
+                },
+                {
+                    title: 'subtask title3',
+                    id: '12345',
+                    isCompleted: true
+                }
+            ]
+        }
     },
 };
 
-export const LongDescription: Story = {
+export const LongTitle: Story = {
     args: {
-        description: 'Design settings and search pages Design settings and search pages Design settings and search pages Design settings and search pages Design settings and search pages Design settings and search pages',
-        subtasksRemaining: 0,
-        subtasksTotal: 3
+        task: {
+            description: 'Design settings and search pages',
+            id: 'adsf',
+            title: 'task title and search pages and search pages and search pages and search pages and search pages and search pages and search pages and search pages and search pages and search pages and search pages and search pages and search pages and search pages and search pages',
+            status: 'todo',
+            subtasks: [
+                {
+                    title: 'subtask title1',
+                    id: '123',
+                    isCompleted: true
+                },
+                {
+                    title: 'subtask title2',
+                    id: '1234',
+                    isCompleted: false
+                },
+                {
+                    title: 'subtask title3',
+                    id: '12345',
+                    isCompleted: false
+                }
+            ]
+        }
     },
 };

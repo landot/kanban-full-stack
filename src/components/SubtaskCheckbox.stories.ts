@@ -14,15 +14,21 @@ type Story = StoryObj<typeof meta>;
 
 export const NotComplete: Story = {
   args: {
-    text: 'Test',
-    completed: false
+    subtask: {
+      id: 'asdf',
+      title: 'subtask title',
+      isCompleted: false
+    },
   },
 };
 
 export const Completed: Story = {
     args: {
-        text: 'Test',
-        completed: true
+      subtask: {
+        id: 'asdf',
+        title: 'subtask title',
+        isCompleted: true
+      },
     },
 };  
   

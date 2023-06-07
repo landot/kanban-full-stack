@@ -2,7 +2,7 @@
     cursor: pointer;
     margin: 50px 0 50px 0;
     min-width: 280px;
-    height: 100% - 100px;
+    height: 90%;
     background: rgb(175, 182, 185, .1);
     border-radius: 6px;
     display: flex;
