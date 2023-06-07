@@ -58,6 +58,10 @@
     cursor: pointer;
 }
 
+.update-task .section h4 {
+    margin-bottom: 8px;
+}
+
 /* see if this can be refactored later */
 .update-task button {
     width: 100%;

@@ -109,7 +109,7 @@ export function UpdateBoardModal(
 
     return (
         <div className='update-board'>
-            <HeadingL>{props.updateType} New Board</HeadingL>
+            <HeadingL>{props.updateType === 'add' ? 'add new': props.updateType} Board</HeadingL>
             <div className='section name'>
                 <HeadingS>Name</HeadingS> 
                 <TextField 
@@ -119,7 +119,7 @@ export function UpdateBoardModal(
                     handleChange={(e: ChangeEvent<HTMLInputElement>) =>  handleNameUpdate(e) } 
                 />   
             </div>   
-            <div className='update-columns'>
+            <div className='section update-columns'>
                 <HeadingS>Columns</HeadingS> 
                 {boardInfo.columns.map((column, index) => {
                     return (

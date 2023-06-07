@@ -68,7 +68,7 @@ export function ViewTaskModal(props: {
 
     return (
         <div className="view-task">
-            <div className='view-task-header'>
+            <div className='section view-task-header'>
                 <HeadingL>{props.task.title}</HeadingL>
                 <MoreAction 
                     text="task"
@@ -77,7 +77,7 @@ export function ViewTaskModal(props: {
                 />
             </div>
             <MediumText>{props.task.description}</MediumText>
-            <div className="subtask-section">
+            <div className="section subtask-section">
                 <HeadingS>Subtasks ({getSubtaskRemainingText()})</HeadingS>
                 {props.task.subtasks.map((subtask: Subtask) => {
                     return (
@@ -85,8 +85,8 @@ export function ViewTaskModal(props: {
                     )
                 })}
             </div>
-            <div className="status-section">
-                <MediumText>Current Status</MediumText>
+            <div className="section status-section">
+                <HeadingS>Current Status</HeadingS>
                 <Dropdown value={props.task.status} handleChange={(status: string) => handleStatusUpdate(status)} values={props.statuses}/>
             </div>
         </div>
