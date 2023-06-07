@@ -27,6 +27,7 @@ import { ShowSidebar } from './components/ShowSidebar';
 import './App.css'
 import { getBoardsWithId, getColumnsWithId, getTasksWithId } from './utils/filterUtils';
 import { getBoardIndexWithId } from './utils/findIndexUtils';
+import { EmptyBoard } from './components/EmptyBoard';
 
 
 // move out utils in kanbanSlice.ts
@@ -252,8 +253,11 @@ function App() {
               ))}
             </DragDropContext>
           )}
-          {selectedBoardId && (
+          {selectedBoardId && getSelectedBoard().columns.length > 0 && (
             <AddNewColumn handleClick={() => setShowEditBoardOverlay(true)}/>
+          )}
+          {getSelectedBoard().columns.length === 0 && (
+            <EmptyBoard handleNewColumnClick={() => setShowEditBoardOverlay(true)} />
           )}
           {!showSidebar && (
             <ShowSidebar handleClick={() => setShowSidebar(true)}/>

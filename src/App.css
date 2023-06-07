@@ -79,3 +79,24 @@ img {
   position: absolute;
   bottom: 50px;
 }
+
+@media (max-width: 800px) {
+  .app.sidebar-visible {
+    grid-template-columns: 260px 1fr;
+    grid-template-rows: 80px 1fr;
+  }
+
+  .app.sidebar-hidden {
+    grid-template-rows: 97px 1fr;
+  }
+}
+
+@media (max-width: 500px) {
+  .app.sidebar-visible, .app.sidebar-hidden {
+    grid-template-rows: 64px 1fr;
+    grid-template-columns: 100dvw;
+    grid-template-areas: 
+    "header"
+    "board";
+  }
+}
