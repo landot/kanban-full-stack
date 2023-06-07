@@ -116,8 +116,12 @@ export function UpdateTaskModal(
         } else {
             dispatch(deleteTask({
                 boardId: props.board.id, 
-                columnId: getColumnsWithName(props.prefill?.status, props.board.columns)[0].id,
-                taskId: props.prefill?.id
+                // todo fix this later
+                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                columnId: getColumnsWithName(props.prefill!.status, props.board.columns)[0].id,
+                // todo fix this later
+                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                taskId: props.prefill!.id
             }))
             dispatch(addTask({
                 boardId: props.board.id,

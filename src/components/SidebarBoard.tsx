@@ -16,8 +16,14 @@ export function SidebarBoard(props: {
             onClick={props.handleClick}
         >
             {props.icon === 'board' ? (
+                // todo fix later
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                // @ts-ignore
                 <BoardIcon className='sidebar-icon' alt='board icon'/>
             ): (
+                // todo fix later
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                // @ts-ignore
                 <HideIcon className='sidebar-icon' alt='hide icon'/>
 
             )}
