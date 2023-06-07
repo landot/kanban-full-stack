@@ -1,6 +1,6 @@
 import { HeadingM } from '../styledComponents/header/HeadingM';
-import { ReactComponent as BoardIcon } from '../../public/assets/images/icon-board.svg';
-import { ReactComponent as HideIcon } from '../../public/assets/images/icon-hide-sidebar.svg';
+import { ReactComponent as BoardIcon } from '../assets/images/icon-board.svg';
+import { ReactComponent as HideIcon } from '../assets/images/icon-hide-sidebar.svg';
 import './SidebarBoard.css';
 
 

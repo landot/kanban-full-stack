@@ -4,7 +4,7 @@ import { HeadingS } from '../styledComponents/header/HeadingS';
 import { TextField } from './TextField';
 import { ButtonSmall } from './ButtonSmall';
 import { ModalError } from './UpdateTaskModal';
-import DeleteIcon from '../../public/assets/images/icon-cross.svg';
+import DeleteIcon from '../assets/images/icon-cross.svg';
 import './UpdateBoardModal.css';
 import { Board } from '../types/data';
 import { getUUID } from '../utils/createUUID';

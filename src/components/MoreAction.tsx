@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import ellipsis from '../../public/assets/images/icon-vertical-ellipsis.svg';
+import ellipsis from '../assets/images/icon-vertical-ellipsis.svg';
 import './MoreAction.css';
 
 export function MoreAction(

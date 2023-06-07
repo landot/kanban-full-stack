@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import chevronDown from '../../public/assets/images/icon-chevron-down.svg';
+import chevronDown from '../assets/images/icon-chevron-down.svg';
 import './Dropdown.css';
 
 export function Dropdown(props: {

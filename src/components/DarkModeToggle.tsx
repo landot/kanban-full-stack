@@ -1,5 +1,5 @@
-import darkIcon from '../../public/assets/images/icon-dark-theme.svg';
-import lightIcon from '../../public/assets/images/icon-light-theme.svg';
+import darkIcon from '../assets/images/icon-dark-theme.svg';
+import lightIcon from '../assets/images/icon-light-theme.svg';
 import { useContext } from 'react';
 import { ThemeContext } from '../context/ThemeContext';
 import './DarkModeToggle.css';

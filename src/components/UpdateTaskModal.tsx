@@ -2,7 +2,7 @@ import { HeadingS } from '../styledComponents/header/HeadingS';
 import { ButtonSmall } from './ButtonSmall';
 import { Dropdown } from './Dropdown';
 import { TextField } from './TextField';
-import DeleteIcon from '../../public/assets/images/icon-cross.svg';
+import DeleteIcon from '../assets/images/icon-cross.svg';
 import { HeadingL } from '../styledComponents/header/HeadingL';
 import { useState } from 'react';
 import { Board, Task } from '../types/data';

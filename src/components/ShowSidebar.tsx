@@ -1,4 +1,4 @@
-import eyeIcon from '../../public/assets/images/icon-show-sidebar.svg';
+import eyeIcon from '../assets/images/icon-show-sidebar.svg';
 import './ShowSidebar.css';
 
 export function ShowSidebar(props: {handleClick: () => void}) {

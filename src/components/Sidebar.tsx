@@ -1,5 +1,5 @@
 import { HeadingM } from '../styledComponents/header/HeadingM';
-import { ReactComponent as BoardIcon } from '../../public/assets/images/icon-board.svg';
+import { ReactComponent as BoardIcon } from '../assets/images/icon-board.svg';
 import { SidebarBoard } from './SidebarBoard';
 import { HeadingS } from '../styledComponents/header/HeadingS';
 import logoDark from '../assets/images/logo-dark.svg';
