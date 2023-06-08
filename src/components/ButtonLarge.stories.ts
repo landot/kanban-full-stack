@@ -13,6 +13,15 @@ type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = {
   args: {
-    label: 'Button Primary (L)'
+    label: 'Button Primary (L)',
+    isDisabled: false
+  },
+};
+
+
+export const DisabledButton: Story = {
+  args: {
+    label: 'Button Primary (L)',
+    isDisabled: true
   },
 };
