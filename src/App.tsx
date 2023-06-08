@@ -234,6 +234,8 @@ function App() {
         )}
         <Header 
           board={getSelectedBoard()}
+          showSidebar={showSidebar}
+          handleOpenMobileSidebar={setShowSidebar}
           handleEditBoard={setShowEditBoardOverlay}
           handleDeleteBoard={setShowDeleteBoardOverlay} 
           handleAddTask={setShowAddTaskOverlay}

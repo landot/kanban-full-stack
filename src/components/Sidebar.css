@@ -2,11 +2,11 @@
     background: #FFFFFF;
     padding: 32px 24px 32px 0;
     width: 100%;
-    height: 100dvh;
+    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    border-right: solid #E4EBFA;
+    border-right: solid #E4EBFA 2px;
 }
 
 .sidebar .logo-light, #dark .sidebar .logo-dark {
@@ -19,7 +19,7 @@
 
 #dark .sidebar {
     background: #2B2C37;
-    border-right: solid #3E3F4E;
+    border-right: solid #3E3F4E 2px;
 }
 
 
@@ -54,5 +54,19 @@
 
 .sidebar .dark-mode-toggle {
     margin: 0 24px 0 24px;
-    width: 250px;
+    width: 90%;
+}
+
+@media (max-width: 500px) {
+    .logo-dark, .logo-light {
+        display: none !important;
+    }
+
+    .sidebar .sidebar-settings .sidebar-board {
+        display: none;
+    }
+
+    .sidebar h4 {
+        margin-top: 0;
+    }
 }

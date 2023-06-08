@@ -12,9 +12,30 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Primary: Story = {
+export const Default: Story = {
   args: {
-    boardName: 'Platform Launch'
-},
+    board: {id: 'asdf', name: 'Board 1', columns: [{id: 'asdf', name: 'column1', color: '#FFFFFF', tasks: []}]},
+    showLogo: true
+  },
 };
 
+export const NoLogo: Story = {
+  args: {
+    board: {id: 'asdf', name: 'Board 1', columns: [{id: 'asdf', name: 'column1', color: '#FFFFFF', tasks: []}]},
+    showLogo: false
+  },
+};
+
+export const NoBoardsWithLogo: Story = {
+  args: {
+    board: {id: '', name: '', columns: []},
+    showLogo: true
+  },
+};
+
+export const NoBoardsNoLogo: Story = {
+  args: {
+    board: {id: '', name: '', columns: []},
+    showLogo: false
+  },
+};

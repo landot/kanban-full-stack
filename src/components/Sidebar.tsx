@@ -20,7 +20,6 @@ export function Sidebar(props: {
     return (
         <div className='sidebar'>
             <div className='sidebar-boards'>
-                
                 <img className='logo-dark' src={logoDark} alt="logo" />
                 <img className='logo-light' src={logoLight} alt="logo" />
                 <HeadingS>ALL BOARDS ({props.boards.length})</HeadingS>
@@ -45,7 +44,7 @@ export function Sidebar(props: {
                     <HeadingM>+ Create New Board</HeadingM>
                 </div>
             </div>
-            <div>
+            <div className='sidebar-settings'>
                 <DarkModeToggle toggleTheme={props.handleToggleTheme}/>
                 {/* todo eventually make icon configurable in sidebarboard */}
                 <SidebarBoard 

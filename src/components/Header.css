@@ -18,24 +18,13 @@
     color: #FFFFFF;
 }
 
-
 .header .header-title {
     display: flex;
     align-items: center;
 }
 
-.header .header-title hr {
-    height: 97px;
-    width: 2px;
-    background: #E4EBFA;
-    margin: 0 32px;
-    border: none;
-}
-
 .header .header-title img {
-    width: 152px;
-    height: 25px;
-
+    margin-left: 8px;
 }
 
 .header .header-actions {
@@ -47,8 +36,32 @@
     margin-right: 24px;
 }
 
+.header .header-title div {
+    height: 100px;
+    width: 2px;
+    background: #E4EBFA;
+    margin: 0 32px;
+    border: none;
+}
+
+.header .logo-light, #dark .header .logo-dark {
+    display: none;
+}
+
+.header .logo-dark, #dark .header .logo-light {
+    display: block;
+}
+
 @media (max-width: 500px) {
     .header .header-actions button {
         padding: 6px 20px;
+    }
+    
+    .header .logo-mobile {
+        margin-right: 16px;
+    }
+
+    .header .header-title {
+        cursor: pointer;
     }
 }
