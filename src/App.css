@@ -106,8 +106,10 @@ img {
     left: 0; 
     right: 0; 
     margin-left: auto; 
-    margin-right: auto; 
-    width: 200px;
+    margin-right: auto;
+    min-width: 200px;
+    max-width: 80dvw;
+    width: fit-content; 
     grid-area: unset;
     height: fit-content;
   }
