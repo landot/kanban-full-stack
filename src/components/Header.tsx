@@ -3,6 +3,7 @@ import { ButtonLarge } from "./ButtonLarge";
 import { MoreAction } from "./MoreAction";
 import { Board } from "../types/data";
 import './Header.css';
+import useWindowSize from "../utils/useWindowSize";
 
 export function Header(props: {
     board: Board,
@@ -11,6 +12,8 @@ export function Header(props: {
     handleAddTask: (show: boolean) => void
 }) {
     const boardExists = props.board && props.board.id !== '';
+    const size = useWindowSize();
+
     return (
         <div className='header'>
             <div className="header-title">
@@ -19,7 +22,7 @@ export function Header(props: {
             {boardExists && (
                 <div className='header-actions'>
                     <ButtonLarge 
-                        label={'+ Add New Task'} 
+                        label={size.width && size.width <= 500 ? '+': '+ Add New Task'} 
                         onClick={() => props.handleAddTask(true)} 
                         isDisabled={props.board.columns.length === 0}
                     />

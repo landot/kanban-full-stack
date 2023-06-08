@@ -46,3 +46,9 @@
 .header .header-actions button {
     margin-right: 24px;
 }
+
+@media (max-width: 500px) {
+    .header .header-actions button {
+        padding: 6px 20px;
+    }
+}
