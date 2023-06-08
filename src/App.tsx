@@ -24,15 +24,13 @@ import { UpdateTaskModal } from './components/UpdateTaskModal';
 import { ViewTaskModal } from './components/ViewTaskModal';
 import { AddNewColumn } from './components/AddNewColumn';
 import { ShowSidebar } from './components/ShowSidebar';
-import './App.css'
 import { getBoardsWithId, getColumnsWithId, getTasksWithId } from './utils/filterUtils';
 import { getBoardIndexWithId } from './utils/findIndexUtils';
 import { EmptyBoard } from './components/EmptyBoard';
+import './App.css'
 
 
 // refactor reducers
-// set up tablet styling
-// set up mobile styling
 // fix accessibility issues
 // make all clickable elements tab-accessible
 // convert styles to styled components
