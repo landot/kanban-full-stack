@@ -30,7 +30,6 @@ import { getBoardIndexWithId } from './utils/findIndexUtils';
 import { EmptyBoard } from './components/EmptyBoard';
 
 
-// move out utils in kanbanSlice.ts
 // refactor reducers
 // set up tablet styling
 // set up mobile styling
@@ -234,7 +233,7 @@ function App() {
           />
         )}
         <Header 
-          boardName={selectedBoardId ? getBoardsWithId(selectedBoardId, kanban.boards)[0].name: ''} 
+          board={getSelectedBoard()}
           handleEditBoard={setShowEditBoardOverlay}
           handleDeleteBoard={setShowDeleteBoardOverlay} 
           handleAddTask={setShowAddTaskOverlay}
@@ -256,7 +255,7 @@ function App() {
           {selectedBoardId && getSelectedBoard().columns.length > 0 && (
             <AddNewColumn handleClick={() => setShowEditBoardOverlay(true)}/>
           )}
-          {getSelectedBoard().columns.length === 0 && (
+          {selectedBoardId && getSelectedBoard().columns.length === 0 && (
             <EmptyBoard handleNewColumnClick={() => setShowEditBoardOverlay(true)} />
           )}
           {!showSidebar && (

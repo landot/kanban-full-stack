@@ -15,3 +15,15 @@
 .button-large:hover {
     background: #A8A4FF;
 }
+
+.button-large:disabled {
+    background: #A8A4FF;
+}
+
+.button-large:disabled:hover {
+    cursor: default;
+}
+
+#dark .button-large:disabled {
+    filter: brightness(40%);
+}

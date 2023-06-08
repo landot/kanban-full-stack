@@ -4,9 +4,11 @@ import './ButtonLarge.css';
 export function ButtonLarge(
   props: {
       label: string, 
+      isDisabled: boolean,
       onClick?: () => void;
   }) {
+
   return (
-      <button className='button-large' onClick={props.onClick}>{props.label}</button>
+      <button disabled={props.isDisabled} className={`button-large`} onClick={props.onClick}>{props.label}</button>
   )
 }
