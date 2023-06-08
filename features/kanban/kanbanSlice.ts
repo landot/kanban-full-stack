@@ -5,11 +5,11 @@ import {
   import { 
     RootState, 
   } from "../../app/store"
-import { sampleBoard } from "../../src/data/sampleData";
   import { Board, Column, Data, Task } from '../../src/types/data';
 import { getBoardsWithId, getColumnsWithName, getColumnsWithId } from "../../src/utils/filterUtils";
 import { getColumnIndexWithId, getTaskIndexWithId } from "../../src/utils/findIndexUtils";
 import { generateRandomHex } from "../../src/utils/generateRandomHex";
+import boardData from "../../data.json";
   
   export interface KanbanState {
     value: Data
@@ -28,9 +28,7 @@ import { generateRandomHex } from "../../src/utils/generateRandomHex";
   
   const initialState: KanbanState = {
     value: {
-        boards: [
-            sampleBoard
-        ]
+      ...boardData
     },
     status: "idle",
   }
