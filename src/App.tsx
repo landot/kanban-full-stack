@@ -28,7 +28,64 @@ import { getBoardsWithId, getColumnsWithId, getTasksWithId } from './utils/filte
 import { getBoardIndexWithId } from './utils/findIndexUtils';
 import { EmptyBoard } from './components/EmptyBoard';
 import './App.css'
+import { auth } from './firebaseConfig';
+import { getKanban } from './utils/firebase/getKanban';
+import { addKanban } from './utils/firebase/addKanban';
 
+// function Auth() {
+//   const [email, setEmail] = useState('');
+//   const [password, setPassword] = useState('');
+//   return (
+//     <div>
+//       <input type="text" name="email" id="" value={email} onChange={(e) => setEmail(e.target.value)}/>
+//       <input type="text" name="password" id="" value={password} onChange={(e) => setPassword(e.target.value)}/>
+//       <button onClick={() => signInWithEmailAndPassword(auth, email, password)}>log in</button>
+//       <button onClick={() => signOut(auth)}>log out</button>
+//     </div>
+//   )
+// }
+
+// function AddMessage() {
+//   const [message, setMessage] = useState('');
+
+//   async function handleNewMessage(e: any) {
+//     e.preventDefault();
+//     if (message === '') return;
+//     await addKanban(boardData);
+//   }
+
+//   return (
+//     <div>
+//       <p>{}</p>
+//       <input type="text" name="message" id="" value={message} onChange={(e) => setMessage(e.target.value)}/>
+//       <button onClick={handleNewMessage}>add message</button>
+//     </div>
+//   )
+// }
+
+// function Boards() {
+//   const [board, setBoard] = useState();
+//   const [loading, setLoading] = useState(false);
+
+//   useEffect(() => {
+//     async function getData() {
+//       setLoading(true);
+//       const board = await getKanban();
+//       setLoading(false);
+//       setBoard(board);
+//     }
+//     getData();
+//     console.log(board)
+//   }, [])
+  
+//   return (
+//     <div>
+//       {!loading && board && (
+//           <p>{JSON.stringify(board)}</p>
+//       )}
+//     </div>
+//   )
+// }
 
 // refactor reducers
 // fix accessibility issues
@@ -42,7 +99,6 @@ import './App.css'
 // integrate with firebase for data manipulation
 function App() {
   const dispatch = useAppDispatch()
-  // todo add logic to save theme to local storage
   const [theme, setTheme] = useState<ThemeContextType>(localStorage.getItem('theme') as ThemeContextType  || 'light');
   const kanban = useAppSelector(selectKanban);
   const [showSidebar, setShowSidebar] = useState(true);
@@ -239,6 +295,9 @@ function App() {
           handleAddTask={setShowAddTaskOverlay}
         />
         <div className='content'>
+          {/* <Auth /> */}
+          {/* <AddMessage /> */}
+          {/* <Boards /> */}
           {(selectedBoardId && kanban.boards.length > 0) && (
             <DragDropContext onDragEnd={handleDragEnd}>
               {getBoardsWithId(selectedBoardId, kanban.boards)[0].columns.map(column => (
