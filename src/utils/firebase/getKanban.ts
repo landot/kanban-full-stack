@@ -2,21 +2,22 @@ import { collection, getDocs, documentId, query, where } from "firebase/firestor
 import { db } from "../../firebaseConfig";
 import { Data } from "../../types/data";
 
-
 export async function getKanban(): Promise<Data> {
     const kanbanRef = collection(db, "kanban");
     const queryMessages = query(kanbanRef, where(documentId(), "==", "test"));
-    try {
-      const kanbanData = []; 
-      const querySnapshot = await getDocs(queryMessages);
-      querySnapshot.forEach((doc) => {
-        // doc.data() is never undefined for query doc snapshots
-        kanbanData.push(doc.data());
-        console.log(doc.id, " => ", doc.data());
-      });
-      return kanbanData;
-    } catch (err) {
-      console.log(err)
-      throw err;
+    const kanbanData = []; 
+    const querySnapshot = await getDocs(queryMessages);
+    querySnapshot.forEach((doc) => {
+      kanbanData.push(doc.data());
+      console.log(doc.id, " => ", doc.data());
+    });
+    if(kanbanData.length > 0) {
+      return kanbanData[0];
+    } else {
+      // todo replace with better error handling
+      // return empty boards
+      return {
+        boards: []
+      }
     }
   }

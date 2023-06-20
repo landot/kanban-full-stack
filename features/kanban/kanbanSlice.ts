@@ -1,4 +1,5 @@
 import { 
+  createAsyncThunk,
     createSlice, 
     PayloadAction 
   } from "@reduxjs/toolkit"
@@ -9,7 +10,8 @@ import {
 import { getBoardsWithId, getColumnsWithName, getColumnsWithId } from "../../src/utils/filterUtils";
 import { getColumnIndexWithId, getTaskIndexWithId } from "../../src/utils/findIndexUtils";
 import { generateRandomHex } from "../../src/utils/generateRandomHex";
-import boardData from "../../data.json";
+import { getKanban } from "../../src/utils/firebase/getKanban";
+import { updateKanban } from "../../src/utils/firebase/updateKanban";
   
   export interface KanbanState {
     value: Data
@@ -28,31 +30,44 @@ import boardData from "../../data.json";
   
   const initialState: KanbanState = {
     value: {
-      ...boardData
+      boards: []
     },
-    status: "idle",
+    status: "loading",
   }
+
+  export const fetchUserById = createAsyncThunk(
+    'kanban/fetchKanbanData',
+    async () => {
+      const response = await getKanban();
+      console.log('response', response)
+      return response;
+    }
+  )
   
   export const kanbanSlice = createSlice({
     name: "kanban",
     initialState,
     reducers: {
       addBoard: (state, action: PayloadAction<Board>) => {
-        state.value = {
+        const newValue = {
             ...state.value,
             boards: [
                 ...state.value.boards,
                 action.payload
             ]
         };
+        state.value = newValue;
+        updateKanban(newValue);
       },
       deleteBoard: (state, action: PayloadAction<string>) => {
-        state.value = {
+        const newValue = {
             ...state.value,
             boards: [
                 ...state.value.boards.filter(board => board.id !== action.payload)
             ]
         };
+        state.value = newValue;
+        updateKanban(newValue);
       },
       updateBoard: (state, action: PayloadAction<{boardId: string, updatedBoard: BoardUpdateValue}>) => {
         const newValue = {...state.value};
@@ -79,6 +94,7 @@ import boardData from "../../data.json";
           }
         }
         state.value = newValue;
+        updateKanban(newValue);
       },
       addColumn: (state, action: PayloadAction<{boardId: string, column: Column}>) => {
         const newValue = {...state.value};
@@ -86,6 +102,7 @@ import boardData from "../../data.json";
         if(!boardToUpdate) return;
         boardToUpdate.columns = boardToUpdate.columns.concat(action.payload.column);
         state.value = newValue;
+        updateKanban(newValue);
       },
       deleteColumn: (state, action: PayloadAction<{boardId: string, columnId: string}>) => {
         const newValue = {...state.value};
@@ -93,6 +110,7 @@ import boardData from "../../data.json";
         if(!boardToUpdate) return;
         boardToUpdate.columns = boardToUpdate.columns.filter(column => column.id !== action.payload.columnId);
         state.value = newValue;
+        updateKanban(newValue);
       },
       updateColumn: (state, action: PayloadAction<{boardId: string, columnId: string, updatedColumn: Column}>) => {
         const newValue = {...state.value};
@@ -102,6 +120,7 @@ import boardData from "../../data.json";
         if(columnIndex === -1) return;
         boardToUpdate.columns[columnIndex] = action.payload.updatedColumn;
         state.value = newValue;
+        updateKanban(newValue);
       },
       addTask: (state, action: PayloadAction<{boardId: string, task: Task}>) => {
         const newValue = {...state.value};
@@ -110,7 +129,8 @@ import boardData from "../../data.json";
         const [columnToUpdate] = getColumnsWithName(action.payload.task.status, boardToUpdate.columns);
         if(!columnToUpdate) return;
         columnToUpdate.tasks = columnToUpdate.tasks.concat(action.payload.task);
-         state.value = newValue;
+        state.value = newValue;
+        updateKanban(newValue);
       },
       deleteTask: (state, action: PayloadAction<{boardId: string, columnId: string, taskId: string}>) => {
         const newValue = {...state.value};
@@ -120,6 +140,7 @@ import boardData from "../../data.json";
         if(!columnToUpdate) return;
         columnToUpdate.tasks = columnToUpdate.tasks.filter(task => task.id !== action.payload.taskId);
         state.value = newValue;
+        updateKanban(newValue);
       },
       updateTask: (state, action: PayloadAction<{boardId: string, columnId: string, taskId: string, updatedTask: Task}>) => {
         const newValue = {...state.value};
@@ -131,11 +152,27 @@ import boardData from "../../data.json";
         if(taskIndex === -1) return;
         columnToUpdate.tasks[taskIndex] = action.payload.updatedTask;
         state.value = newValue;
+        updateKanban(newValue);
       },
     },
+    extraReducers(builder) {
+      builder
+        .addCase(fetchUserById.pending, (state) => {
+          state.status = 'loading';
+        })
+        .addCase(fetchUserById.fulfilled, (state, action) => {
+          state.status = 'idle';
+          state.value = action.payload;
+        })
+        .addCase(fetchUserById.rejected, (state, action) => {
+          state.status = 'failed';
+          console.log('error', action.error.message)
+        })
+    }
   })
   
   export const { addBoard, deleteBoard, updateBoard, addTask, deleteTask, updateTask, addColumn, updateColumn, deleteColumn } = kanbanSlice.actions
   export const selectKanban = (state: RootState) => state.kanban.value;
-  export default kanbanSlice.reducer
+  export default kanbanSlice.reducer;
+
   

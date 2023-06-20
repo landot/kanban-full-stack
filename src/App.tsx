@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { DragDropContext, DropResult } from 'react-beautiful-dnd';
 import { Header } from './components/Header';
 import { Sidebar } from './components/Sidebar';
@@ -11,10 +11,11 @@ import {
   BoardUpdateValue, 
   deleteBoard, 
   deleteTask, 
+  fetchUserById, 
   selectKanban, 
   updateBoard, 
   updateColumn, 
-  updateTask 
+  updateTask
 } from '../features/kanban/kanbanSlice';
 import { Overlay } from './components/Overlay';
 import { UpdateBoardModal } from './components/UpdateBoardModal';
@@ -29,8 +30,7 @@ import { getBoardIndexWithId } from './utils/findIndexUtils';
 import { EmptyBoard } from './components/EmptyBoard';
 import './App.css'
 import { auth } from './firebaseConfig';
-import { getKanban } from './utils/firebase/getKanban';
-import { addKanban } from './utils/firebase/addKanban';
+import { useSelector } from 'react-redux';
 
 // function Auth() {
 //   const [email, setEmail] = useState('');
@@ -102,7 +102,7 @@ function App() {
   const [theme, setTheme] = useState<ThemeContextType>(localStorage.getItem('theme') as ThemeContextType  || 'light');
   const kanban = useAppSelector(selectKanban);
   const [showSidebar, setShowSidebar] = useState(true);
-  const [selectedBoardId, setSelectedBoardId] = useState(kanban.boards.length > 0 ? kanban.boards[0].id: '');
+  const [selectedBoardId, setSelectedBoardId] = useState('');
   const [selectedTaskColumnId, setSelectedTaskColumnId] = useState('');
   const [selectedTaskId, setSelectedTaskId] = useState('');
 
@@ -114,7 +114,23 @@ function App() {
   const [showDeleteTaskOverlay, setShowDeleteTaskOverlay] = useState(false);
   const [showEditTaskOverlay, setShowEditTaskOverlay] = useState(false);
 
-  console.log(kanban)
+  const sliceStatus = useSelector(state => state.kanban.status);
+
+
+  // get use data on initial page load
+  useEffect(() => {
+    dispatch(fetchUserById());
+    console.log('use effect 1 called')
+  }, [dispatch]);
+
+  // set board after load
+  useEffect(() => {
+    console.log('use effect 2 called')
+    if(kanban.boards.length > 0) {
+      setSelectedBoardId(kanban.boards[0].id);
+    }
+  }, [kanban]);
+
   function toggleTheme() {
     if (theme === 'light') {
         setTheme('dark');
@@ -193,135 +209,137 @@ function App() {
 
   return (
     <ThemeContext.Provider value={theme}>
-      <div className={`app ${showSidebar ? 'sidebar-visible': 'sidebar-hidden'}`} id={theme}>
-        <div className='modal'>
-          {showAddBoardOverlay && (
-            <Overlay handleClose={() => setShowAddBoardOverlay(false)} children={
-              <UpdateBoardModal 
-                updateType={'add'} 
-                handleAddBoard={(board: Board) => dispatch(addBoard(board))} 
-                handleUpdateBoard={(boardId: string, values: BoardUpdateValue) => dispatch(updateBoard({boardId: boardId, updatedBoard: values}))} 
-                hideModal={() => setShowAddBoardOverlay(false)}
-              />
-              }/>
-            )
-          }
-          {showDeleteBoardOverlay && (
-            <Overlay handleClose={() => setShowDeleteBoardOverlay(false)} children={
-              <DeleteModal 
-                name={'board'}
-                text={`Are you sure you want to delete the ‘${getBoardsWithId(selectedBoardId, kanban.boards)[0].name}’ board? This action will remove all columns and tasks and cannot be reversed.`}
-                handleDelete={() => handleBoardDelete(selectedBoardId)} 
-                hideModal={() => setShowDeleteBoardOverlay(false)}
-              />
-            }/>
-          )}
-          {showEditBoardOverlay && (
-            <Overlay handleClose={() => setShowEditBoardOverlay(false)} children={
-              <UpdateBoardModal 
-                updateType={'edit'} 
-                handleAddBoard={(board: Board) => dispatch(addBoard(board))} 
-                handleUpdateBoard={(boardId: string, values: BoardUpdateValue) => handleBoardEdit(boardId, values)} 
-                hideModal={() => setShowEditBoardOverlay(false)}
-                prefill={getBoardsWithId(selectedBoardId, kanban.boards)[0]}
-              />
-            }/>
-          )}
-          {showAddTaskOverlay && (
-            <Overlay handleClose={() => setShowAddTaskOverlay(false)} children={
-              <UpdateTaskModal 
-                updateType={'add'}
-                board={getSelectedBoard()}
-                statuses={getBoardStatuses()} 
-                handleAddTask={(task: Task) => dispatch(addTask({boardId: selectedBoardId, task: task}))} 
-                handleUpdateTask={(task: Task) => dispatch(updateTask({boardId: selectedBoardId, columnId: selectedTaskColumnId, taskId: selectedTaskId, updatedTask: task}))} 
-                hideModal={() => setShowAddTaskOverlay(false)}
-              />
-            }/>
-          )}
-          {showViewTaskOverlay && selectedTaskId && selectedTaskColumnId && (
-            <Overlay handleClose={() => setShowViewTaskOverlay(false)} children={
-              <ViewTaskModal 
-                task={getSelectedTask()} 
-                statuses={getBoardStatuses()}
-                board={getSelectedBoard()}
-                handleEditTask={() => setShowEditTaskOverlay(true)}
-                handleDeleteTask={() => setShowDeleteTaskOverlay(true)}
-                handleUpdateSelectedColumnId={setSelectedTaskColumnId}
-                hideModal={() => setShowViewTaskOverlay(false)}
-              />
-            }/>
-          )}
-          {showEditTaskOverlay && selectedTaskId && selectedTaskColumnId && (
-            <Overlay handleClose={() => setShowEditTaskOverlay(false)} children={
-              <UpdateTaskModal 
-                updateType={'edit'}
-                board={getSelectedBoard()}
-                statuses={getBoardStatuses()} 
-                handleAddTask={(task: Task) => dispatch(addTask({boardId: selectedBoardId, task: task}))} 
-                handleUpdateTask={(task: Task) => dispatch(updateTask({boardId: selectedBoardId, columnId: selectedTaskColumnId, taskId: selectedTaskId, updatedTask: task}))} 
-                hideModal={() => setShowEditTaskOverlay(false)}
-                prefill={getSelectedTask()}
-              />
-            }/>
-          )}
-          {showDeleteTaskOverlay && selectedTaskId && selectedTaskColumnId && (
-            <Overlay handleClose={() => setShowDeleteTaskOverlay(false)} children={
-              <DeleteModal 
-                name={'task'} 
-                text={`Are you sure you want to delete the ‘${getSelectedTask().title}’ task and its subtasks? This action cannot be reversed.`} 
-                handleDelete={handleTaskDelete}
-                hideModal={() => setShowDeleteTaskOverlay(false)}
-              />
-            }/>
-          )}
-        </div>
-        {showSidebar && (
-          <Sidebar 
-            boards={kanban.boards} 
-            selectedBoardIndex={getBoardIndexWithId(selectedBoardId, kanban.boards)} 
-            handleToggleTheme={toggleTheme} 
-            handleAddBoard={setShowAddBoardOverlay}
-            handleBoardSelect={(boardId: string) => handleBoardChange(boardId)}
-            handleHideSidebar={() => setShowSidebar(false)}
-          />
-        )}
-        <Header 
-          board={getSelectedBoard()}
-          showSidebar={showSidebar}
-          handleOpenMobileSidebar={setShowSidebar}
-          handleEditBoard={setShowEditBoardOverlay}
-          handleDeleteBoard={setShowDeleteBoardOverlay} 
-          handleAddTask={setShowAddTaskOverlay}
-        />
-        <div className='content'>
-          {/* <Auth /> */}
-          {/* <AddMessage /> */}
-          {/* <Boards /> */}
-          {(selectedBoardId && kanban.boards.length > 0) && (
-            <DragDropContext onDragEnd={handleDragEnd}>
-              {getBoardsWithId(selectedBoardId, kanban.boards)[0].columns.map(column => (
-                <Column 
-                  key={column.id}
-                  column={column} 
-                  handleViewTask={setShowViewTaskOverlay}
-                  handleSelectedTask={setSelectedTaskId}
-                  handleSelectedTaskColumn={setSelectedTaskColumnId}
+      {sliceStatus === 'loading' ? (<p>loading...</p>): (
+        <div className={`app ${showSidebar ? 'sidebar-visible': 'sidebar-hidden'}`} id={theme}>
+          <div className='modal'>
+            {showAddBoardOverlay && (
+              <Overlay handleClose={() => setShowAddBoardOverlay(false)} children={
+                <UpdateBoardModal 
+                  updateType={'add'} 
+                  handleAddBoard={(board: Board) => dispatch(addBoard(board))} 
+                  handleUpdateBoard={(boardId: string, values: BoardUpdateValue) => dispatch(updateBoard({boardId: boardId, updatedBoard: values}))} 
+                  hideModal={() => setShowAddBoardOverlay(false)}
                 />
-              ))}
-            </DragDropContext>
+                }/>
+              )
+            }
+            {showDeleteBoardOverlay && (
+              <Overlay handleClose={() => setShowDeleteBoardOverlay(false)} children={
+                <DeleteModal 
+                  name={'board'}
+                  text={`Are you sure you want to delete the ‘${getBoardsWithId(selectedBoardId, kanban.boards)[0].name}’ board? This action will remove all columns and tasks and cannot be reversed.`}
+                  handleDelete={() => handleBoardDelete(selectedBoardId)} 
+                  hideModal={() => setShowDeleteBoardOverlay(false)}
+                />
+              }/>
+            )}
+            {showEditBoardOverlay && (
+              <Overlay handleClose={() => setShowEditBoardOverlay(false)} children={
+                <UpdateBoardModal 
+                  updateType={'edit'} 
+                  handleAddBoard={(board: Board) => dispatch(addBoard(board))} 
+                  handleUpdateBoard={(boardId: string, values: BoardUpdateValue) => handleBoardEdit(boardId, values)} 
+                  hideModal={() => setShowEditBoardOverlay(false)}
+                  prefill={getBoardsWithId(selectedBoardId, kanban.boards)[0]}
+                />
+              }/>
+            )}
+            {showAddTaskOverlay && (
+              <Overlay handleClose={() => setShowAddTaskOverlay(false)} children={
+                <UpdateTaskModal 
+                  updateType={'add'}
+                  board={getSelectedBoard()}
+                  statuses={getBoardStatuses()} 
+                  handleAddTask={(task: Task) => dispatch(addTask({boardId: selectedBoardId, task: task}))} 
+                  handleUpdateTask={(task: Task) => dispatch(updateTask({boardId: selectedBoardId, columnId: selectedTaskColumnId, taskId: selectedTaskId, updatedTask: task}))} 
+                  hideModal={() => setShowAddTaskOverlay(false)}
+                />
+              }/>
+            )}
+            {showViewTaskOverlay && selectedTaskId && selectedTaskColumnId && (
+              <Overlay handleClose={() => setShowViewTaskOverlay(false)} children={
+                <ViewTaskModal 
+                  task={getSelectedTask()} 
+                  statuses={getBoardStatuses()}
+                  board={getSelectedBoard()}
+                  handleEditTask={() => setShowEditTaskOverlay(true)}
+                  handleDeleteTask={() => setShowDeleteTaskOverlay(true)}
+                  handleUpdateSelectedColumnId={setSelectedTaskColumnId}
+                  hideModal={() => setShowViewTaskOverlay(false)}
+                />
+              }/>
+            )}
+            {showEditTaskOverlay && selectedTaskId && selectedTaskColumnId && (
+              <Overlay handleClose={() => setShowEditTaskOverlay(false)} children={
+                <UpdateTaskModal 
+                  updateType={'edit'}
+                  board={getSelectedBoard()}
+                  statuses={getBoardStatuses()} 
+                  handleAddTask={(task: Task) => dispatch(addTask({boardId: selectedBoardId, task: task}))} 
+                  handleUpdateTask={(task: Task) => dispatch(updateTask({boardId: selectedBoardId, columnId: selectedTaskColumnId, taskId: selectedTaskId, updatedTask: task}))} 
+                  hideModal={() => setShowEditTaskOverlay(false)}
+                  prefill={getSelectedTask()}
+                />
+              }/>
+            )}
+            {showDeleteTaskOverlay && selectedTaskId && selectedTaskColumnId && (
+              <Overlay handleClose={() => setShowDeleteTaskOverlay(false)} children={
+                <DeleteModal 
+                  name={'task'} 
+                  text={`Are you sure you want to delete the ‘${getSelectedTask().title}’ task and its subtasks? This action cannot be reversed.`} 
+                  handleDelete={handleTaskDelete}
+                  hideModal={() => setShowDeleteTaskOverlay(false)}
+                />
+              }/>
+            )}
+          </div>
+          {showSidebar && (
+            <Sidebar 
+              boards={kanban.boards} 
+              selectedBoardIndex={getBoardIndexWithId(selectedBoardId, kanban.boards)} 
+              handleToggleTheme={toggleTheme} 
+              handleAddBoard={setShowAddBoardOverlay}
+              handleBoardSelect={(boardId: string) => handleBoardChange(boardId)}
+              handleHideSidebar={() => setShowSidebar(false)}
+            />
           )}
-          {selectedBoardId && getSelectedBoard().columns.length > 0 && (
-            <AddNewColumn handleClick={() => setShowEditBoardOverlay(true)}/>
-          )}
-          {selectedBoardId && getSelectedBoard().columns.length === 0 && (
-            <EmptyBoard handleNewColumnClick={() => setShowEditBoardOverlay(true)} />
-          )}
-          {!showSidebar && (
-            <ShowSidebar handleClick={() => setShowSidebar(true)}/>
-          )}
+          <Header 
+            board={getSelectedBoard()}
+            showSidebar={showSidebar}
+            handleOpenMobileSidebar={setShowSidebar}
+            handleEditBoard={setShowEditBoardOverlay}
+            handleDeleteBoard={setShowDeleteBoardOverlay} 
+            handleAddTask={setShowAddTaskOverlay}
+          />
+          <div className='content'>
+            {/* <Auth /> */}
+            {/* <AddMessage /> */}
+            {/* <Boards /> */}
+            {(selectedBoardId && kanban.boards.length > 0) && (
+              <DragDropContext onDragEnd={handleDragEnd}>
+                {getBoardsWithId(selectedBoardId, kanban.boards)[0].columns.map(column => (
+                  <Column 
+                    key={column.id}
+                    column={column} 
+                    handleViewTask={setShowViewTaskOverlay}
+                    handleSelectedTask={setSelectedTaskId}
+                    handleSelectedTaskColumn={setSelectedTaskColumnId}
+                  />
+                ))}
+              </DragDropContext>
+            )}
+            {selectedBoardId && getSelectedBoard().columns.length > 0 && (
+              <AddNewColumn handleClick={() => setShowEditBoardOverlay(true)}/>
+            )}
+            {selectedBoardId && getSelectedBoard().columns.length === 0 && (
+              <EmptyBoard handleNewColumnClick={() => setShowEditBoardOverlay(true)} />
+            )}
+            {!showSidebar && (
+              <ShowSidebar handleClick={() => setShowSidebar(true)}/>
+            )}
+          </div>
         </div>
-      </div>
+      )} 
     </ThemeContext.Provider>
   )
 }
