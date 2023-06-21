@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { DragDropContext, DropResult } from 'react-beautiful-dnd';
 import { Header } from './components/Header';
 import { Sidebar } from './components/Sidebar';
@@ -29,20 +29,38 @@ import { getBoardsWithId, getColumnsWithId, getTasksWithId } from './utils/filte
 import { getBoardIndexWithId } from './utils/findIndexUtils';
 import { EmptyBoard } from './components/EmptyBoard';
 import { useSelector } from 'react-redux';
+import { signInAsGuest } from './utils/firebase/SignInAsGuest';
+import { login } from './utils/firebase/LogIn';
+import { logout } from './utils/firebase/logOut';
+import { convertGuestAccount } from './utils/firebase/convertGuestAccount';
+import { AuthContext } from './context/AuthContext';
 import './App.css'
+import { createAccount } from './utils/firebase/createAccount';
 
-// function Auth() {
-//   const [email, setEmail] = useState('');
-//   const [password, setPassword] = useState('');
-//   return (
-//     <div>
-//       <input type="text" name="email" id="" value={email} onChange={(e) => setEmail(e.target.value)}/>
-//       <input type="text" name="password" id="" value={password} onChange={(e) => setPassword(e.target.value)}/>
-//       <button onClick={() => signInWithEmailAndPassword(auth, email, password)}>log in</button>
-//       <button onClick={() => signOut(auth)}>log out</button>
-//     </div>
-//   )
-// }
+function Auth() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const auth = useContext(AuthContext);  
+
+  console.log('auth', auth)
+  return (
+    <div>
+      {auth?.isAnonymous && <p>you are signed in as a guest</p>}
+      {auth?.uid && <p>you are signed in as {auth?.uid}</p>}
+      <input type="text" name="email" id="" value={email} onChange={(e) => setEmail(e.target.value)}/>
+      <input type="text" name="password" id="" value={password} onChange={(e) => setPassword(e.target.value)}/>
+      <button onClick={() => login(email, password)}>log in</button>
+      <button onClick={() => logout()}>log out</button>
+      <button onClick={() => signInAsGuest()}>sign in as guest</button>
+      {auth?.isAnonymous && (
+        <button onClick={() => convertGuestAccount(email, password)}>create real account as guest</button>
+      )}
+      {!auth?.isAnonymous && !auth?.uid && (
+        <button onClick={() => createAccount(email, password)}>create account</button>
+      )}
+    </div>
+  )
+}
 
 // refactor reducers
 // fix accessibility issues
@@ -73,7 +91,7 @@ function App() {
 
   const sliceStatus = useSelector(state => state.kanban.status);
 
-  // get use data on initial page load
+  // get data on initial page load
   useEffect(() => {
     dispatch(fetchUserById());
   }, [dispatch]);
@@ -266,7 +284,7 @@ function App() {
             handleAddTask={setShowAddTaskOverlay}
           />
           <div className='content'>
-            {/* <Auth /> */}
+            <Auth />
             {(selectedBoardId && kanban.boards.length > 0) && (
               <DragDropContext onDragEnd={handleDragEnd}>
                 {getBoardsWithId(selectedBoardId, kanban.boards)[0].columns.map(column => (
