@@ -12,7 +12,9 @@ import { getColumnIndexWithId, getTaskIndexWithId } from "../../src/utils/findIn
 import { generateRandomHex } from "../../src/utils/generateRandomHex";
 import { getKanban } from "../../src/utils/firebase/getKanban";
 import { updateKanban } from "../../src/utils/firebase/updateKanban";
-  
+import sampleData from '../../data.json';
+
+
   export interface KanbanState {
     value: Data
     status: "idle" | "loading" | "failed"
@@ -48,6 +50,10 @@ import { updateKanban } from "../../src/utils/firebase/updateKanban";
     name: "kanban",
     initialState,
     reducers: {
+      addDummyData: (state) => {
+        state.value = sampleData;
+        updateKanban(sampleData);
+      },
       addBoard: (state, action: PayloadAction<Board>) => {
         const newValue = {
             ...state.value,
@@ -171,7 +177,7 @@ import { updateKanban } from "../../src/utils/firebase/updateKanban";
     }
   })
   
-  export const { addBoard, deleteBoard, updateBoard, addTask, deleteTask, updateTask, addColumn, updateColumn, deleteColumn } = kanbanSlice.actions
+  export const { addBoard, deleteBoard, updateBoard, addTask, deleteTask, updateTask, addColumn, updateColumn, deleteColumn, addDummyData } = kanbanSlice.actions
   export const selectKanban = (state: RootState) => state.kanban.value;
   export default kanbanSlice.reducer;
 

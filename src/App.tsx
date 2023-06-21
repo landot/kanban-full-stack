@@ -28,9 +28,8 @@ import { ShowSidebar } from './components/ShowSidebar';
 import { getBoardsWithId, getColumnsWithId, getTasksWithId } from './utils/filterUtils';
 import { getBoardIndexWithId } from './utils/findIndexUtils';
 import { EmptyBoard } from './components/EmptyBoard';
-import './App.css'
-import { auth } from './firebaseConfig';
 import { useSelector } from 'react-redux';
+import './App.css'
 
 // function Auth() {
 //   const [email, setEmail] = useState('');
@@ -41,48 +40,6 @@ import { useSelector } from 'react-redux';
 //       <input type="text" name="password" id="" value={password} onChange={(e) => setPassword(e.target.value)}/>
 //       <button onClick={() => signInWithEmailAndPassword(auth, email, password)}>log in</button>
 //       <button onClick={() => signOut(auth)}>log out</button>
-//     </div>
-//   )
-// }
-
-// function AddMessage() {
-//   const [message, setMessage] = useState('');
-
-//   async function handleNewMessage(e: any) {
-//     e.preventDefault();
-//     if (message === '') return;
-//     await addKanban(boardData);
-//   }
-
-//   return (
-//     <div>
-//       <p>{}</p>
-//       <input type="text" name="message" id="" value={message} onChange={(e) => setMessage(e.target.value)}/>
-//       <button onClick={handleNewMessage}>add message</button>
-//     </div>
-//   )
-// }
-
-// function Boards() {
-//   const [board, setBoard] = useState();
-//   const [loading, setLoading] = useState(false);
-
-//   useEffect(() => {
-//     async function getData() {
-//       setLoading(true);
-//       const board = await getKanban();
-//       setLoading(false);
-//       setBoard(board);
-//     }
-//     getData();
-//     console.log(board)
-//   }, [])
-  
-//   return (
-//     <div>
-//       {!loading && board && (
-//           <p>{JSON.stringify(board)}</p>
-//       )}
 //     </div>
 //   )
 // }
@@ -116,17 +73,14 @@ function App() {
 
   const sliceStatus = useSelector(state => state.kanban.status);
 
-
   // get use data on initial page load
   useEffect(() => {
     dispatch(fetchUserById());
-    console.log('use effect 1 called')
   }, [dispatch]);
 
   // set board after load
   useEffect(() => {
-    console.log('use effect 2 called')
-    if(kanban.boards.length > 0) {
+    if(kanban.boards.length > 0 && !selectedBoardId) {
       setSelectedBoardId(kanban.boards[0].id);
     }
   }, [kanban]);
@@ -313,8 +267,6 @@ function App() {
           />
           <div className='content'>
             {/* <Auth /> */}
-            {/* <AddMessage /> */}
-            {/* <Boards /> */}
             {(selectedBoardId && kanban.boards.length > 0) && (
               <DragDropContext onDragEnd={handleDragEnd}>
                 {getBoardsWithId(selectedBoardId, kanban.boards)[0].columns.map(column => (
