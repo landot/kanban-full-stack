@@ -8,8 +8,6 @@ import useWindowSize from "../utils/useWindowSize";
 import logoDark from '../assets/images/logo-dark.svg';
 import logoLight from '../assets/images/logo-light.svg';
 import logoMobile from '../assets/images/logo-mobile.svg';
-import { useContext } from "react";
-import { AuthContext } from "../context/AuthContext";
 import './Header.css';
 
 export function Header(props: {
@@ -20,7 +18,6 @@ export function Header(props: {
     handleEditBoard: React.Dispatch<React.SetStateAction<boolean>>,
     handleAddTask: React.Dispatch<React.SetStateAction<boolean>>
 }) {
-    const auth = useContext(AuthContext);
     const boardExists = props.board && props.board.id !== '';
     const size = useWindowSize();
 

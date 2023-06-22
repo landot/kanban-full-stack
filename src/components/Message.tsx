@@ -19,7 +19,7 @@ export function Message() {
         {auth?.isAnonymous ? (
             <>
                 <MediumText>You are logged in as a guest</MediumText>
-                <ButtonSmall label={"Create Account"} type={"primary"} onClick={() => navigate('/create-account')}/>
+                <ButtonSmall label={"Register Account"} type={"primary"} onClick={() => navigate('/create-account')}/>
                 <ButtonSmall label={"Logout"} type={"primary"} onClick={() => logout()}/>
                 <ButtonSmall label={"Add Dummy Data"} type={"primary"} onClick={() => dispatch(addDummyData())}/>
             </>
