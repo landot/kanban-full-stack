@@ -60,7 +60,7 @@ img {
   background: #E4EBFA;
   grid-area: board;
   width: 100%;
-  height: calc(100vh - 82px);
+  height: calc(100vh - 110px);
   display: flex;
   flex-direction: row;
   overflow: scroll;
