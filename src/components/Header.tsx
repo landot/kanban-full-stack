@@ -8,13 +8,8 @@ import useWindowSize from "../utils/useWindowSize";
 import logoDark from '../assets/images/logo-dark.svg';
 import logoLight from '../assets/images/logo-light.svg';
 import logoMobile from '../assets/images/logo-mobile.svg';
-import { ButtonSmall } from "./ButtonSmall";
-import { useAppDispatch } from "../../app/hooks";
-import { addDummyData } from "../../features/kanban/kanbanSlice";
-import { logout } from "../utils/firebase/logOut";
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
-import { MediumText } from "../styledComponents/text/MediumText";
 import './Header.css';
 
 export function Header(props: {
@@ -26,7 +21,6 @@ export function Header(props: {
     handleAddTask: React.Dispatch<React.SetStateAction<boolean>>
 }) {
     const auth = useContext(AuthContext);
-    const dispatch = useAppDispatch()
     const boardExists = props.board && props.board.id !== '';
     const size = useWindowSize();
 
@@ -57,8 +51,6 @@ export function Header(props: {
                     {!props.showSidebar && size.width && size.width <= 500 && (
                         <img src={chevronDown} alt='show boards icon'/>
                     )}
-                    <ButtonSmall label={"Add Dummy Data"} type={"primary"} onClick={() => dispatch(addDummyData())}/>
-                    <ButtonSmall label={"Logout"} type={"primary"} onClick={() => logout()}/>
                 </div>
                 {boardExists && (
                     <div className='header-actions'>
@@ -73,15 +65,6 @@ export function Header(props: {
                             handleDeleteClick={() => props.handleDeleteBoard(true)} 
                         />
                     </div>
-                )}
-            </div>
-            <div className="header-messages">
-                {auth?.isAnonymous && (
-                    // todo get this button set up to go to the register page
-                    <>
-                        <MediumText>You are logged in as a guest</MediumText>
-                        <ButtonSmall label={"Create Account"} type={"primary"} onClick={() => null}/>
-                    </>
                 )}
             </div>
         </div>

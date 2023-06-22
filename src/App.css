@@ -25,9 +25,10 @@ img {
   display: grid;
   overflow: hidden;
   grid-template-columns: 300px 1fr;
-  grid-template-rows: 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
   grid-template-areas: 
   "sidebar header"
+  "sidebar message"
   "sidebar board";
 }
 
@@ -35,9 +36,10 @@ img {
   display: grid;
   overflow: hidden;
   grid-template-columns: 1fr;
-  grid-template-rows: 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
   grid-template-areas: 
   "header"
+  "message"
   "board";
 }
 
@@ -48,6 +50,10 @@ img {
 
 .header {
   grid-area: header;
+}
+
+.messages {
+  grid-area: message;
 }
 
 .content {
@@ -73,6 +79,7 @@ img {
 .content .column {
   width: 250px;
   margin: 0 24px 0 24px;
+  padding-bottom: 200px;
 }
 
 .content .show-sidebar {

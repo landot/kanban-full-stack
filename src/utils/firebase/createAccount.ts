@@ -1,10 +1,11 @@
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, UserCredential } from "firebase/auth";
 import { auth } from "../../firebaseConfig";
 
-export async function createAccount(email: string, password: string) {
+export async function createAccount(email: string, password: string): Promise<UserCredential>  {
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
+      return await createUserWithEmailAndPassword(auth, email, password);
     } catch (error) {
       console.error(error);
+      throw error;
     }
   }

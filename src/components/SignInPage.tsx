@@ -1,13 +1,13 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import { login } from "../utils/firebase/LogIn";
 import { logout } from "../utils/firebase/logOut";
 import { signInAsGuest } from "../utils/firebase/SignInAsGuest";
 import { ButtonSmall } from "./ButtonSmall";
-import './Auth.css';
 import { useAppDispatch } from "../../app/hooks";
 import { addDummyData } from "../../features/kanban/kanbanSlice";
+import './SignInPage.css';
 
 export function SignInPage() {
     const [email, setEmail] = useState('');
@@ -17,9 +17,11 @@ export function SignInPage() {
     const navigate = useNavigate();
     const dispatch = useAppDispatch()
 
-    if(auth) {
-        navigate('/');
-    }
+    useEffect(() => {
+      if (auth) {
+        navigate("/");
+      }
+    }, []);
 
     async function handleLogin() {
         setError('');
@@ -43,26 +45,22 @@ export function SignInPage() {
   
     console.log('auth', auth)
     return (
-      <div className="sign-in">
-        <h1>Sign In</h1>
-        <div className="credentials">
-            <h2>Email</h2>
-            <input type="email" name="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)}/>
-            <h2>Password</h2>
-            <input type="password" name="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
+      <div className="sign-in-wrapper">
+        <div className="sign-in-form">
+          <h1>Sign In</h1>
+          <div className="credentials">
+              <h2>Email</h2>
+              <input type="email" name="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)}/>
+              <h2>Password</h2>
+              <input type="password" name="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
+          </div>
+          {error && <p className="sign-in-error">{error}</p>}
+          <ButtonSmall label='Log In' type='primary' onClick={handleLogin} />
         </div>
-        {auth?.isAnonymous && <p>you are signed in as a guest</p>}
-        {auth?.uid && <p>you are signed in as {auth?.uid}</p>}
-        {error && <p className="sign-in-error">{error}</p>}
-        <ButtonSmall label='Log In' type='primary' onClick={handleLogin} />
-        <ButtonSmall label='Proceed as Guest' type='primary' onClick={handleGuest}/>
-        <ButtonSmall label='Log Out' type='primary' onClick={() => logout()}/>
-        {/* {auth?.isAnonymous && (
-          <ButtonSmall onClick={() => convertGuestAccount(email, password)}>create real account as guest</ButtonSmall>
-        )} */}
-        {/* {!auth?.isAnonymous && !auth?.uid && (
-          <ButtonSmall onClick={() => createAccount(email, password)}>create account</ButtonSmall>
-        )} */}
+        <div className="sign-in-other-options">
+          <ButtonSmall label='Create an Account' type='primary' onClick={() => navigate('/create-account')} />
+          <ButtonSmall label='Proceed as Guest' type='primary' onClick={handleGuest}/>
+        </div>
       </div>
     )
   }

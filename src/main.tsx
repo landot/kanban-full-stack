@@ -5,33 +5,10 @@ import { store } from "../app/store"
 import { AuthProvider } from './context/AuthContext'
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './index.css'
-import { SignInPage } from './components/Auth'
+import { SignInPage } from './components/SignInPage'
 import { ErrorPage } from './components/ErrorPage'
 import { RequireAuth } from './components/RequireAuth'
-
-
-// const router = createBrowserRouter([
-//     {
-//       path: "/",
-//       element: <App />,
-//       errorElement: <ErrorPage />
-//     },
-//     {
-//         path: "/login",
-//         element: <Auth />,
-//         errorElement: <ErrorPage />
-//     },
-    // {
-    //     path: "/register",
-    //     element: <Auth />,
-    //     errorElement: <ErrorPage />
-    // },
-    // {
-    //     path: "/co,vertUser",
-    //     element: <Auth />,
-    //     errorElement: <ErrorPage />
-    // },
-//   ]);
+import { CreateAccountPage } from './components/CreateAccountPage'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <Provider store={store}>
@@ -39,8 +16,9 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
             <BrowserRouter>
                 <Routes>
                     <Route path="/login" element={<SignInPage/>} errorElement={<ErrorPage/>}/>
+                    <Route path="/create-account" element={<CreateAccountPage/>} errorElement={<ErrorPage/>}/>
+                    <Route path='*' element={<p>Page not found</p>}/>
                     <Route element={<RequireAuth/>} errorElement={<ErrorPage/>}>
-                        {/* <Route path="/" element={<p>app</p>} errorElement={<ErrorPage/>}/> */}
                         <Route path="/" element={<App/>} errorElement={<ErrorPage/>}/>
                     </Route>
                 </Routes>

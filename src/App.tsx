@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { DragDropContext, DropResult } from 'react-beautiful-dnd';
 import { Header } from './components/Header';
 import { Sidebar } from './components/Sidebar';
@@ -30,6 +30,7 @@ import { getBoardIndexWithId } from './utils/findIndexUtils';
 import { EmptyBoard } from './components/EmptyBoard';
 import { useSelector } from 'react-redux';
 import './App.css'
+import { Message } from './components/Message';
 
 // refactor reducers
 // fix accessibility issues
@@ -252,6 +253,7 @@ function App() {
             handleDeleteBoard={setShowDeleteBoardOverlay} 
             handleAddTask={setShowAddTaskOverlay}
           />
+          <Message />
           <div className='content'>
             {(selectedBoardId && kanban.boards.length > 0) && (
               <DragDropContext onDragEnd={handleDragEnd}>
