@@ -1,10 +1,10 @@
 import { collection, getDocs, documentId, query, where } from "firebase/firestore";
-import { db } from "../../firebaseConfig";
+import { auth, db } from "../../firebaseConfig";
 import { Data } from "../../types/data";
 
 export async function getKanban(): Promise<Data> {
     const kanbanRef = collection(db, "kanban");
-    const queryMessages = query(kanbanRef, where(documentId(), "==", "test"));
+    const queryMessages = query(kanbanRef, where(documentId(), "==", auth.currentUser?.uid));
     const kanbanData = []; 
     const querySnapshot = await getDocs(queryMessages);
     querySnapshot.forEach((doc) => {

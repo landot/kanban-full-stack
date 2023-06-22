@@ -1,0 +1,27 @@
+.sign-in {
+    display: flex;
+    flex-direction: column;
+    width: 100dvw;
+    height: 100dvh;
+    align-items: center;
+    gap: 20px;
+}
+
+.sign-in .sign-in-error {
+    color: red;
+}
+
+.sign-in .credentials {
+    display: flex;
+    flex-direction: column;
+}
+
+.sign-in .credentials input {
+    width: 50%;
+    max-width: 80%;
+    min-width: 200px;
+}
+
+.sign-in button {
+    width: 200px;
+}

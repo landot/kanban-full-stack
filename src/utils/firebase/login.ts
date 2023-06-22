@@ -1,6 +1,6 @@
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword, UserCredential } from "firebase/auth";
 import { auth } from "../../firebaseConfig";
 
-export async function login(email: string, password: string) {
-    await signInWithEmailAndPassword(auth, email, password);
+export async function login(email: string, password: string): Promise<UserCredential> {
+    return await signInWithEmailAndPassword(auth, email, password);
 }

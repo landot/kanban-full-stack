@@ -14,7 +14,7 @@ export function Task(props: {
             onClick={() => props.handleClick(props.task)}
         >
             <HeadingM>{props.task.title}</HeadingM>
-            <MediumText>{`${tasksRemaining} of ${props.task.subtasks.length} subtasks`}</MediumText>
+            <MediumText>{`${tasksRemaining} of ${props.task.subtasks.length} subtasks remaining`}</MediumText>
         </div>
     )
 }

@@ -1,7 +1,7 @@
 import { doc, setDoc } from "firebase/firestore";
-import { db } from "../../firebaseConfig";
+import { auth, db } from "../../firebaseConfig";
 
 
 export async function updateKanban(data: object) {
-    await setDoc(doc(db, "kanban", 'test'), data);
+    await setDoc(doc(db, "kanban", auth.currentUser?.uid), data);
   }
