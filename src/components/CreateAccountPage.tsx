@@ -18,6 +18,7 @@ export function CreateAccountPage() {
     const auth = useContext(AuthContext);  
     const navigate = useNavigate();
     const dispatch = useAppDispatch()
+    const isGuest = auth && auth.isAnonymous;
 
     useEffect(() => {
         if (auth && !auth?.isAnonymous) {
@@ -32,7 +33,7 @@ export function CreateAccountPage() {
             setError('inputs are incomplete');
             return;
         }
-        if(auth?.isAnonymous) {
+        if(isGuest) {
             user = await convertGuestAccount(email, password);
         } else {
             user = await createAccount(email, password);
@@ -55,7 +56,7 @@ export function CreateAccountPage() {
     return (
         <div className="create-account-wrapper">
             <div className="create-account-form">
-                <h1>Create Account</h1>
+                <h1>{isGuest ? 'Register': 'Create'} Account</h1>
                 <div className="credentials">
                     <h2>Email</h2>
                     <input type="email" name="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)}/>
@@ -66,8 +67,15 @@ export function CreateAccountPage() {
                 <ButtonSmall label='Create Account' type='primary' onClick={handleCreateAccount} />
             </div>
             <div className="create-account-other-options">
-                <ButtonSmall label='Back to Log In' type='primary' onClick={() => navigate('/login')}/>
-                <ButtonSmall label='Proceed as Guest' type='primary' onClick={handleGuest}/>
+                {!isGuest && (
+                    <>
+                        <ButtonSmall label='Back to Log In' type='primary' onClick={() => navigate('/login')}/>
+                        <ButtonSmall label='Proceed as Guest' type='primary' onClick={handleGuest}/>
+                    </>
+                )}
+                {isGuest && (
+                    <ButtonSmall label='Back to Kanban' type='primary' onClick={() => navigate('/')}/>
+                )}
             </div>
         </div>
     )
