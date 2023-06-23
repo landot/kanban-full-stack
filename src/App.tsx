@@ -31,6 +31,7 @@ import { EmptyBoard } from './components/EmptyBoard';
 import './App.css'
 import { Message } from './components/Message';
 import { useSelector } from '../app/store';
+import { Loading } from './components/Loading';
 
 // refactor reducers
 // fix accessibility issues
@@ -151,7 +152,7 @@ function App() {
 
   return (
     <ThemeContext.Provider value={theme}>
-      {sliceStatus === 'loading' ? (<p>loading...</p>): (
+      {sliceStatus === 'loading' ? (<Loading text={'Loading Kanban Data'}/>): (
         <div className={`app ${showSidebar ? 'sidebar-visible': 'sidebar-hidden'}`} id={theme}>
           <div className='modal'>
             {showAddBoardOverlay && (
