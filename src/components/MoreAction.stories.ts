@@ -13,14 +13,18 @@ type Story = StoryObj<typeof meta>;
 
 export const Board: Story = {
   args: {
-    text: 'Board'
+    actionItemName: 'Board',
+    items: [
+      {
+        text: 'Edit Board',
+        class: 'edit',
+        action: () => null
+    },
+    {
+        text: 'Delete Board',
+        class: 'delete',
+        action: () => null
+    },
+    ]
   },
 };
-
-
-export const Subtask: Story = {
-  args: {
-    text: 'Subtask'
-  },
-};
-
