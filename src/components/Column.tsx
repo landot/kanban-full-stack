@@ -22,7 +22,7 @@ export function Column(
     return (
         <Droppable droppableId={props.column.id}>
             {(provided) => (
-                <div {...provided.droppableProps} ref={provided.innerRef}>
+                <div className='droppable-column' {...provided.droppableProps} ref={provided.innerRef}>
                     <div className='column'>
                         <div className='column-header'>
                             <span className='dot' style={{

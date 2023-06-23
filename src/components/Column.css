@@ -1,5 +1,9 @@
+.droppable-column {
+    height: fit-content;
+}
+
 .column .task {
-    margin-top: 20px;
+    margin: 20px 0;
 }
 
 .column .column-header {
