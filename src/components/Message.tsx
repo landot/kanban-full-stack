@@ -4,7 +4,7 @@ import { useAppDispatch } from "../../app/hooks";
 import { addDummyData } from "../../features/kanban/kanbanSlice";
 import { AuthContext } from "../context/AuthContext";
 import { MediumText } from "../styledComponents/text/MediumText";
-import { logout } from "../utils/firebase/logOut";
+import { logout } from "../utils/firebase/logout";
 import { ButtonSmall } from "./ButtonSmall";
 import './Message.css';
 

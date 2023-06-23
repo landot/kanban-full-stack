@@ -1,7 +1,17 @@
 import { doc, setDoc } from "firebase/firestore";
+import { firestoreCollection } from "../../data/collection";
 import { auth, db } from "../../firebaseConfig";
 
 
 export async function updateKanban(data: object) {
-    await setDoc(doc(db, "kanban", auth.currentUser?.uid), data);
+    if(auth && auth.currentUser && auth.currentUser.uid) {
+      await setDoc(
+        doc(
+          db, 
+          firestoreCollection, 
+          auth.currentUser.uid
+        ),
+        data
+      );
+    }
   }

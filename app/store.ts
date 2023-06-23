@@ -1,5 +1,7 @@
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
+import { TypedUseSelectorHook } from "react-redux";
 import kanbanReducer from "../features/kanban/kanbanSlice";
+import { useSelector as useReduxSelector} from 'react-redux';
 
 export const store = configureStore({
   reducer: {
@@ -15,3 +17,5 @@ export type AppThunk<ReturnType = void> = ThunkAction<
   unknown,
   Action<string>
 >
+export const useSelector: TypedUseSelectorHook<RootState> = useReduxSelector;
+

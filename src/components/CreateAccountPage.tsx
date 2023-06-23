@@ -6,7 +6,7 @@ import { addDummyData } from "../../features/kanban/kanbanSlice";
 import { AuthContext } from "../context/AuthContext";
 import { convertGuestAccount } from "../utils/firebase/convertGuestAccount";
 import { createAccount } from "../utils/firebase/createAccount";
-import { signInAsGuest } from "../utils/firebase/SignInAsGuest";
+import { signInAsGuest } from "../utils/firebase/signInAsGuest";
 import { ButtonSmall } from "./ButtonSmall";
 import './CreateAccountPage.css';
 

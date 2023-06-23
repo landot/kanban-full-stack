@@ -5,11 +5,11 @@ import { Data } from "../../types/data";
 export async function getKanban(): Promise<Data> {
     const kanbanRef = collection(db, "kanban");
     const queryMessages = query(kanbanRef, where(documentId(), "==", auth.currentUser?.uid));
-    const kanbanData = []; 
+    const kanbanData: Data[] = []; 
     const querySnapshot = await getDocs(queryMessages);
     querySnapshot.forEach((doc) => {
-      kanbanData.push(doc.data());
-      console.log(doc.id, " => ", doc.data());
+      const data = doc.data() as Data;
+      kanbanData.push(data);
     });
     if(kanbanData.length > 0) {
       return kanbanData[0];

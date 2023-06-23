@@ -28,9 +28,9 @@ import { ShowSidebar } from './components/ShowSidebar';
 import { getBoardsWithId, getColumnsWithId, getTasksWithId } from './utils/filterUtils';
 import { getBoardIndexWithId } from './utils/findIndexUtils';
 import { EmptyBoard } from './components/EmptyBoard';
-import { useSelector } from 'react-redux';
 import './App.css'
 import { Message } from './components/Message';
+import { useSelector } from '../app/store';
 
 // refactor reducers
 // fix accessibility issues

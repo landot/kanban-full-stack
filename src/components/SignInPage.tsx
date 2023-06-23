@@ -1,9 +1,8 @@
 import { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
-import { login } from "../utils/firebase/LogIn";
-import { logout } from "../utils/firebase/logOut";
-import { signInAsGuest } from "../utils/firebase/SignInAsGuest";
+import { login } from "../utils/firebase/login";
+import { signInAsGuest } from "../utils/firebase/signInAsGuest";
 import { ButtonSmall } from "./ButtonSmall";
 import { useAppDispatch } from "../../app/hooks";
 import { addDummyData } from "../../features/kanban/kanbanSlice";
