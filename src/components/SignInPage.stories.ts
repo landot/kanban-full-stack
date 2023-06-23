@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { SignInPage } from './SignInPage';
 
 const meta = {
-  title: 'Auth',
+  title: 'SignInPage',
   component: SignInPage,
   tags: ['autodocs'],
   argTypes: {},
