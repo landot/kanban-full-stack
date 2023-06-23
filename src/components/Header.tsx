@@ -1,5 +1,5 @@
 import { HeadingL } from "../styledComponents/header/HeadingL";
-import { ButtonLarge } from "./ButtonLarge";
+import { LargePrimary, StyledButton } from "./StyledButton";
 import { MoreAction, MoreActionItem } from "./MoreAction";
 import { Board } from "../types/data";
 import chevronDown from "../assets/images/icon-chevron-down.svg";
@@ -63,10 +63,11 @@ export function Header(props: {
                 </div>
                 {boardExists && (
                     <div className='header-actions'>
-                        <ButtonLarge 
+                        <StyledButton 
                             label={size.width && size.width <= 500 ? '+': '+ Add New Task'} 
                             onClick={() => props.handleAddTask(true)} 
                             isDisabled={props.board.columns.length === 0}
+                            buttonProps={LargePrimary}
                         />
                         <MoreAction 
                             actionItemName="Board"
