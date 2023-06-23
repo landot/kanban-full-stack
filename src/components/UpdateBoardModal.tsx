@@ -2,7 +2,6 @@ import { ChangeEvent, useState } from 'react';
 import { HeadingL } from '../styledComponents/header/HeadingL';
 import { HeadingS } from '../styledComponents/header/HeadingS';
 import { TextField } from './TextField';
-import { ButtonSmall } from './ButtonSmall';
 import { ModalError } from './UpdateTaskModal';
 import DeleteIcon from '../assets/images/icon-cross.svg';
 import './UpdateBoardModal.css';
@@ -10,6 +9,7 @@ import { Board } from '../types/data';
 import { getUUID } from '../utils/createUUID';
 import { generateRandomHex } from '../utils/generateRandomHex';
 import { BoardUpdateValue } from '../../features/kanban/kanbanSlice';
+import { SmallPrimary, SmallSecondary, StyledButton } from './StyledButton';
 
 // todo create a common component with the general layout of an update model ie: title, padding, content since this duplicates logic
 export function UpdateBoardModal(
@@ -138,17 +138,19 @@ export function UpdateBoardModal(
                         </div>
                     )
                 })}
-                <ButtonSmall 
+                <StyledButton 
+                    buttonProps={SmallSecondary}
                     label='+ Add New Column' 
-                    type='secondary'
                     onClick={handleNewColumn}
+                    isDisabled={false}
                 />
             </div>         
             <div className='section submit'>
-                <ButtonSmall 
+                <StyledButton 
+                    buttonProps={SmallPrimary}
                     label={props.updateType === 'add' ? 'Create New Board': 'Save Changes'} 
-                    type='primary' 
                     onClick={handleSubmit}
+                    isDisabled={false}
                 />
             </div>
         </div>

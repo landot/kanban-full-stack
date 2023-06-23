@@ -1,6 +1,4 @@
 import styled from 'styled-components';
-import './ButtonSmall.css';
-
 
 interface ButtonProps {
   size: 'small' | 'large';
@@ -107,15 +105,3 @@ export function StyledButton(
       <ButtonStyles {...props.buttonProps} disabled={props.isDisabled} onClick={props.onClick}>{props.label}</ButtonStyles>
     )
   }
-
-// todo update so that we don't need this anymore
-export function ButtonSmall(
-    props: {
-        label: string, 
-        type: 'primary' | 'secondary' | 'destructive',
-        onClick?: () => void;
-    }) {
-    return (
-        <button className={`button-small ${props.type}`} onClick={props.onClick}>{props.label}</button>
-    )
-}

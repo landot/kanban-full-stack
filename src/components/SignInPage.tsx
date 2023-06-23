@@ -3,10 +3,10 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import { login } from "../utils/firebase/login";
 import { signInAsGuest } from "../utils/firebase/signInAsGuest";
-import { ButtonSmall } from "./ButtonSmall";
 import { useAppDispatch } from "../../app/hooks";
 import { addDummyData } from "../../features/kanban/kanbanSlice";
 import { Overlay } from "./Overlay";
+import { SmallPrimary, StyledButton } from "./StyledButton";
 import './SignInPage.css';
 
 export function SignInPage() {
@@ -55,11 +55,11 @@ export function SignInPage() {
                   <input type="password" name="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
               </div>
               {error && <p className="sign-in-error">{error}</p>}
-              <ButtonSmall label='Log In' type='primary' onClick={handleLogin} />
+              <StyledButton buttonProps={SmallPrimary} label='Log In' onClick={handleLogin} isDisabled={false}/>
             </div>
             <div className="sign-in-other-options">
-              <ButtonSmall label='Create an Account' type='primary' onClick={() => navigate('/create-account')} />
-              <ButtonSmall label='Proceed as Guest' type='primary' onClick={handleGuest}/>
+              <StyledButton buttonProps={SmallPrimary} label='Create an Account' onClick={() => navigate('/create-account')} isDisabled={false}/>
+              <StyledButton buttonProps={SmallPrimary} label='Proceed as Guest' onClick={handleGuest} isDisabled={false}/>
             </div>
           </div>
         }/>
