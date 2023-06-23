@@ -3,7 +3,6 @@ import { sampleBoard } from '../data/sampleData';
 
 import { UpdateTaskModal } from './UpdateTaskModal';
 
-// todo fix these stories
 const meta = {
   title: 'UpdateTaskModal',
   component: UpdateTaskModal,
