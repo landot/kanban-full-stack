@@ -1,6 +1,5 @@
-import { HeadingL } from "../styledComponents/header/HeadingL"
-import { HeadingS } from "../styledComponents/header/HeadingS";
-import { MediumText } from "../styledComponents/text/MediumText"
+import { HeadingL } from "./styles/header/HeadingL"
+import { HeadingS } from "./styles/header/HeadingS";
 import { Checkbox } from "./SubtaskCheckbox"
 import { Dropdown } from "./Dropdown";
 import { MoreAction, MoreActionItem } from "./MoreAction";
@@ -10,6 +9,7 @@ import { addTask, deleteTask, updateTask } from "../../features/kanban/kanbanSli
 import { getColumnsWithName } from "../utils/filterUtils";
 import { getSubtaskIndexWithId } from "../utils/findIndexUtils";
 import './ViewTaskModal.css';
+import { MediumText } from "./styles/text/MediumText";
 
 export function ViewTaskModal(props: {
     task: Task, 

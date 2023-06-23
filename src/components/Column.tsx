@@ -1,5 +1,5 @@
 import { Draggable, Droppable } from 'react-beautiful-dnd';
-import { HeadingS } from '../styledComponents/header/HeadingS';
+import { HeadingS } from './styles/header/HeadingS';
 import { Column as IColumn } from '../types/data';
 import { Task } from './Task';
 import './Column.css';

@@ -1,8 +1,8 @@
-import { HeadingS } from '../styledComponents/header/HeadingS';
+import { HeadingS } from './styles/header/HeadingS';
 import { Dropdown } from './Dropdown';
 import { TextField } from './TextField';
 import DeleteIcon from '../assets/images/icon-cross.svg';
-import { HeadingL } from '../styledComponents/header/HeadingL';
+import { HeadingL } from './styles/header/HeadingL';
 import { useState } from 'react';
 import { Board, Task } from '../types/data';
 import { getUUID } from '../utils/createUUID';

@@ -1,6 +1,6 @@
 import { ChangeEvent, useState } from 'react';
-import { HeadingL } from '../styledComponents/header/HeadingL';
-import { HeadingS } from '../styledComponents/header/HeadingS';
+import { HeadingL } from './styles/header/HeadingL';
+import { HeadingS } from './styles/header/HeadingS';
 import { TextField } from './TextField';
 import { ModalError } from './UpdateTaskModal';
 import DeleteIcon from '../assets/images/icon-cross.svg';

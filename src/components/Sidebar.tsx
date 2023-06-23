@@ -1,7 +1,7 @@
-import { HeadingM } from '../styledComponents/header/HeadingM';
+import { HeadingM } from './styles/header/HeadingM';
 import { ReactComponent as BoardIcon } from '../assets/images/icon-board.svg';
 import { SidebarBoard } from './SidebarBoard';
-import { HeadingS } from '../styledComponents/header/HeadingS';
+import { HeadingS } from './styles/header/HeadingS';
 import logoDark from '../assets/images/logo-dark.svg';
 import logoLight from '../assets/images/logo-light.svg';
 import { DarkModeToggle } from './DarkModeToggle';

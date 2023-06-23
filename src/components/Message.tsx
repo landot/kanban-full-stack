@@ -3,10 +3,10 @@ import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../app/hooks";
 import { addDummyData } from "../../features/kanban/kanbanSlice";
 import { AuthContext } from "../context/AuthContext";
-import { MediumText } from "../styledComponents/text/MediumText";
 import { logout } from "../utils/firebase/logout";
-import './Message.css';
 import { MoreAction, MoreActionItem } from "./MoreAction";
+import { MediumText } from "./styles/text/MediumText";
+import './Message.css';
 
 
 export function Message() {

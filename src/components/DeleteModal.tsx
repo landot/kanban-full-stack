@@ -1,7 +1,7 @@
-import { HeadingL } from '../styledComponents/header/HeadingL';
-import { MediumText } from '../styledComponents/text/MediumText';
+import { HeadingL } from './styles/header/HeadingL';
 import './DeleteModal.css';
 import { SmallDestructive, SmallSecondary, StyledButton } from './StyledButton';
+import { MediumText } from './styles/text/MediumText';
 
 export function DeleteModal(props: {
     name: 'task' | 'board', 

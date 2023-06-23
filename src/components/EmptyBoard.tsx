@@ -1,4 +1,4 @@
-import { HeadingL } from "../styledComponents/header/HeadingL";
+import { HeadingL } from "./styles/header/HeadingL";
 import { LargePrimary, StyledButton } from "./StyledButton";
 import './EmptyBoard.css';
 

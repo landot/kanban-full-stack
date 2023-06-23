@@ -1,4 +1,4 @@
-import { HeadingXL } from "../styledComponents/header/HeadingXL";
+import { HeadingXL } from "./styles/header/HeadingXL";
 import { Overlay } from "./Overlay";
 import './Loading.css';
 
