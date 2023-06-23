@@ -8,6 +8,7 @@ import { convertGuestAccount } from "../utils/firebase/convertGuestAccount";
 import { createAccount } from "../utils/firebase/createAccount";
 import { signInAsGuest } from "../utils/firebase/signInAsGuest";
 import { ButtonSmall } from "./ButtonSmall";
+import { Overlay } from "./Overlay";
 import './CreateAccountPage.css';
 
 
@@ -54,29 +55,31 @@ export function CreateAccountPage() {
   
 
     return (
-        <div className="create-account-wrapper">
-            <div className="create-account-form">
-                <h1>{isGuest ? 'Register': 'Create'} Account</h1>
-                <div className="credentials">
-                    <h2>Email</h2>
-                    <input type="email" name="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)}/>
-                    <h2>Password</h2>
-                    <input type="password" name="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
+        <Overlay handleClose={() => null} children={
+            <div className="create-account-wrapper">
+                <div className="create-account-form">
+                    <h1>{isGuest ? 'Register': 'Create'} Account</h1>
+                    <div className="credentials">
+                        <h2>Email</h2>
+                        <input type="email" name="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)}/>
+                        <h2>Password</h2>
+                        <input type="password" name="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
+                    </div>
+                    {error && <p className="create-account-error">{error}</p>}
+                    <ButtonSmall label='Create Account' type='primary' onClick={handleCreateAccount} />
                 </div>
-                {error && <p className="create-account-error">{error}</p>}
-                <ButtonSmall label='Create Account' type='primary' onClick={handleCreateAccount} />
+                <div className="create-account-other-options">
+                    {!isGuest && (
+                        <>
+                            <ButtonSmall label='Back to Log In' type='primary' onClick={() => navigate('/login')}/>
+                            <ButtonSmall label='Proceed as Guest' type='primary' onClick={handleGuest}/>
+                        </>
+                    )}
+                    {isGuest && (
+                        <ButtonSmall label='Back to Kanban' type='primary' onClick={() => navigate('/')}/>
+                    )}
+                </div>
             </div>
-            <div className="create-account-other-options">
-                {!isGuest && (
-                    <>
-                        <ButtonSmall label='Back to Log In' type='primary' onClick={() => navigate('/login')}/>
-                        <ButtonSmall label='Proceed as Guest' type='primary' onClick={handleGuest}/>
-                    </>
-                )}
-                {isGuest && (
-                    <ButtonSmall label='Back to Kanban' type='primary' onClick={() => navigate('/')}/>
-                )}
-            </div>
-        </div>
+        }/>
     )
 }

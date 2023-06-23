@@ -1,6 +1,6 @@
 import { HeadingL } from "../styledComponents/header/HeadingL";
 import { ButtonLarge } from "./ButtonLarge";
-import { MoreAction } from "./MoreAction";
+import { MoreAction, MoreActionItem } from "./MoreAction";
 import { Board } from "../types/data";
 import chevronDown from "../assets/images/icon-chevron-down.svg";
 import chevronUp from "../assets/images/icon-chevron-up.svg";
@@ -20,6 +20,18 @@ export function Header(props: {
 }) {
     const boardExists = props.board && props.board.id !== '';
     const size = useWindowSize();
+    const boardMoreActionsItem: MoreActionItem[] = [
+        {
+            text: 'Edit Board',
+            class: 'edit',
+            action: () => props.handleEditBoard(true)
+        },
+        {
+            text: 'Delete Board',
+            class: 'delete',
+            action: () => props.handleDeleteBoard(true)
+        },
+    ]
 
     function handleDropdownClick() {
         if (size.width && size.width <= 500) {
@@ -57,9 +69,8 @@ export function Header(props: {
                             isDisabled={props.board.columns.length === 0}
                         />
                         <MoreAction 
-                            text={"Board"} 
-                            handleEditClick={() => props.handleEditBoard(true)} 
-                            handleDeleteClick={() => props.handleDeleteBoard(true)} 
+                            actionItemName="Board"
+                            items={boardMoreActionsItem}
                         />
                     </div>
                 )}

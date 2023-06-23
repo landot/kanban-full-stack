@@ -17,8 +17,9 @@
     left: -120px;
     background: #FFFFFF;
     width: 150px;
-    height: 94px;
+    height: fit-content;
     display: flex;
+    gap: 15px;
     flex-direction: column;
     justify-content: space-between;
     box-shadow: 0px 10px 20px rgba(54, 78, 126, 0.25);

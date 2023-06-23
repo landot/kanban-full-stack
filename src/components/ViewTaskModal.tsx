@@ -3,7 +3,7 @@ import { HeadingS } from "../styledComponents/header/HeadingS";
 import { MediumText } from "../styledComponents/text/MediumText"
 import { Checkbox } from "./SubtaskCheckbox"
 import { Dropdown } from "./Dropdown";
-import { MoreAction } from "./MoreAction";
+import { MoreAction, MoreActionItem } from "./MoreAction";
 import { Board, Subtask, Task } from "../types/data";
 import { useAppDispatch } from "../../app/hooks";
 import { addTask, deleteTask, updateTask } from "../../features/kanban/kanbanSlice";
@@ -21,6 +21,18 @@ export function ViewTaskModal(props: {
     hideModal: () => void
 }) {
     const dispatch = useAppDispatch()
+    const taskMoreActionsItem: MoreActionItem[] = [
+        {
+            text: 'Edit Task',
+            class: 'edit',
+            action: () => handleEditTask()
+        },
+        {
+            text: 'Delete Task',
+            class: 'delete',
+            action: () => props.handleDeleteTask()
+        },
+    ]
 
     function getSubtaskRemainingText() {
         return (
@@ -70,10 +82,9 @@ export function ViewTaskModal(props: {
         <div className="view-task">
             <div className='section view-task-header'>
                 <HeadingL>{props.task.title}</HeadingL>
-                <MoreAction 
-                    text="task"
-                    handleDeleteClick={props.handleDeleteTask}
-                    handleEditClick={handleEditTask}
+                <MoreAction
+                    actionItemName="Task"
+                    items={taskMoreActionsItem}
                 />
             </div>
             <MediumText>{props.task.description}</MediumText>

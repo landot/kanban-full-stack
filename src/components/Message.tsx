@@ -5,29 +5,46 @@ import { addDummyData } from "../../features/kanban/kanbanSlice";
 import { AuthContext } from "../context/AuthContext";
 import { MediumText } from "../styledComponents/text/MediumText";
 import { logout } from "../utils/firebase/logout";
-import { ButtonSmall } from "./ButtonSmall";
 import './Message.css';
+import { MoreAction, MoreActionItem } from "./MoreAction";
 
 
 export function Message() {
     const navigate = useNavigate();
     const auth = useContext(AuthContext);
     const dispatch = useAppDispatch();
+    const accountMoreActionsItem: MoreActionItem[] = [
+        {
+            text: 'Log Out',
+            class: 'edit',
+            action: () => logout()
+        },
+        {
+            text: 'Add Dummy Data',
+            class: 'edit',
+            action: () => dispatch(addDummyData())
+        },
+    ]
+    const guestAccountMoreActionsItems: MoreActionItem[] = [
+        ...accountMoreActionsItem, 
+        {
+            text: 'Register Account',
+            class: 'edit',
+            action: () => navigate('/create-account')
+        },
+    ]
     
     return (
         <div className="messages">
         {auth?.isAnonymous ? (
             <>
                 <MediumText>You are logged in as a guest</MediumText>
-                <ButtonSmall label={"Register Account"} type={"primary"} onClick={() => navigate('/create-account')}/>
-                <ButtonSmall label={"Logout"} type={"primary"} onClick={() => logout()}/>
-                <ButtonSmall label={"Add Dummy Data"} type={"primary"} onClick={() => dispatch(addDummyData())}/>
+                <MoreAction actionItemName={"account"} items={guestAccountMoreActionsItems} />
             </>
         ): (
             <>
                 <MediumText>You are logged in as {auth?.email}</MediumText>
-                <ButtonSmall label={"Logout"} type={"primary"} onClick={() => logout()}/>
-                <ButtonSmall label={"Add Dummy Data"} type={"primary"} onClick={() => dispatch(addDummyData())}/>
+                <MoreAction actionItemName={"account"} items={accountMoreActionsItem} />
             </>
         )}
     </div>

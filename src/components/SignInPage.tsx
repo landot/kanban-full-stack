@@ -6,6 +6,7 @@ import { signInAsGuest } from "../utils/firebase/signInAsGuest";
 import { ButtonSmall } from "./ButtonSmall";
 import { useAppDispatch } from "../../app/hooks";
 import { addDummyData } from "../../features/kanban/kanbanSlice";
+import { Overlay } from "./Overlay";
 import './SignInPage.css';
 
 export function SignInPage() {
@@ -42,24 +43,26 @@ export function SignInPage() {
         navigate('/');
     }
   
-    console.log('auth', auth)
     return (
-      <div className="sign-in-wrapper">
-        <div className="sign-in-form">
-          <h1>Sign In</h1>
-          <div className="credentials">
-              <h2>Email</h2>
-              <input type="email" name="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)}/>
-              <h2>Password</h2>
-              <input type="password" name="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
+        <Overlay handleClose={() => null} children={
+          <div className="sign-in-wrapper">
+            <div className="sign-in-form">
+              <h1>Sign In</h1>
+              <div className="credentials">
+                  <h2>Email</h2>
+                  <input type="email" name="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)}/>
+                  <h2>Password</h2>
+                  <input type="password" name="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
+              </div>
+              {error && <p className="sign-in-error">{error}</p>}
+              <ButtonSmall label='Log In' type='primary' onClick={handleLogin} />
+            </div>
+            <div className="sign-in-other-options">
+              <ButtonSmall label='Create an Account' type='primary' onClick={() => navigate('/create-account')} />
+              <ButtonSmall label='Proceed as Guest' type='primary' onClick={handleGuest}/>
+            </div>
           </div>
-          {error && <p className="sign-in-error">{error}</p>}
-          <ButtonSmall label='Log In' type='primary' onClick={handleLogin} />
-        </div>
-        <div className="sign-in-other-options">
-          <ButtonSmall label='Create an Account' type='primary' onClick={() => navigate('/create-account')} />
-          <ButtonSmall label='Proceed as Guest' type='primary' onClick={handleGuest}/>
-        </div>
-      </div>
+        }/>
+      
     )
   }
