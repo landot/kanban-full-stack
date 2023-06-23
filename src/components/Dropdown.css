@@ -49,7 +49,7 @@
     color: #828FA3;
 }
 
-.status-dropdown ul li:nth-last-of-type() {
+.status-dropdown ul li:nth-last-of-type {
     margin-top: 8px;
 }
 
