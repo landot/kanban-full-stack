@@ -1,98 +1,4 @@
-import styled from 'styled-components';
-
-interface ButtonProps {
-  size: 'small' | 'large';
-  buttonType: 'primary' | 'secondary' | 'destructive';
-}
-
-export const LargePrimary: ButtonProps = {
-  size: 'large',
-  buttonType: 'primary'
-}
-
-export const SmallPrimary: ButtonProps = {
-  size: 'small',
-  buttonType: 'primary'
-}
-
-export const LargeSecondary: ButtonProps = {
-  size: 'large',
-  buttonType: 'secondary'
-}
-
-export const SmallSecondary: ButtonProps = {
-  size: 'small',
-  buttonType: 'secondary'
-}
-
-export const LargeDestructive: ButtonProps = {
-  size: 'large',
-  buttonType: 'destructive'
-}
-
-export const SmallDestructive: ButtonProps = {
-  size: 'small',
-  buttonType: 'destructive'
-}
-
-export const ButtonStyles = styled.button<ButtonProps>`
-  border: none;
-  font-style: normal;
-  font-weight: 700;
-  text-align: center;
-  border-radius: 20px;
-  cursor: pointer;
-  line-height: ${p => p.size === 'small' ? '23px': '19px'};
-  font-size: ${p => p.size === 'small' ? '13px': '15px'};
-  padding: ${p => p.size === 'small' ? '10px': '15px'};
-
-  color: ${({buttonType}) => 
-    buttonType === 'secondary' && '#635FC7' || '#FFFFFF'
-  };
-
-  background: ${({buttonType}) => 
-    buttonType === 'primary' && '#635FC7' ||
-    buttonType === 'secondary' && 'rgba(99, 95, 199, 0.1)' || 
-    buttonType === 'destructive' && '#EA5555' 
-  };
-
-  &:hover {
-    background: ${({buttonType}) => 
-      buttonType === 'primary' && '#A8A4FF' ||
-      buttonType === 'secondary' && 'rgba(99, 95, 199, 0.25)' || 
-      buttonType === 'destructive' && '#FF9898'
-    };
-  }
-
-  &:disabled {
-    background: #A8A4FF;
-  }
-
-  &:disabled:hover {
-    cursor: default;
-  }
-
-  #dark & {
-    background: ${({buttonType}) => 
-      buttonType === 'primary' && '#635FC7' ||
-      buttonType === 'secondary' && '#FFFFFF' || 
-      buttonType === 'destructive' && '#EA5555' 
-    };
-
-    &:hover {
-      background: ${({buttonType}) => 
-        buttonType === 'primary' && '#A8A4FF' ||
-        buttonType === 'secondary' && '#FFFFFF' || 
-        buttonType === 'destructive' && '#FF9898'
-      };
-    }
-
-    &:disabled {
-      background: #A8A4FF;
-      filter: brightness(40%);
-    }
-  }
-`
+import { ButtonProps, DestructiveButtonStyles, PrimaryButtonStyles, SecondaryButtonStyles } from './styles/StyledButton.styles';
 
 export function StyledButton(
   props: {
@@ -101,7 +7,16 @@ export function StyledButton(
     buttonProps: ButtonProps,
     onClick?: () => void
   }) {
+    let Button;
+    if(props.buttonProps.buttonType === 'secondary') {
+      Button = SecondaryButtonStyles;
+    } else if(props.buttonProps.buttonType === 'destructive') {
+      Button = DestructiveButtonStyles;
+    } else {
+      Button = PrimaryButtonStyles;
+    }
+
     return (
-      <ButtonStyles {...props.buttonProps} disabled={props.isDisabled} onClick={props.onClick}>{props.label}</ButtonStyles>
+      <Button {...props.buttonProps} disabled={props.isDisabled} onClick={props.onClick}>{props.label}</Button>
     )
   }

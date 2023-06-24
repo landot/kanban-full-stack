@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { StyledButton, LargePrimary, LargeSecondary, SmallSecondary, SmallPrimary, LargeDestructive, SmallDestructive } from './StyledButton';
+import { StyledButton } from './StyledButton';
+import { LargePrimary, SmallPrimary, LargeSecondary, SmallSecondary, LargeDestructive, SmallDestructive } from './styles/StyledButton.styles';
 
 const meta = {
   title: 'StyledButton',

@@ -8,7 +8,8 @@ import { convertGuestAccount } from "../utils/firebase/convertGuestAccount";
 import { createAccount } from "../utils/firebase/createAccount";
 import { signInAsGuest } from "../utils/firebase/signInAsGuest";
 import { Overlay } from "./Overlay";
-import { SmallPrimary, StyledButton } from "./StyledButton";
+import { StyledButton } from "./StyledButton";
+import { SmallPrimary } from "./styles/StyledButton.styles";
 import './CreateAccountPage.css';
 
 

@@ -10,7 +10,8 @@ import { useAppDispatch } from '../../app/hooks';
 import { addTask, deleteTask } from '../../features/kanban/kanbanSlice';
 import { getColumnsWithName } from '../utils/filterUtils';
 import './UpdateTaskModal.css';
-import { SmallPrimary, SmallSecondary, StyledButton } from './StyledButton';
+import { StyledButton } from './StyledButton';
+import { SmallSecondary, SmallPrimary } from './styles/StyledButton.styles';
 
 export interface ModalError {
     section: string;

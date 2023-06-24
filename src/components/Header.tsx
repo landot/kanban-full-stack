@@ -1,5 +1,4 @@
 import { HeadingL } from "./styles/header/HeadingL";
-import { LargePrimary, StyledButton } from "./StyledButton";
 import { MoreAction, MoreActionItem } from "./MoreAction";
 import { Board } from "../types/data";
 import chevronDown from "../assets/images/icon-chevron-down.svg";
@@ -9,6 +8,8 @@ import logoDark from '../assets/images/logo-dark.svg';
 import logoLight from '../assets/images/logo-light.svg';
 import logoMobile from '../assets/images/logo-mobile.svg';
 import './Header.css';
+import { StyledButton } from "./StyledButton";
+import { LargePrimary } from "./styles/StyledButton.styles";
 
 export function Header(props: {
     board: Board,

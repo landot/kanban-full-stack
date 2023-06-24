@@ -6,8 +6,9 @@ import { signInAsGuest } from "../utils/firebase/signInAsGuest";
 import { useAppDispatch } from "../../app/hooks";
 import { addDummyData } from "../../features/kanban/kanbanSlice";
 import { Overlay } from "./Overlay";
-import { SmallPrimary, StyledButton } from "./StyledButton";
 import './SignInPage.css';
+import { StyledButton } from "./StyledButton";
+import { SmallPrimary } from "./styles/StyledButton.styles";
 
 export function SignInPage() {
     const [email, setEmail] = useState('');

@@ -1,6 +1,7 @@
 import { HeadingL } from "./styles/header/HeadingL";
-import { LargePrimary, StyledButton } from "./StyledButton";
 import './EmptyBoard.css';
+import { StyledButton } from "./StyledButton";
+import { LargePrimary } from "./styles/StyledButton.styles";
 
 export function EmptyBoard(props: {handleNewColumnClick: () => void}) {
     return (
