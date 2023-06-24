@@ -52,11 +52,6 @@
     cursor: pointer;
 }
 
-.sidebar .dark-mode-toggle {
-    margin: 0 24px 0 24px;
-    width: 90%;
-}
-
 @media (max-width: 500px) {
     .logo-dark, .logo-light {
         display: none !important;

@@ -2,7 +2,8 @@ import darkIcon from '../assets/images/icon-dark-theme.svg';
 import lightIcon from '../assets/images/icon-light-theme.svg';
 import { useContext } from 'react';
 import { ThemeContext } from '../context/ThemeContext';
-import './DarkModeToggle.css';
+import { DarkModeToggleStyles, SwitchStyles, SwitchInputStyles, SliderStyles } from './styles/DarkModeToggle.styles';
+
 
 export function DarkModeToggle(props: {toggleTheme: (theme: string) => void}) {
     const theme = useContext(ThemeContext);
@@ -16,17 +17,17 @@ export function DarkModeToggle(props: {toggleTheme: (theme: string) => void}) {
     }
 
     return (
-        <div className='dark-mode-toggle'>
+        <DarkModeToggleStyles>
             <img src={lightIcon} alt="light mode icon" />
-            <label className="switch">
-                <input 
+            <SwitchStyles>
+                <SwitchInputStyles 
                     type="checkbox" 
                     checked={theme === 'dark'}
                     onChange={() => null}
                 />
-                <span className="slider round" onClick={toggleTheme}></span>
-            </label>
+                <SliderStyles onClick={toggleTheme}/>
+            </SwitchStyles>
             <img src={darkIcon} alt="dark mode icon" />
-        </div>
+        </DarkModeToggleStyles>
     )
 }
