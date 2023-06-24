@@ -35,7 +35,7 @@ export const SmallDestructive: ButtonProps = {
     buttonType: 'destructive'
 }
 
-export const ButtonStyles = styled.button<ButtonProps>`
+export const BaseButtonStyles = styled.button<ButtonProps>`
   border: none;
   font-style: normal;
   font-weight: 700;
@@ -48,7 +48,7 @@ export const ButtonStyles = styled.button<ButtonProps>`
   padding: ${p => p.size === 'small' ? '10px': '15px'};
 `
 
-export const PrimaryButtonStyles = styled(ButtonStyles)`
+export const PrimaryButtonStyles = styled(BaseButtonStyles)`
   background: #635FC7;
   &:hover {
     background: #A8A4FF;
@@ -63,7 +63,7 @@ export const PrimaryButtonStyles = styled(ButtonStyles)`
   }
 `
 
-export const SecondaryButtonStyles = styled(ButtonStyles)`
+export const SecondaryButtonStyles = styled(BaseButtonStyles)`
     background: rgba(99, 95, 199, 0.1);
     color: #635FC7;
     &:hover {
@@ -79,7 +79,7 @@ export const SecondaryButtonStyles = styled(ButtonStyles)`
     #dark &:disabled {}
 `
 
-export const DestructiveButtonStyles = styled(ButtonStyles)`
+export const DestructiveButtonStyles = styled(BaseButtonStyles)`
     background: #EA5555;
     &:hover {
       background: #FF9898;

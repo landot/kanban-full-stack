@@ -1,6 +1,6 @@
 import styled from "styled-components"
 import { HeadingL } from "./header/HeadingL"
-import { ButtonStyles } from "./StyledButton.styles"
+import { BaseButtonStyles } from "./StyledButton.styles"
 
 export const DeleteModalStyles = styled.div`
     background: #FFFFFF;
@@ -17,11 +17,11 @@ export const DeleteModalStyles = styled.div`
         margin-bottom: 24px;
     }
 
-    ${ButtonStyles} {
+    ${BaseButtonStyles} {
         width: 40%;
     }
 
-    ${ButtonStyles}:first-of-type {
+    ${BaseButtonStyles}:first-of-type {
         margin-right: 16px;
     }
 `
