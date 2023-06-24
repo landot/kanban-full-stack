@@ -56,37 +56,6 @@ img {
   grid-area: message;
 }
 
-.content {
-  background: #E4EBFA;
-  grid-area: board;
-  width: 100%;
-  height: calc(100vh - 110px);
-  display: flex;
-  flex-direction: row;
-  overflow: scroll;
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
-}
-
-.content::-webkit-scrollbar {
-  display: none;
-}
-
-#dark .content {
-  background: #20212C;
-}
-
-.content .column {
-  width: 250px;
-  margin: 0 24px 0 24px;
-  padding-bottom: 200px;
-}
-
-.content .show-sidebar {
-  position: absolute;
-  bottom: 50px;
-}
-
 @media (max-width: 800px) {
   .app.sidebar-visible {
     grid-template-columns: 260px 1fr;

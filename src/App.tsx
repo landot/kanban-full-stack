@@ -24,7 +24,7 @@ import { Column } from './components/Column';
 import { UpdateTaskModal } from './components/UpdateTaskModal';
 import { ViewTaskModal } from './components/ViewTaskModal';
 import { AddNewColumn } from './components/AddNewColumn';
-import { ShowSidebar } from './components/ShowSidebar';
+import { ShowSidebar, ShowSidebarStyles } from './components/ShowSidebar';
 import { getBoardsWithId, getColumnsWithId, getTasksWithId } from './utils/filterUtils';
 import { getBoardIndexWithId } from './utils/findIndexUtils';
 import { EmptyBoard } from './components/EmptyBoard';
@@ -32,6 +32,39 @@ import './App.css'
 import { Message } from './components/Message';
 import { useSelector } from '../app/store';
 import { Loading } from './components/Loading';
+import styled from 'styled-components';
+import { ColumnStyles } from './components/styles/Column.styles';
+
+export const ContentStyles = styled.div`
+  background: #E4EBFA;
+  grid-area: board;
+  width: 100%;
+  height: calc(100vh - 110px);
+  display: flex;
+  flex-direction: row;
+  overflow: scroll;
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  #dark & {
+    background: #20212C;
+  }
+
+  ${ColumnStyles} {
+    width: 250px;
+    margin: 0 24px 0 24px;
+    padding-bottom: 200px;
+  }
+
+  ${ShowSidebarStyles} {
+    position: absolute;
+    bottom: 50px;
+  }
+`
 
 // refactor reducers
 // fix accessibility issues
@@ -255,7 +288,7 @@ function App() {
             handleAddTask={setShowAddTaskOverlay}
           />
           <Message />
-          <div className='content'>
+          <ContentStyles>
             {(selectedBoardId && kanban.boards.length > 0) && (
               <DragDropContext onDragEnd={handleDragEnd}>
                 {getBoardsWithId(selectedBoardId, kanban.boards)[0].columns.map(column => (
@@ -278,7 +311,7 @@ function App() {
             {!showSidebar && (
               <ShowSidebar handleClick={() => setShowSidebar(true)}/>
             )}
-          </div>
+          </ContentStyles>
         </div>
       )} 
     </ThemeContext.Provider>

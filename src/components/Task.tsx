@@ -1,7 +1,7 @@
 import { HeadingM } from './styles/header/HeadingM';
 import { Task as ITask } from '../types/data';
 import { MediumText } from './styles/text/MediumText';
-import './Task.css';
+import { TaskStyles } from './styles/Task.styles';
 
 export function Task(props: {
     task: ITask,
@@ -9,12 +9,9 @@ export function Task(props: {
 }) {
     const tasksRemaining = props.task.subtasks.filter(t => !t.isCompleted).length;
     return (
-        <div 
-            className='task'
-            onClick={() => props.handleClick(props.task)}
-        >
+        <TaskStyles onClick={() => props.handleClick(props.task)}>
             <HeadingM>{props.task.title}</HeadingM>
             <MediumText>{`${tasksRemaining} of ${props.task.subtasks.length} subtasks remaining`}</MediumText>
-        </div>
+        </TaskStyles>
     )
 }

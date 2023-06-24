@@ -2,7 +2,8 @@ import { Draggable, Droppable } from 'react-beautiful-dnd';
 import { HeadingS } from './styles/header/HeadingS';
 import { Column as IColumn } from '../types/data';
 import { Task } from './Task';
-import './Column.css';
+import { DroppableColumnStyles, ColumnStyles, ColumnHeaderStyles, ColumnHeaderDot, ColumnItemStyles } from './styles/Column.styles';
+
 
 export function Column(
     props: {
@@ -22,15 +23,15 @@ export function Column(
     return (
         <Droppable droppableId={props.column.id}>
             {(provided) => (
-                <div className='droppable-column' {...provided.droppableProps} ref={provided.innerRef}>
-                    <div className='column'>
-                        <div className='column-header'>
-                            <span className='dot' style={{
+                <DroppableColumnStyles {...provided.droppableProps} ref={provided.innerRef}>
+                    <ColumnStyles>
+                        <ColumnHeaderStyles>
+                            <ColumnHeaderDot style={{
                                 backgroundColor: props.column.color
                             }}/> 
                             <HeadingS>{props.column.name} ({props.column.tasks.length})</HeadingS>
-                        </div>
-                        <div className='column-items'>
+                        </ColumnHeaderStyles>
+                        <ColumnItemStyles>
                         {props.column.tasks.map((task, index)=> (
                             <Draggable draggableId={task.id} key={task.id} index={index}>
                             {(provided) => (
@@ -44,9 +45,9 @@ export function Column(
                             </Draggable>
                         ))}
                         {provided.placeholder}
-                        </div>
-                    </div>
-                </div>
+                        </ColumnItemStyles>
+                    </ColumnStyles>
+                </DroppableColumnStyles>
             )}
         </Droppable>
     )
