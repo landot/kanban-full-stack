@@ -20,6 +20,9 @@ export default defineConfig({
     coverage: {
       reporter: ['text', 'json', 'html'],
       all: true,
+      include: ['src/components', 'features'],
+      exclude: ['src/**/*.stories.{ts,tsx}', 'src/components/styles']
+
     },
   },
 })
