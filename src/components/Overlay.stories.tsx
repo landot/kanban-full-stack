@@ -16,9 +16,8 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     children: (
-    <div style={{backgroundColor: 'white', width: '200px', height: '200px'}}>
+    <div style={{backgroundColor: 'white', width: '500px', height: '500px', display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center'}}>
       <p>this is the inner component</p>
-      <button>button</button>
     </div>
     )
   },
