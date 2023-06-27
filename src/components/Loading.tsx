@@ -1,15 +1,13 @@
 import { HeadingXL } from "./styles/header/HeadingXL";
 import { Overlay } from "./Overlay";
-import './Loading.css';
+import { LoadingStyles } from "./styles/Loading.styles";
 
 export function Loading(props: {text: string}) {
     return (
         <Overlay handleClose={() => null} children={
-            <div className="loading">
+            <LoadingStyles>
                 <HeadingXL>{props.text}</HeadingXL>
-            </div>
-            
-        }
-        />
+            </LoadingStyles>
+        }/>
     )
 }
