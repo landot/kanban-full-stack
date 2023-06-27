@@ -7,9 +7,9 @@ import useWindowSize from "../utils/useWindowSize";
 import logoDark from '../assets/images/logo-dark.svg';
 import logoLight from '../assets/images/logo-light.svg';
 import logoMobile from '../assets/images/logo-mobile.svg';
-import './Header.css';
 import { StyledButton } from "./StyledButton";
 import { LargePrimary } from "./styles/StyledButton.styles";
+import { HeaderStyles, HeaderContentStyles, HeaderTitleStyles, LightLogoStyles, DarkLogoStyles, Break, MobileLogoStyles, HeaderActionStyles } from "./styles/Header.styles";
 
 export function Header(props: {
     board: Board,
@@ -41,18 +41,19 @@ export function Header(props: {
     }
 
     return (
-        <div className='header'>
-            <div className='header-content'>
-                <div className="header-title" onClick={handleDropdownClick}>
+        // todo remove this classname when app.css is refactored for styled components
+        <HeaderStyles className="header">
+            <HeaderContentStyles>
+                <HeaderTitleStyles onClick={handleDropdownClick}>
                     {!props.showSidebar && size.width && size.width > 500 && (
                         <>
-                            <img className='logo-light' src={logoLight} alt='logo-light' />
-                            <img className='logo-dark' src={logoDark} alt='logo-dark' />
-                            <div className='break'/>
+                            <LightLogoStyles src={logoLight} alt='logo-light' />
+                            <DarkLogoStyles src={logoDark} alt='logo-dark' />
+                            <Break/>
                         </>
                     )}
                     {size.width && size.width <= 500 && (
-                        <img className='logo-mobile' src={logoMobile} alt='logo-mobile' />
+                        <MobileLogoStyles src={logoMobile} alt='logo-mobile' />
                     )}
                     <HeadingL>{boardExists ? props.board.name: 'Create a board'}</HeadingL>
                     {props.showSidebar && size.width && size.width <= 500 && (
@@ -61,9 +62,9 @@ export function Header(props: {
                     {!props.showSidebar && size.width && size.width <= 500 && (
                         <img src={chevronDown} alt='show boards icon'/>
                     )}
-                </div>
+                </HeaderTitleStyles>
                 {boardExists && (
-                    <div className='header-actions'>
+                    <HeaderActionStyles>
                         <StyledButton 
                             label={size.width && size.width <= 500 ? '+': '+ Add New Task'} 
                             onClick={() => props.handleAddTask(true)} 
@@ -74,9 +75,9 @@ export function Header(props: {
                             actionItemName="Board"
                             items={boardMoreActionsItem}
                         />
-                    </div>
+                    </HeaderActionStyles>
                 )}
-            </div>
-        </div>
+            </HeaderContentStyles>
+        </HeaderStyles>
     )
 }
