@@ -5,9 +5,8 @@ import { addDummyData } from "../../features/kanban/kanbanSlice";
 import { AuthContext } from "../context/AuthContext";
 import { logout } from "../utils/firebase/logout";
 import { MoreAction, MoreActionItem } from "./MoreAction";
+import { MessageStyles } from "./styles/Message.styles";
 import { MediumText } from "./styles/text/MediumText";
-import './Message.css';
-
 
 export function Message() {
     const navigate = useNavigate();
@@ -35,7 +34,7 @@ export function Message() {
     ]
     
     return (
-        <div className="messages">
+        <MessageStyles className="messages">
         {auth?.isAnonymous ? (
             <>
                 <MediumText>You are logged in as a guest</MediumText>
@@ -47,6 +46,6 @@ export function Message() {
                 <MoreAction actionItemName={"account"} items={accountMoreActionsItem} />
             </>
         )}
-    </div>
+        </MessageStyles>
     )
 }

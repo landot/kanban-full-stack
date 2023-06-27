@@ -1,4 +1,6 @@
-.messages {
+import styled from "styled-components";
+
+export const MessageStyles = styled.div`
     padding: 5px 24px;
     width: 100%;
     display: flex;
@@ -7,9 +9,9 @@
     gap: 10px;
     border-bottom: solid #E4EBFA 2px;
     background: #FFFFFF;
-}
 
-#dark .messages {
-    background: #2B2C37;
-    border-bottom: solid #3E3F4E 2px;
-}
+    #dark & {
+        border-bottom: solid #3E3F4E 2px;
+        background: #2B2C37;
+    }
+`
