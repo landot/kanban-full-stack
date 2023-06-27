@@ -24,12 +24,12 @@ export function Header(props: {
     const boardMoreActionsItem: MoreActionItem[] = [
         {
             text: 'Edit Board',
-            class: 'edit',
+            itemType: 'primary',
             action: () => props.handleEditBoard(true)
         },
         {
             text: 'Delete Board',
-            class: 'delete',
+            itemType: 'destructive',
             action: () => props.handleDeleteBoard(true)
         },
     ]

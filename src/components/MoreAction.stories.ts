@@ -17,12 +17,12 @@ export const Board: Story = {
     items: [
       {
         text: 'Edit Board',
-        class: 'edit',
+        itemType: 'primary',
         action: () => null
     },
     {
         text: 'Delete Board',
-        class: 'delete',
+        itemType: 'destructive',
         action: () => null
     },
     ]

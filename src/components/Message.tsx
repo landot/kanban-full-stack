@@ -15,12 +15,12 @@ export function Message() {
     const accountMoreActionsItem: MoreActionItem[] = [
         {
             text: 'Log Out',
-            class: 'edit',
+            itemType: 'primary',
             action: () => logout()
         },
         {
             text: 'Add Dummy Data',
-            class: 'edit',
+            itemType: 'primary',
             action: () => dispatch(addDummyData())
         },
     ]
@@ -28,7 +28,7 @@ export function Message() {
         ...accountMoreActionsItem, 
         {
             text: 'Register Account',
-            class: 'edit',
+            itemType: 'primary',
             action: () => navigate('/create-account')
         },
     ]

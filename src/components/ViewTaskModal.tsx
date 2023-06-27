@@ -24,12 +24,12 @@ export function ViewTaskModal(props: {
     const taskMoreActionsItem: MoreActionItem[] = [
         {
             text: 'Edit Task',
-            class: 'edit',
+            itemType: 'primary',
             action: () => handleEditTask()
         },
         {
             text: 'Delete Task',
-            class: 'delete',
+            itemType: 'destructive',
             action: () => props.handleDeleteTask()
         },
     ]

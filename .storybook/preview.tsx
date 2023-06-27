@@ -35,7 +35,7 @@ export const decorators = [
     const theme = context.globals.theme === 'light' ? 'light' : 'dark';
     return (
       <Provider store={store}>
-        <div id={theme}>
+        <div id={theme} style={{display: 'flex', justifyContent: 'center'}}>
           <Story />
         </div>
       </Provider>
