@@ -13,7 +13,7 @@ export const ListItemStyles = styled.li<{itemType: 'destructive' | 'primary'}>`
 export const MoreActionStyles = styled.div`
     position: relative;
 
-    & + img {
+    img {
         cursor: pointer;
         padding: 10px;
     }

@@ -24,7 +24,7 @@ import { Column } from './components/Column';
 import { UpdateTaskModal } from './components/UpdateTaskModal';
 import { ViewTaskModal } from './components/ViewTaskModal';
 import { AddNewColumn } from './components/AddNewColumn';
-import { ShowSidebar, ShowSidebarStyles } from './components/ShowSidebar';
+import { ShowSidebar } from './components/ShowSidebar';
 import { getBoardsWithId, getColumnsWithId, getTasksWithId } from './utils/filterUtils';
 import { getBoardIndexWithId } from './utils/findIndexUtils';
 import { EmptyBoard } from './components/EmptyBoard';
@@ -34,6 +34,7 @@ import { useSelector } from '../app/store';
 import { Loading } from './components/Loading';
 import styled from 'styled-components';
 import { ColumnStyles } from './components/styles/Column.styles';
+import { ShowSidebarStyles } from './components/styles/ShowSidebar.styles';
 
 export const ContentStyles = styled.div`
   background: #E4EBFA;

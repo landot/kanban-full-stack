@@ -1,4 +1,6 @@
-/* .show-sidebar {
+import styled from "styled-components";
+
+export const ShowSidebarStyles = styled.div`
     position: absolute;
     width: 56px;
     height: 48px;
@@ -7,8 +9,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-}
 
-.show-sidebar:hover {
-    background: #A8A4FF;
-} */
+    &:hover {
+        background: #A8A4FF;
+    }
+`
