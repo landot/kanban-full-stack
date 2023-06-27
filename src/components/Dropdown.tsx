@@ -1,32 +1,32 @@
 import { useState } from 'react';
 import chevronDown from '../assets/images/icon-chevron-down.svg';
-import './Dropdown.css';
+import { DropdownStyles, SelectedItemStyles, DropdownListStyles, DropdownListItemStyles } from './styles/Dropdown.styles';
 
 export function Dropdown(props: {
     values: string[],
     value: string, 
     handleChange: (status: string) => void
 }) {
-    const [status, setStatus] = useState(props.value);
+    const [value, setSelectedValue] = useState(props.value);
     const [showDropdownItems, setShowDropdownItems] = useState(false);
 
     function handleDropdownUpdate(newStatus: string) {
-        setStatus(newStatus);
+        setSelectedValue(newStatus);
         setShowDropdownItems(false);
         props.handleChange(newStatus);
     }
     
     return (
-        <div className={`status-dropdown ${showDropdownItems ? ' open': ''}`}>
-            <div className='selected-status' onClick={() => setShowDropdownItems(prev => !prev)}>
-                <p>{status}</p>
-                <img src={chevronDown} alt="" />
-            </div>
+        <DropdownStyles>
+            <SelectedItemStyles open={showDropdownItems} onClick={() => setShowDropdownItems(prev => !prev)}>
+                <p>{value}</p>
+                <img src={chevronDown} alt="dropdown chevron" />
+            </SelectedItemStyles>
             {showDropdownItems && (
-                <ul className='dropdown-items'>
-                    {props.values.map(value => <li onClick={() => handleDropdownUpdate(value)}>{value}</li>)}
-                </ul>
+                <DropdownListStyles className='dropdown-items'>
+                    {props.values.map(value => <DropdownListItemStyles onClick={() => handleDropdownUpdate(value)}>{value}</DropdownListItemStyles>)}
+                </DropdownListStyles>
             )}
-        </div>
+        </DropdownStyles>
     )
 }
