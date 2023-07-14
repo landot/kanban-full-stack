@@ -41,7 +41,6 @@ import sampleData from '../../data.json';
     'kanban/fetchKanbanData',
     async () => {
       const response = await getKanban();
-      console.log('response', response)
       return response;
     }
   )
