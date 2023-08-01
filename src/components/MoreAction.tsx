@@ -1,3 +1,4 @@
+import { offset, useFloating, autoUpdate, useDismiss, useInteractions } from '@floating-ui/react';
 import { useState } from 'react';
 import ellipsis from '../assets/images/icon-vertical-ellipsis.svg';
 import { MoreActionStyles, ListItemStyles } from './styles/MoreAction.styles';
@@ -10,16 +11,36 @@ export interface MoreActionItem {
 
 export function MoreAction(props: { actionItemName: string, items: MoreActionItem[]}) {
     const [showMoreActions, setShowMoreActions] = useState(false);
+    const { refs, floatingStyles, context } = useFloating({
+        middleware: [
+            offset({crossAxis: -70}),
+        ],
+        placement: "bottom",
+        open: showMoreActions,
+        onOpenChange: setShowMoreActions,
+        whileElementsMounted: autoUpdate,
+      });
 
+    const dismiss = useDismiss(context);
+    const {getReferenceProps, getFloatingProps} = useInteractions([
+        dismiss,
+    ]);
+    
     return (
         <MoreActionStyles>
             <img 
+                ref={refs.setReference}
+                {...getReferenceProps()}
                 src={ellipsis} 
                 alt={`${props.actionItemName} more actions`} 
                 onClick={() => setShowMoreActions(prev => !prev)}
             />
             {showMoreActions && (
-                <ul>
+                <ul
+                    ref={refs.setFloating} 
+                    style={floatingStyles} 
+                    {...getFloatingProps()}
+                >
                     {props.items.map(item => {
                         return <ListItemStyles itemType={item.itemType} onClick={() => {
                             item.action();
