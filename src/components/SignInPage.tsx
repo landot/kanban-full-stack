@@ -60,12 +60,12 @@ export function SignInPage() {
           <div className="sign-in-wrapper">
             <div className="sign-in-form">
               <h1>Sign In</h1>
-              <div className="credentials">
+              <form className="credentials">
                   <h2>Email</h2>
-                  <input type="email" name="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)}/>
+                  <input type="email" name="email" id="email" autoComplete="username" value={email} onChange={(e) => setEmail(e.target.value)}/>
                   <h2>Password</h2>
-                  <input type="password" name="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
-              </div>
+                  <input type="password" name="password" id="password" autoComplete="current-password" value={password} onChange={(e) => setPassword(e.target.value)}/>
+              </form>
               {error && <p className="sign-in-error">{error}</p>}
               <StyledButton buttonProps={SmallPrimary} label='Log In' onClick={handleLogin} isDisabled={false}/>
             </div>
