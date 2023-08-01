@@ -1,7 +1,7 @@
 import { 
   createAsyncThunk,
-    createSlice, 
-    PayloadAction 
+  createSlice, 
+  PayloadAction 
   } from "@reduxjs/toolkit"
   import { 
     RootState, 

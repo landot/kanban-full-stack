@@ -1,5 +1,5 @@
 import { useState, useContext, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import { login } from "../utils/firebase/login";
 import { signInAsGuest } from "../utils/firebase/signInAsGuest";
@@ -14,14 +14,25 @@ export function SignInPage() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
-    const auth = useContext(AuthContext);  
+    const auth = useContext(AuthContext); 
     const navigate = useNavigate();
     const dispatch = useAppDispatch()
+    const [searchParams] = useSearchParams();
+    const continueAsGuest = searchParams.get('continueAsGuest') ? searchParams.get('continueAsGuest') === 'true': false;
 
     useEffect(() => {
       if (auth) {
         navigate("/");
       }
+
+      const handleContinueAsGuest = async () => {
+        if(continueAsGuest) {
+          await handleGuest();
+        }
+      }
+
+      handleContinueAsGuest()
+        .catch((e) => console.log(e));
     }, []);
 
     async function handleLogin() {
@@ -43,7 +54,7 @@ export function SignInPage() {
         await dispatch(addDummyData());
         navigate('/');
     }
-  
+
     return (
         <Overlay handleClose={() => null} children={
           <div className="sign-in-wrapper">
