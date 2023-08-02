@@ -20,12 +20,12 @@ export function SidebarBoard(props: {
                 // todo fix later
                 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                 // @ts-ignore
-                <BoardIcon className='sidebar-icon' alt='board icon'/>
+                <BoardIcon data-testid='board-icon' className='sidebar-icon' alt='board icon'/>
             ): (
                 // todo fix later
                 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                 // @ts-ignore
-                <HideIcon className='sidebar-icon' alt='hide icon'/>
+                <HideIcon data-testid='hide-icon' className='sidebar-icon' alt='hide icon'/>
 
             )}
             <HeadingM>{props.text}</HeadingM>
