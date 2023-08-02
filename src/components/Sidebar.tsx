@@ -37,6 +37,7 @@ export function Sidebar(props: {
                 {/* open new board modal when this is clicked */}
                 {/* todo maybe just make this a sidebarboard */}
                 <div 
+                    data-testid='create-new-board'
                     className='create-new-board'
                     onClick={() => props.handleAddBoard(true)}
                 >

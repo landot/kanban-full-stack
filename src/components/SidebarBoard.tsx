@@ -12,6 +12,7 @@ export function SidebarBoard(props: {
 }) {
     return (
         <div 
+            data-testid={`sidebar-board${props.selected ? '-selected': ''}`}
             className={`sidebar-board${props.selected ? ' selected': ''}`}
             onClick={props.handleClick}
         >
