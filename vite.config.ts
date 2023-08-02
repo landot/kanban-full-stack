@@ -21,7 +21,7 @@ export default defineConfig({
       reporter: ['text', 'json', 'html'],
       all: true,
       include: ['src/components', 'features'],
-      exclude: ['src/**/*.stories.{ts,tsx}', 'src/components/styles']
+      exclude: ['src/**/*.stories.{ts,tsx}', 'src/components/styles', "**/*.test.{ts,tsx}"]
 
     },
   },
