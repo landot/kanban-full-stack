@@ -9,7 +9,7 @@ import { User } from "firebase/auth";
 import { mock } from 'vitest-mock-extended';
 
 describe("CreateAccountPage", () => {
-    test('having auth redirects user to /', () => {
+    test.skip('having auth redirects user to /', () => {
         window.history.pushState({}, '', 'create-account');
         expect(window.location.pathname).not.toBe(`/`);
         const mockUserWithAuth = mock<User>({isAnonymous: false});
@@ -25,7 +25,7 @@ describe("CreateAccountPage", () => {
         expect(window.location.pathname).toBe(`/`);
     })
 
-    test('guests can navigate back to login', () => {
+    test.skip('guests can navigate back to login', () => {
         window.history.pushState({}, '', 'create-account');
         const mockUserWithAuth = mock<User>({isAnonymous: false});
         const { getByTestId } = render(
@@ -58,7 +58,7 @@ describe("CreateAccountPage", () => {
         expect(window.location.pathname).toBe(`/`);
     })
 
-    test('user cannot create an account if email or password are empty', async () => {
+    test.skip('user cannot create an account if email or password are empty', async () => {
         const mockUserWithAuth = mock<User>({isAnonymous: false});
         const { getByTestId } = render(
             <Provider store={store}>

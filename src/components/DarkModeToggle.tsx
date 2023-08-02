@@ -7,6 +7,7 @@ import { DarkModeToggleStyles, SwitchStyles, SwitchInputStyles, SliderStyles } f
 
 export function DarkModeToggle(props: {toggleTheme: (theme: string) => void}) {
     const theme = useContext(ThemeContext);
+    console.log(theme);
 
     function toggleTheme() {
         if (theme === 'light') {
@@ -25,7 +26,7 @@ export function DarkModeToggle(props: {toggleTheme: (theme: string) => void}) {
                     checked={theme === 'dark'}
                     onChange={() => null}
                 />
-                <SliderStyles onClick={toggleTheme}/>
+                <SliderStyles data-testid='dark-mode-slider' onClick={toggleTheme}/>
             </SwitchStyles>
             <img src={darkIcon} alt="dark mode icon" />
         </DarkModeToggleStyles>

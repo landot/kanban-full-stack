@@ -21,8 +21,8 @@ export function DeleteModal(props: {
             <HeadingL>Delete this {props.name}?</HeadingL>
             <MediumText>{props.text}</MediumText>
             <DeleteModalActionStyles>
-                <StyledButton buttonProps={SmallDestructive} label={'Delete'} onClick={handleDelete} isDisabled={false}/>
-                <StyledButton buttonProps={SmallSecondary} label={'Cancel'} onClick={props.hideModal} isDisabled={false}/>
+                <StyledButton testId='delete-modal-delete' buttonProps={SmallDestructive} label={'Delete'} onClick={handleDelete} isDisabled={false}/>
+                <StyledButton testId='delete-modal-cancel' buttonProps={SmallSecondary} label={'Cancel'} onClick={props.hideModal} isDisabled={false}/>
             </DeleteModalActionStyles>
         </DeleteModalStyles>
     )
