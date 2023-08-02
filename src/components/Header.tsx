@@ -47,25 +47,26 @@ export function Header(props: {
                 <HeaderTitleStyles onClick={handleDropdownClick}>
                     {!props.showSidebar && size.width && size.width > 500 && (
                         <>
-                            <LightLogoStyles src={logoLight} alt='logo-light' />
-                            <DarkLogoStyles src={logoDark} alt='logo-dark' />
+                            <LightLogoStyles data-testid='header-logo' src={logoLight} alt='logo-light' />
+                            <DarkLogoStyles data-testid='header-logo' src={logoDark} alt='logo-dark' />
                             <Break/>
                         </>
                     )}
                     {size.width && size.width <= 500 && (
                         <MobileLogoStyles src={logoMobile} alt='logo-mobile' />
                     )}
-                    <HeadingL>{boardExists ? props.board.name: 'Create a board'}</HeadingL>
+                    <HeadingL data-testid='header-title'>{boardExists ? props.board.name: 'Create a board'}</HeadingL>
                     {props.showSidebar && size.width && size.width <= 500 && (
-                        <img src={chevronUp} alt='show boards icon'/>
+                        <img data-testid='header-chevron' src={chevronUp} alt='show boards icon'/>
                     )}
                     {!props.showSidebar && size.width && size.width <= 500 && (
-                        <img src={chevronDown} alt='show boards icon'/>
+                        <img data-testid='header-chevron' src={chevronDown} alt='show boards icon'/>
                     )}
                 </HeaderTitleStyles>
                 {boardExists && (
                     <HeaderActionStyles>
                         <StyledButton 
+                            testId="new-task"
                             label={size.width && size.width <= 500 ? '+': '+ Add New Task'} 
                             onClick={() => props.handleAddTask(true)} 
                             isDisabled={props.board.columns.length === 0}

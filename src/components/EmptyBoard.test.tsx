@@ -4,7 +4,7 @@ import { vi } from 'vitest';
 import userEvent from '@testing-library/user-event';
 
 describe("EmptyBoard", () => {
-    test('selected dropdown value is shown', () => {
+    test('empty board message is shown', () => {
         const mockNewColumnClick = vi.fn()
         const {getByText} = render(
             <EmptyBoard handleNewColumnClick={mockNewColumnClick} />
