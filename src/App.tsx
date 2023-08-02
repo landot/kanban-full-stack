@@ -31,7 +31,6 @@ import { EmptyBoard } from './components/EmptyBoard';
 import './App.css'
 import { Message } from './components/Message';
 import { useSelector } from '../app/store';
-import { Loading } from './components/Loading';
 import styled from 'styled-components';
 import { ColumnStyles } from './components/styles/Column.styles';
 import { ShowSidebarStyles } from './components/styles/ShowSidebar.styles';
@@ -186,7 +185,7 @@ function App() {
 
   return (
     <ThemeContext.Provider value={theme}>
-      {sliceStatus === 'loading' ? (<Loading text={'Loading Kanban Data'}/>): (
+      {sliceStatus === 'loading' ? (<></>): (
         <div className={`app ${showSidebar ? 'sidebar-visible': 'sidebar-hidden'}`} id={theme}>
           <div className='modal'>
             {showAddBoardOverlay && (

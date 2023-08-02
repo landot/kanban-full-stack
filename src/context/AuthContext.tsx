@@ -1,6 +1,5 @@
 import { User } from "firebase/auth";
 import { createContext, useEffect, useState } from "react";
-import { Loading } from "../components/Loading";
 import { auth } from "../firebaseConfig";
 
 export const AuthContext = createContext<User | null | undefined>(null);
@@ -19,7 +18,7 @@ export function AuthProvider(props: {children: any}) {
     }, [])
 
     if (isInitialized === false) {
-        return <Loading text={'Loading Account Data'}/>;
+        return <></>;
       }
 
     return (
