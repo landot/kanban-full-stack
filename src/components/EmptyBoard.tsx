@@ -7,7 +7,7 @@ export function EmptyBoard(props: {handleNewColumnClick: () => void}) {
     return (
         <EmptyBoardStyles>
             <HeadingL>This board is empty. Create a new column to get started.</HeadingL>
-            <StyledButton buttonProps={LargePrimary} label={"+ Add New Column"} onClick={props.handleNewColumnClick} isDisabled={false}/>
+            <StyledButton testId="empty-new-column" buttonProps={LargePrimary} label={"+ Add New Column"} onClick={props.handleNewColumnClick} isDisabled={false}/>
         </EmptyBoardStyles>
     )
 }
