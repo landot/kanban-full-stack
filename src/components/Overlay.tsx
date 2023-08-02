@@ -6,8 +6,8 @@ export function Overlay(props: {
     handleClose: () => void
 }) {
     return (
-        <OverlayStyles onClick={() => props.handleClose()}>
-            <OverlayContentStyles onClick={(e) => e.stopPropagation()}>
+        <OverlayStyles data-testid='overlay' onClick={() => props.handleClose()}>
+            <OverlayContentStyles data-testid='overlay-content' onClick={(e) => e.stopPropagation()}>
                 {props.children}
             </OverlayContentStyles>
         </OverlayStyles>
