@@ -5,7 +5,8 @@ export function StyledButton(
     label: string,
     isDisabled: boolean,
     buttonProps: ButtonProps,
-    onClick?: () => void
+    onClick?: () => void,
+    testId?: string
   }) {
     let Button;
     if(props.buttonProps.buttonType === 'secondary') {
@@ -17,6 +18,6 @@ export function StyledButton(
     }
 
     return (
-      <Button {...props.buttonProps} disabled={props.isDisabled} onClick={props.onClick}>{props.label}</Button>
+      <Button data-testid={props.testId} {...props.buttonProps} disabled={props.isDisabled} onClick={props.onClick}>{props.label}</Button>
     )
   }

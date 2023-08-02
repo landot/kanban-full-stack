@@ -9,7 +9,6 @@ import userEvent from '@testing-library/user-event';
 
 
 describe("Dropdown", () => {
-
     test('props are called when a task is clicked', async () => {
         const mockHandleViewTask = vi.fn();
         const mockHandleSelectedTask = vi.fn();

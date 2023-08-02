@@ -62,22 +62,22 @@ export function CreateAccountPage() {
                     <h1>{isGuest ? 'Register': 'Create'} Account</h1>
                     <form className="credentials">
                         <h2>Email</h2>
-                        <input type="email" name="email" id="email" autoComplete="username" value={email} onChange={(e) => setEmail(e.target.value)}/>
+                        <input type="email" name="email" id="email" data-testid='email-input' autoComplete="username" value={email} onChange={(e) => setEmail(e.target.value)}/>
                         <h2>Password</h2>
-                        <input type="password" name="password" id="password" autoComplete="current-password" value={password} onChange={(e) => setPassword(e.target.value)}/>
+                        <input type="password" name="password" id="password" data-testid='password-input' autoComplete="current-password" value={password} onChange={(e) => setPassword(e.target.value)}/>
                     </form>
                     {error && <p className="create-account-error">{error}</p>}
-                    <StyledButton buttonProps={SmallPrimary} label='Create Account' onClick={handleCreateAccount} isDisabled={false}/>
+                    <StyledButton testId='create-account' buttonProps={SmallPrimary} label='Create Account' onClick={handleCreateAccount} isDisabled={false}/>
                 </div>
                 <div className="create-account-other-options">
                     {!isGuest && (
                         <>
-                            <StyledButton buttonProps={SmallPrimary} label='Back to Log In' onClick={() => navigate('/login')} isDisabled={false}/>
-                            <StyledButton buttonProps={SmallPrimary} label='Proceed as Guest' onClick={handleGuest} isDisabled={false}/>
+                            <StyledButton testId='back-to-log-in' buttonProps={SmallPrimary} label='Back to Log In' onClick={() => navigate('/login')} isDisabled={false}/>
+                            <StyledButton testId='proceed-as-guest' buttonProps={SmallPrimary} label='Proceed as Guest' onClick={handleGuest} isDisabled={false}/>
                         </>
                     )}
                     {isGuest && (
-                        <StyledButton buttonProps={SmallPrimary} label='Back to Kanban' onClick={() => navigate('/')} isDisabled={false}/>
+                        <StyledButton testId='back-to-kanban' buttonProps={SmallPrimary} label='Back to Kanban' onClick={() => navigate('/')} isDisabled={false}/>
                     )}
                 </div>
             </div>
