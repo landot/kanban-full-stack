@@ -1,0 +1,68 @@
+.create-account-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    width: 100%;
+    max-width: 500px;
+    height: fit-content;
+    align-items: center;
+    gap: 20px;
+    background: #FFFFFF;
+    padding: 40px;
+}
+
+.create-account-wrapper .create-account-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+    max-width: 500px;
+}
+
+.create-account-wrapper .create-account-error {
+    color: red;
+}
+
+.create-account-wrapper .credentials {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 70%;
+    min-width: 200px;
+}
+
+.create-account-wrapper .credentials input {
+    width: 100%;
+}
+
+.create-account-wrapper button {
+    width: 200px;
+}
+
+.create-account-wrapper .create-account-other-options {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+
+.create-account-wrapper input {
+    width: 100%;
+    padding: 8px 0 9px 16px;
+    border: 1px solid rgba(130, 143, 163, 0.25);
+    border-radius: 4px;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 23px;
+    color: #000112;
+
+}
+
+#dark .create-account-wrapper input {
+    background: #2B2C37;
+    color: #FFFFFF;
+}

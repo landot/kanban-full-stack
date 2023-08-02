@@ -1,5 +1,5 @@
-import { BoldText } from '../styledComponents/text/BoldText';
 import { Subtask } from '../types/data';
+import { BoldText } from './styles/text/BoldText';
 import './SubtaskCheckbox.css';
 
 export function Checkbox(props: {

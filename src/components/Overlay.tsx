@@ -1,15 +1,15 @@
 import { ReactNode } from 'react';
-import './Overlay.css';
+import { OverlayStyles, OverlayContentStyles } from './styles/Overlay.styles';
 
 export function Overlay(props: {
     children: ReactNode,
     handleClose: () => void
 }) {
     return (
-        <div className='overlay' onClick={() => props.handleClose()}>
-            <div className='overlay-content' onClick={(e) => e.stopPropagation()}>
+        <OverlayStyles onClick={() => props.handleClose()}>
+            <OverlayContentStyles onClick={(e) => e.stopPropagation()}>
                 {props.children}
-            </div>
-        </div>
+            </OverlayContentStyles>
+        </OverlayStyles>
     )
 }

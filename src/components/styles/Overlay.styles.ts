@@ -1,4 +1,6 @@
-.overlay {
+import styled from "styled-components"
+
+export const OverlayStyles = styled.div`
     position: absolute;
     width: 100%;
     height: 100%;
@@ -13,9 +15,9 @@
     justify-content: center;
     align-items: center;
     overflow: hidden;
-}
+`
 
-.overlay .overlay-content {
+export const OverlayContentStyles = styled.div`
     position: relative;
     overflow-y: auto;
     max-height: 80dvh;
@@ -23,8 +25,8 @@
     max-width: 500px;
     width: 80%;
     border-radius: 6px;
-}
 
-.overlay .overlay-content > * {
-    border-radius: inherit;
-}
+    & > * {
+        border-radius: inherit;
+    }
+`

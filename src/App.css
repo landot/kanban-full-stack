@@ -25,9 +25,10 @@ img {
   display: grid;
   overflow: hidden;
   grid-template-columns: 300px 1fr;
-  grid-template-rows: 97px 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
   grid-template-areas: 
   "sidebar header"
+  "sidebar message"
   "sidebar board";
 }
 
@@ -35,9 +36,10 @@ img {
   display: grid;
   overflow: hidden;
   grid-template-columns: 1fr;
-  grid-template-rows: 97px 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
   grid-template-areas: 
   "header"
+  "message"
   "board";
 }
 
@@ -50,34 +52,8 @@ img {
   grid-area: header;
 }
 
-.content {
-  background: #E4EBFA;
-  grid-area: board;
-  width: 100%;
-  height: calc(100vh - 82px);
-  display: flex;
-  flex-direction: row;
-  overflow: scroll;
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
-}
-
-.content::-webkit-scrollbar {
-  display: none;
-}
-
-#dark .content {
-  background: #20212C;
-}
-
-.content .column {
-  width: 250px;
-  margin: 0 24px 0 24px;
-}
-
-.content .show-sidebar {
-  position: absolute;
-  bottom: 50px;
+.messages {
+  grid-area: message;
 }
 
 @media (max-width: 800px) {
@@ -97,14 +73,14 @@ img {
     grid-template-columns: 100dvw;
     grid-template-areas: 
     "header"
+    "message"
     "board";
   }
 
   .sidebar {
     position: absolute;
     top: 70px;
-    left: 0; 
-    right: 0; 
+    left: 30px; 
     margin-left: auto; 
     margin-right: auto;
     min-width: 200px;

@@ -1,10 +1,10 @@
-import { HeadingM } from "../styledComponents/header/HeadingM";
-import './AddNewColumn.css';
+import { AddNewColumnWrapper } from "./styles/AddNewColumn.styles";
+import { HeadingM } from "./styles/header/HeadingM";
 
 export function AddNewColumn(props: {handleClick: () => void}) {
     return (
-        <div className='add-new-column' onClick={props.handleClick}>
+        <AddNewColumnWrapper onClick={props.handleClick} data-testid='add-new-column'>
             <HeadingM>+ New Column</HeadingM>
-        </div>
+        </AddNewColumnWrapper>
     )
 }

@@ -1,12 +1,13 @@
-import { HeadingL } from "../styledComponents/header/HeadingL";
-import { ButtonLarge } from "./ButtonLarge";
-import './EmptyBoard.css';
+import { HeadingL } from "./styles/header/HeadingL";
+import { StyledButton } from "./StyledButton";
+import { LargePrimary } from "./styles/StyledButton.styles";
+import { EmptyBoardStyles } from "./styles/EmptyBoard.styles";
 
 export function EmptyBoard(props: {handleNewColumnClick: () => void}) {
     return (
-        <div className="empty-board">
+        <EmptyBoardStyles>
             <HeadingL>This board is empty. Create a new column to get started.</HeadingL>
-            <ButtonLarge label={"+ Add New Column"} onClick={props.handleNewColumnClick} isDisabled={false}/>
-        </div>
+            <StyledButton buttonProps={LargePrimary} label={"+ Add New Column"} onClick={props.handleNewColumnClick} isDisabled={false}/>
+        </EmptyBoardStyles>
     )
 }

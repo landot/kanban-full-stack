@@ -1,38 +1,56 @@
+import { offset, useFloating, autoUpdate, useDismiss, useInteractions } from '@floating-ui/react';
 import { useState } from 'react';
 import ellipsis from '../assets/images/icon-vertical-ellipsis.svg';
-import './MoreAction.css';
+import { MoreActionStyles, ListItemStyles } from './styles/MoreAction.styles';
 
-export function MoreAction(
-    props: {
-        text: string,
-        handleEditClick: () => void,
-        handleDeleteClick: () => void,
-}) {
+export interface MoreActionItem {
+    text: string;
+    itemType: 'destructive' | 'primary';
+    action: () => void;
+}
+
+export function MoreAction(props: { actionItemName: string, items: MoreActionItem[]}) {
     const [showMoreActions, setShowMoreActions] = useState(false);
+    const { refs, floatingStyles, context } = useFloating({
+        middleware: [
+            offset({crossAxis: -70}),
+        ],
+        placement: "bottom",
+        open: showMoreActions,
+        onOpenChange: setShowMoreActions,
+        whileElementsMounted: autoUpdate,
+      });
 
-    function handleDelete() {
-        setShowMoreActions(false);
-        props.handleDeleteClick();
-    }
-
-    function handleEdit() {
-        setShowMoreActions(false);
-        props.handleEditClick();
-    }
-
+    const dismiss = useDismiss(context);
+    const {getReferenceProps, getFloatingProps} = useInteractions([
+        dismiss,
+    ]);
+    
     return (
-        <div className='more-actions'>
+        <MoreActionStyles>
             <img 
+                ref={refs.setReference}
+                {...getReferenceProps()}
                 src={ellipsis} 
-                alt="subtask actions" 
+                alt={`${props.actionItemName} more actions`} 
                 onClick={() => setShowMoreActions(prev => !prev)}
             />
             {showMoreActions && (
-                <ul>
-                    <li className='edit' onClick={handleEdit}>Edit {props.text}</li>
-                    <li className='delete' onClick={handleDelete}>Delete {props.text}</li>
+                <ul
+                    ref={refs.setFloating} 
+                    style={floatingStyles} 
+                    {...getFloatingProps()}
+                >
+                    {props.items.map(item => {
+                        return <ListItemStyles itemType={item.itemType} onClick={() => {
+                            item.action();
+                            setShowMoreActions(false);
+                        }}>
+                            {item.text}
+                        </ListItemStyles>
+                    })}
                 </ul>
             )}
-        </div>
+        </MoreActionStyles>
     )
 }

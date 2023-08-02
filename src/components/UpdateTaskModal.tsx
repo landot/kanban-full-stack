@@ -1,9 +1,8 @@
-import { HeadingS } from '../styledComponents/header/HeadingS';
-import { ButtonSmall } from './ButtonSmall';
+import { HeadingS } from './styles/header/HeadingS';
 import { Dropdown } from './Dropdown';
 import { TextField } from './TextField';
 import DeleteIcon from '../assets/images/icon-cross.svg';
-import { HeadingL } from '../styledComponents/header/HeadingL';
+import { HeadingL } from './styles/header/HeadingL';
 import { useState } from 'react';
 import { Board, Task } from '../types/data';
 import { getUUID } from '../utils/createUUID';
@@ -11,6 +10,8 @@ import { useAppDispatch } from '../../app/hooks';
 import { addTask, deleteTask } from '../../features/kanban/kanbanSlice';
 import { getColumnsWithName } from '../utils/filterUtils';
 import './UpdateTaskModal.css';
+import { StyledButton } from './StyledButton';
+import { SmallSecondary, SmallPrimary } from './styles/StyledButton.styles';
 
 export interface ModalError {
     section: string;
@@ -195,20 +196,22 @@ export function UpdateTaskModal(
                         </div>
                     )
                 })}
-                <ButtonSmall 
+                <StyledButton 
+                    buttonProps={SmallSecondary}
                     label='+ Add New Subtask' 
-                    type='secondary'
                     onClick={handleNewSubtask}
+                    isDisabled={false}
                 />
             </div>
             <div className='section status-section'>
                 <HeadingS>Status</HeadingS>
                 <Dropdown values={props.statuses} value={taskInfo.status} handleChange={handleStatusUpdate}/>
             </div>
-            <ButtonSmall 
+            <StyledButton 
+                buttonProps={SmallPrimary}
                 label={props.updateType === 'add' ? 'Create Task': 'Save changes'} 
-                type='primary' 
                 onClick={handleSubmit}
+                isDisabled={false}
             />
         </div>
     )

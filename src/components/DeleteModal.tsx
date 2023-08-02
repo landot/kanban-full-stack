@@ -1,8 +1,8 @@
-import { HeadingL } from '../styledComponents/header/HeadingL';
-import { MediumText } from '../styledComponents/text/MediumText';
-import { ButtonSmall } from './ButtonSmall';
-import './DeleteModal.css';
-
+import { HeadingL } from './styles/header/HeadingL';
+import { MediumText } from './styles/text/MediumText';
+import { DeleteModalStyles, DeleteModalActionStyles } from './styles/DeleteModal.styles';
+import { StyledButton } from './StyledButton';
+import { SmallDestructive, SmallSecondary } from './styles/StyledButton.styles';
 
 export function DeleteModal(props: {
     name: 'task' | 'board', 
@@ -17,13 +17,13 @@ export function DeleteModal(props: {
     }
 
     return (
-        <div className='delete-modal'>
+        <DeleteModalStyles>
             <HeadingL>Delete this {props.name}?</HeadingL>
             <MediumText>{props.text}</MediumText>
-            <div className='action-buttons'>
-                <ButtonSmall label={'Delete'} type={'destructive'} onClick={handleDelete}/>
-                <ButtonSmall label={'Cancel'} type={'secondary'} onClick={props.hideModal}/>
-            </div>
-        </div>
+            <DeleteModalActionStyles>
+                <StyledButton buttonProps={SmallDestructive} label={'Delete'} onClick={handleDelete} isDisabled={false}/>
+                <StyledButton buttonProps={SmallSecondary} label={'Cancel'} onClick={props.hideModal} isDisabled={false}/>
+            </DeleteModalActionStyles>
+        </DeleteModalStyles>
     )
 }

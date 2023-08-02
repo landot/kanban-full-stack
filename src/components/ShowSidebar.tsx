@@ -1,10 +1,10 @@
 import eyeIcon from '../assets/images/icon-show-sidebar.svg';
-import './ShowSidebar.css';
+import { ShowSidebarStyles } from './styles/ShowSidebar.styles';
 
 export function ShowSidebar(props: {handleClick: () => void}) {
     return (
-        <div className='show-sidebar' onClick={props.handleClick}>
+        <ShowSidebarStyles onClick={props.handleClick}>
             <img src={eyeIcon} alt="show sidebar icon" />
-        </div>
+        </ShowSidebarStyles>
     )
 }
