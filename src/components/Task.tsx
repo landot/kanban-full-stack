@@ -9,7 +9,7 @@ export function Task(props: {
 }) {
     const tasksRemaining = props.task.subtasks.filter(t => !t.isCompleted).length;
     return (
-        <TaskStyles onClick={() => props.handleClick(props.task)}>
+        <TaskStyles onClick={() => props.handleClick(props.task)} data-testid='task'>
             <HeadingM>{props.task.title}</HeadingM>
             <MediumText>{`${tasksRemaining} of ${props.task.subtasks.length} subtasks remaining`}</MediumText>
         </TaskStyles>

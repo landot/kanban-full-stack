@@ -54,7 +54,30 @@ export const sampleBoard: Board = {
                       isCompleted: false
                   }
               ]
-          }
+          },
+          {
+            id: '7777',
+            title: 'Test Test Test',
+            description: 'this is the description for the asdfasdfasdfasfd',
+            status: 'Column1',
+            subtasks: [
+                {
+                    id: '11234561',
+                    title: 'accessibility testing',
+                    isCompleted: true
+                },
+                {
+                    id: '11234571',
+                    title: 'performance testing',
+                    isCompleted: false
+                },
+                {
+                    id: '11234582',
+                    title: 'sign off from QA',
+                    isCompleted: false
+                }
+            ]
+        },
       ]
       },
       {
