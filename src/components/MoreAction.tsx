@@ -27,7 +27,9 @@ export function MoreAction(props: { actionItemName: string, items: MoreActionIte
     ]);
     
     return (
-        <MoreActionStyles>
+        <MoreActionStyles
+            data-testid={`${props.actionItemName}-more-actions-container`}
+        >
             <img 
                 data-testid={`${props.actionItemName}-more-actions`}
                 ref={refs.setReference}
@@ -43,7 +45,7 @@ export function MoreAction(props: { actionItemName: string, items: MoreActionIte
                     {...getFloatingProps()}
                 >
                     {props.items.map(item => {
-                        return <ListItemStyles data-testid={item.text} itemType={item.itemType} onClick={() => {
+                        return <ListItemStyles data-testid='more-actions-item' itemType={item.itemType} onClick={() => {
                             item.action();
                             setShowMoreActions(false);
                         }}>

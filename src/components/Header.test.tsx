@@ -131,7 +131,7 @@ describe("Header", () => {
         const mockHandleDeleteBoard = vi.fn();
         const mockHandleEditBoard = vi.fn();
         const mockHandleAddTask = vi.fn();
-        const {getByTestId} = render(
+        const {getByTestId, getAllByTestId} = render(
             <Header 
                 board={sampleBoard} 
                 showSidebar={true} 
@@ -142,7 +142,7 @@ describe("Header", () => {
             />
         )
         await userEvent.click(getByTestId('Board-more-actions'));
-        await userEvent.click(getByTestId('Delete Board'));
+        await userEvent.click(getAllByTestId('more-actions-item')[1]);
         expect(mockHandleDeleteBoard).toHaveBeenCalled();
     })
 
@@ -151,7 +151,7 @@ describe("Header", () => {
         const mockHandleDeleteBoard = vi.fn();
         const mockHandleEditBoard = vi.fn();
         const mockHandleAddTask = vi.fn();
-        const {getByTestId} = render(
+        const {getByTestId, getAllByTestId} = render(
             <Header 
                 board={sampleBoard} 
                 showSidebar={true} 
@@ -162,7 +162,7 @@ describe("Header", () => {
             />
         )
         await userEvent.click(getByTestId('Board-more-actions'));
-        await userEvent.click(getByTestId('Edit Board'));
+        await userEvent.click(getAllByTestId('more-actions-item')[0]);
         expect(mockHandleEditBoard).toHaveBeenCalled();
     })    
     
