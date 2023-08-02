@@ -7,7 +7,6 @@ import { DarkModeToggleStyles, SwitchStyles, SwitchInputStyles, SliderStyles } f
 
 export function DarkModeToggle(props: {toggleTheme: (theme: string) => void}) {
     const theme = useContext(ThemeContext);
-    console.log(theme);
 
     function toggleTheme() {
         if (theme === 'light') {

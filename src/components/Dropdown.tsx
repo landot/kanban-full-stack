@@ -31,12 +31,12 @@ export function Dropdown(props: {
     return (
         <DropdownStyles>
             <SelectedItemStyles ref={refs.setReference} {...getReferenceProps()} open={showDropdownItems} onClick={() => setShowDropdownItems(prev => !prev)}>
-                <p>{value}</p>
+                <p data-testid='dropdown-value'>{value}</p>
                 <img src={chevronDown} alt="dropdown chevron" />
             </SelectedItemStyles>
             {showDropdownItems && (
                 <DropdownListStyles ref={refs.setFloating} style={floatingStyles} {...getFloatingProps()}>
-                    {props.values.map(value => <DropdownListItemStyles onClick={() => handleDropdownUpdate(value)}>{value}</DropdownListItemStyles>)}
+                    {props.values.map(value => <DropdownListItemStyles data-testid='dropdown-option' onClick={() => handleDropdownUpdate(value)}>{value}</DropdownListItemStyles>)}
                 </DropdownListStyles>
             )}
         </DropdownStyles>
