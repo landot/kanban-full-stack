@@ -78,14 +78,21 @@ import sampleData from '../../data.json';
         const newValue = {...state.value};
         const [boardToUpdate] = getBoardsWithId(action.payload.boardId, newValue.boards);
         if(!boardToUpdate) return;
+
+        // if board name is updated
         if(action.payload.updatedBoard.name) {
           boardToUpdate.name = action.payload.updatedBoard.name;
         }
+
+        // if columns are updated
         if(action.payload.updatedBoard.columns) {
           const previousColumnIds = boardToUpdate.columns.map(column => column.id);
           const updatedColumnIds = action.payload.updatedBoard.columns?.map(column => column.id);
           const matchingColumnIds = previousColumnIds.filter(cid => updatedColumnIds.includes(cid));
           const newColumns = action.payload.updatedBoard.columns?.filter(column => !previousColumnIds.includes(column.id));
+          const previousColumnNames = boardToUpdate.columns.map(column => column.name);
+          const updatedColumnNames = action.payload.updatedBoard.columns?.map(column => column.name);
+          // if there are new columns
           if(previousColumnIds !== matchingColumnIds) {
             boardToUpdate.columns = boardToUpdate.columns.filter(column => matchingColumnIds.includes(column.id));
             newColumns.map(column => {
@@ -96,6 +103,15 @@ import sampleData from '../../data.json';
                 color: generateRandomHex()
               })
             });
+          }
+          if(previousColumnNames !== updatedColumnNames) {
+            // update name if the ids match
+            boardToUpdate.columns.map(column => {
+              const matchingColumns = action.payload.updatedBoard.columns && action.payload.updatedBoard.columns.filter(c => c.id === column.id);
+              if(matchingColumns && matchingColumns.length > 0 && matchingColumns[0].name !== column.name) {
+                column.name = matchingColumns[0].name;
+              }
+            })
           }
         }
         state.value = newValue;

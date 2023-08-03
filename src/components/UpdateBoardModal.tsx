@@ -60,10 +60,13 @@ export function UpdateBoardModal(
         })
     }
 
+    // something wrong here
     function handleColumnEdit(e: React.ChangeEvent<HTMLInputElement>, index: number) {
         setBoardInfo(prev => {
             const columns = [...prev.columns];
-            columns[index].name = e.target.value;
+            const columnToUpdate = {...columns[index]}
+            columnToUpdate.name = e.target.value;
+            columns[index] = columnToUpdate;
             return {
                 ...prev,
                 columns: columns
@@ -102,6 +105,7 @@ export function UpdateBoardModal(
         if(props.updateType === 'add') {
             props.handleAddBoard(boardInfo);
         } else {
+            console.log('boardInfo', boardInfo);
             props.handleUpdateBoard(boardInfo.id, boardInfo);
 
         }
