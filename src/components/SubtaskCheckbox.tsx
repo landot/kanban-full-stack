@@ -7,8 +7,8 @@ export function Checkbox(props: {
     handleClick: () => void
 }) {
     return (
-        <div className={`subtask ${props.subtask.isCompleted ? ' completed': ''}`}>
-            <input type="checkbox" checked={props.subtask.isCompleted} onClick={props.handleClick}/>
+        <div data-testid={`subtask-checkbox${props.subtask.isCompleted ? '-completed': ''}`} className={`subtask ${props.subtask.isCompleted ? ' completed': ''}`}>
+            <input data-testid='checkbox' type="checkbox" checked={props.subtask.isCompleted} onClick={props.handleClick}/>
             <BoldText>{props.subtask.title}</BoldText> 
         </div>
     )
