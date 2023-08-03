@@ -105,7 +105,6 @@ export function UpdateBoardModal(
         if(props.updateType === 'add') {
             props.handleAddBoard(boardInfo);
         } else {
-            console.log('boardInfo', boardInfo);
             props.handleUpdateBoard(boardInfo.id, boardInfo);
 
         }
@@ -114,11 +113,12 @@ export function UpdateBoardModal(
 
     return (
         <div className='update-board'>
-            <HeadingL>{props.updateType === 'add' ? 'add new': props.updateType} Board</HeadingL>
+            <HeadingL data-testid='update-board-header'>{props.updateType === 'add' ? 'add new': props.updateType} Board</HeadingL>
             <div className='section name'>
                 <HeadingS>Name</HeadingS> 
                 <TextField 
-                    showValidationError={false} 
+                    testId='name'
+                    showValidationError={errors.some(e => e.section === 'name')} 
                     placeholder='e.g. Web Design' 
                     value={boardInfo.name} 
                     handleChange={(e: ChangeEvent<HTMLInputElement>) =>  handleNameUpdate(e) } 
@@ -130,12 +130,14 @@ export function UpdateBoardModal(
                     return (
                         <div className='edit-column' key={index}>
                             <TextField 
+                                testId='column'
                                 showValidationError={errors.some(e => e.section === 'column' && e.index === index)} 
                                 placeholder='e.g. Todo' 
                                 value={column.name}
                                 handleChange={(e) => handleColumnEdit(e, index)} 
                             />
                             <img 
+                                data-testid='column-delete'
                                 src={DeleteIcon} 
                                 alt="delete column" 
                                 onClick={() => handleDeleteColumn(index)}
@@ -144,6 +146,7 @@ export function UpdateBoardModal(
                     )
                 })}
                 <StyledButton 
+                    testId='add-column'
                     buttonProps={SmallSecondary}
                     label='+ Add New Column' 
                     onClick={handleNewColumn}
@@ -152,6 +155,7 @@ export function UpdateBoardModal(
             </div>         
             <div className='section submit'>
                 <StyledButton 
+                    testId='update-board-submit'
                     buttonProps={SmallPrimary}
                     label={props.updateType === 'add' ? 'Create New Board': 'Save Changes'} 
                     onClick={handleSubmit}

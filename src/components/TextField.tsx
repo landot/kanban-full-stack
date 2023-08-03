@@ -5,11 +5,12 @@ export function TextField(props: {
         placeholder: string,
         value: string,
         handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void, // todo better type?
+        testId?: string
     }) {
 
     return (
         <div 
-            data-testid={`text-field${props.showValidationError ? '-error': ''}`}
+            data-testid={`${props.testId ? `${props.testId} `: ''}text-field${props.showValidationError ? '-error': ''}`}
             className={`text-input${props.showValidationError ? ' error': ''}`}
         >
             <input 
