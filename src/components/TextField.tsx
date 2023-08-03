@@ -8,8 +8,12 @@ export function TextField(props: {
     }) {
 
     return (
-        <div className={`text-input${props.showValidationError ? ' error': ''}`}>
+        <div 
+            data-testid={`text-field${props.showValidationError ? '-error': ''}`}
+            className={`text-input${props.showValidationError ? ' error': ''}`}
+        >
             <input 
+                data-testid='text-field-input'
                 type="text" 
                 value={props.value} 
                 placeholder={props.placeholder}
@@ -17,7 +21,7 @@ export function TextField(props: {
                     props.handleChange(e);
                 }}
             />
-            {props.showValidationError && <p className="validation-message">Can’t be empty</p>}
+            {props.showValidationError && <p data-testid='validation-message' className="validation-message">Can’t be empty</p>}
         </div>
     )
 }
