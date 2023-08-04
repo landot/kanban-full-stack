@@ -157,10 +157,11 @@ export function UpdateTaskModal(
 
     return (
         <div className='update-task'>
-            <HeadingL>{props.updateType} New Task</HeadingL>
+            <HeadingL>{props.updateType} Task</HeadingL>
             <div className='section title-section'>
                 <HeadingS>Title</HeadingS>
                 <TextField 
+                    testId={'task-title'}
                     showValidationError={errors.some(e => e.section === 'title')} 
                     placeholder='e.g. Take coffee break'
                     value={taskInfo.title}
@@ -171,6 +172,7 @@ export function UpdateTaskModal(
                 <HeadingS>Description</HeadingS>
                 {/* todo increase description size (replace with textarea?) */}
                 <TextField 
+                    testId={'task-description'}
                     showValidationError={errors.some(e => e.section === 'description')} 
                     placeholder="e.g. It's always good to take a break. This 15 minute break will recharge the batteries a little."
                     value={taskInfo.description} 
@@ -181,7 +183,11 @@ export function UpdateTaskModal(
                 <HeadingS>Subtasks</HeadingS>
                 {taskInfo.subtasks.map((subtask, index) => {
                     return (
-                        <div className='edit-subtask' key={index}>
+                        <div 
+                            data-testid='edit-subtask' 
+                            className='edit-subtask' 
+                            key={index}
+                        >
                             <TextField 
                                 showValidationError={errors.some(e => e.section === 'subtask' && e.index === index)} 
                                 placeholder='e.g. Make coffee' 
@@ -189,6 +195,7 @@ export function UpdateTaskModal(
                                 handleChange={(e) => handleSubtaskEdit(e, index)} 
                             />
                             <img 
+                                data-testid='delete-subtask'
                                 src={DeleteIcon} 
                                 alt="delete subtask" 
                                 onClick={() => handleDeleteSubtask(index)}
@@ -208,6 +215,7 @@ export function UpdateTaskModal(
                 <Dropdown values={props.statuses} value={taskInfo.status} handleChange={handleStatusUpdate}/>
             </div>
             <StyledButton 
+                testId='update-task-submit'
                 buttonProps={SmallPrimary}
                 label={props.updateType === 'add' ? 'Create Task': 'Save changes'} 
                 onClick={handleSubmit}
