@@ -81,15 +81,15 @@ export function ViewTaskModal(props: {
     return (
         <div className="view-task">
             <div className='section view-task-header'>
-                <HeadingL>{props.task.title}</HeadingL>
+                <HeadingL data-testid='view-task-header'>{props.task.title}</HeadingL>
                 <MoreAction
                     actionItemName="Task"
                     items={taskMoreActionsItem}
                 />
             </div>
-            <MediumText>{props.task.description}</MediumText>
+            <MediumText data-testid='view-task-description'>{props.task.description}</MediumText>
             <div className="section subtask-section">
-                <HeadingS>Subtasks ({getSubtaskRemainingText()})</HeadingS>
+                <HeadingS data-testid='subtasks-remaining'>Subtasks ({getSubtaskRemainingText()})</HeadingS>
                 {props.task.subtasks.map((subtask: Subtask) => {
                     return (
                         <Checkbox subtask={subtask} handleClick={() => handleSubtaskCheckboxClick(subtask.id)}/>
