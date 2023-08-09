@@ -23,7 +23,7 @@ export function Column(
     return (
         <Droppable droppableId={props.column.id}>
             {(provided) => (
-                <DroppableColumnStyles {...provided.droppableProps} ref={provided.innerRef}>
+                <DroppableColumnStyles {...provided.droppableProps} ref={provided.innerRef} data-testid='column-container'>
                     <ColumnStyles>
                         <ColumnHeaderStyles>
                             <ColumnHeaderDot style={{

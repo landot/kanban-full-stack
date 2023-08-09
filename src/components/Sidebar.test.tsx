@@ -67,7 +67,7 @@ describe("Sidebar", () => {
                 handleHideSidebar={mockHandleHideSidebar}
             />
         )
-        expect(getByTestId('sidebar-board-selected', {exact: false}).textContent).toBe('board2');
+        expect(getByTestId('sidebar-board selected').textContent).toBe('board2');
     })
 
     test('handleToggleTheme is called when theme is updated', async () => {
