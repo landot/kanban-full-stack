@@ -18,6 +18,12 @@ export const ColumnHeaderDot = styled.span`
     display: inline-block;
     margin-right: 12px;
 `
+
+export const ColumnHeaderName = styled.span`
+    display: flex;
+    gap: .25em;
+`
+
 export const ColumnStyles = styled.div``
 export const ColumnItemStyles = styled.div`
     ${TaskStyles} {

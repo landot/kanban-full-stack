@@ -2,7 +2,7 @@ import { Draggable, Droppable } from 'react-beautiful-dnd';
 import { HeadingS } from './styles/header/HeadingS';
 import { Column as IColumn } from '../types/data';
 import { Task } from './Task';
-import { DroppableColumnStyles, ColumnStyles, ColumnHeaderStyles, ColumnHeaderDot, ColumnItemStyles } from './styles/Column.styles';
+import { DroppableColumnStyles, ColumnStyles, ColumnHeaderStyles, ColumnHeaderDot, ColumnItemStyles, ColumnHeaderName } from './styles/Column.styles';
 
 
 export function Column(
@@ -29,7 +29,9 @@ export function Column(
                             <ColumnHeaderDot style={{
                                 backgroundColor: props.column.color
                             }}/> 
-                            <HeadingS>{props.column.name} ({props.column.tasks.length})</HeadingS>
+                            <ColumnHeaderName>
+                                <HeadingS data-testid='column-name'>{props.column.name}</HeadingS> <HeadingS data-testid='column-task-count'>({props.column.tasks.length})</HeadingS>
+                            </ColumnHeaderName>
                         </ColumnHeaderStyles>
                         <ColumnItemStyles>
                         {props.column.tasks.map((task, index)=> (

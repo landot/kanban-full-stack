@@ -62,12 +62,12 @@ export function SignInPage() {
               <h1>Sign In</h1>
               <form className="credentials">
                   <h2>Email</h2>
-                  <input type="email" name="email" id="email" autoComplete="username" value={email} onChange={(e) => setEmail(e.target.value)}/>
+                  <input data-testid="email" type="email" name="email" id="email" autoComplete="username" value={email} onChange={(e) => setEmail(e.target.value)}/>
                   <h2>Password</h2>
-                  <input type="password" name="password" id="password" autoComplete="current-password" value={password} onChange={(e) => setPassword(e.target.value)}/>
+                  <input data-testid="password" type="password" name="password" id="password" autoComplete="current-password" value={password} onChange={(e) => setPassword(e.target.value)}/>
               </form>
               {error && <p className="sign-in-error">{error}</p>}
-              <StyledButton buttonProps={SmallPrimary} label='Log In' onClick={handleLogin} isDisabled={false}/>
+              <StyledButton testId="submit" buttonProps={SmallPrimary} label='Log In' onClick={handleLogin} isDisabled={false}/>
             </div>
             <div className="sign-in-other-options">
               <StyledButton buttonProps={SmallPrimary} label='Create an Account' onClick={() => navigate('/create-account')} isDisabled={false}/>

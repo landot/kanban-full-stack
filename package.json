@@ -11,13 +11,16 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "coverage": "vitest run --coverage",
+    "e2e": "playwright test",
+    "e2e:debug": "playwright test --ui",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
   "pre-commit": [
     "test",
     "lint",
-    "build"
+    "build",
+    "e2e"
   ],
   "dependencies": {
     "@floating-ui/react": "^0.25.0",
@@ -34,6 +37,7 @@
     "vite-plugin-svgr": "^3.2.0"
   },
   "devDependencies": {
+    "@playwright/test": "^1.36.2",
     "@storybook/addon-essentials": "^7.0.17",
     "@storybook/addon-interactions": "^7.0.17",
     "@storybook/addon-links": "^7.0.17",

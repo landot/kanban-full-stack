@@ -16,10 +16,12 @@ export default defineConfig({
     globals: true,
     environment: "jsdom",
     setupFiles: "src/setupTests",
+    include: ["src/**/*.test.tsx", "features/**/*.test.ts"],
     mockReset: true,
     coverage: {
       reporter: ['text', 'json', 'html'],
       all: true,
+      testMatch: ["./tests/**/*.test.tsx"],
       include: ['src/components', 'features'],
       exclude: ['src/**/*.stories.{ts,tsx}', 'src/components/styles', "**/*.test.{ts,tsx}"]
 
