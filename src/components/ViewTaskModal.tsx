@@ -92,7 +92,7 @@ export function ViewTaskModal(props: {
                 <HeadingS data-testid='subtasks-remaining'>Subtasks ({getSubtaskRemainingText()})</HeadingS>
                 {props.task.subtasks.map((subtask: Subtask) => {
                     return (
-                        <Checkbox subtask={subtask} handleClick={() => handleSubtaskCheckboxClick(subtask.id)}/>
+                        <Checkbox key={subtask.id} subtask={subtask} handleClick={() => handleSubtaskCheckboxClick(subtask.id)}/>
                     )
                 })}
             </div>

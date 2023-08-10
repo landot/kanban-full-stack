@@ -36,7 +36,7 @@ export function Dropdown(props: {
             </SelectedItemStyles>
             {showDropdownItems && (
                 <DropdownListStyles ref={refs.setFloating} style={floatingStyles} {...getFloatingProps()}>
-                    {props.values.map(value => <DropdownListItemStyles data-testid='dropdown-option' onClick={() => handleDropdownUpdate(value)}>{value}</DropdownListItemStyles>)}
+                    {props.values.map(value => <DropdownListItemStyles key={value} data-testid='dropdown-option' onClick={() => handleDropdownUpdate(value)}>{value}</DropdownListItemStyles>)}
                 </DropdownListStyles>
             )}
         </DropdownStyles>

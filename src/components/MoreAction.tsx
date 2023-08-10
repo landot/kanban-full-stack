@@ -45,7 +45,7 @@ export function MoreAction(props: { actionItemName: string, items: MoreActionIte
                     {...getFloatingProps()}
                 >
                     {props.items.map(item => {
-                        return <ListItemStyles data-testid='more-actions-item' itemType={item.itemType} onClick={() => {
+                        return <ListItemStyles key={item.text} data-testid='more-actions-item' itemType={item.itemType} onClick={() => {
                             item.action();
                             setShowMoreActions(false);
                         }}>
