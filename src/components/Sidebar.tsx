@@ -17,6 +17,13 @@ export function Sidebar(props: {
     handleHideSidebar: () => void
 }) {
 
+    function handleCreateBoardKeyPress(e: React.KeyboardEvent) {
+        if(e.key === 'Enter') {
+            e.preventDefault();
+            props.handleAddBoard(true);
+        }
+    }
+
     return (
         <div className='sidebar'>
             <div className='sidebar-boards'>
@@ -37,9 +44,11 @@ export function Sidebar(props: {
                 {/* open new board modal when this is clicked */}
                 {/* todo maybe just make this a sidebarboard */}
                 <div 
+                    tabIndex={0}
                     data-testid='create-new-board'
                     className='create-new-board'
                     onClick={() => props.handleAddBoard(true)}
+                    onKeyDown={handleCreateBoardKeyPress}
                 >
                     <BoardIcon />
                     <HeadingM>+ Create New Board</HeadingM>

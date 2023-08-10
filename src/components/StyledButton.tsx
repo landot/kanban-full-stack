@@ -18,6 +18,6 @@ export function StyledButton(
     }
 
     return (
-      <Button data-testid={props.testId} {...props.buttonProps} disabled={props.isDisabled} onClick={props.onClick}>{props.label}</Button>
+      <Button tabIndex={0} data-testid={props.testId} {...props.buttonProps} disabled={props.isDisabled} onClick={props.onClick}>{props.label}</Button>
     )
   }

@@ -16,16 +16,30 @@ export function DarkModeToggle(props: {toggleTheme: (theme: string) => void}) {
         }
     }
 
+    function handleKeyPress(e: React.KeyboardEvent) {
+        if(e.key === 'Enter') {
+            e.preventDefault();
+            toggleTheme();
+        }
+    }
+
     return (
         <DarkModeToggleStyles>
             <img src={lightIcon} alt="light mode icon" />
             <SwitchStyles>
                 <SwitchInputStyles 
+                    tabIndex={-1}
+                    aria-label='dark mode toggle'
                     type="checkbox" 
                     checked={theme === 'dark'}
                     onChange={() => null}
                 />
-                <SliderStyles data-testid='dark-mode-slider' onClick={toggleTheme}/>
+                <SliderStyles 
+                    tabIndex={0}
+                    data-testid='dark-mode-slider' 
+                    onClick={toggleTheme} 
+                    onKeyDown={handleKeyPress}
+                />
             </SwitchStyles>
             <img src={darkIcon} alt="dark mode icon" />
         </DarkModeToggleStyles>

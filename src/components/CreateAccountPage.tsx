@@ -60,7 +60,7 @@ export function CreateAccountPage() {
             <div className="create-account-wrapper">
                 <div className="create-account-form">
                     <h1>{isGuest ? 'Register': 'Create'} Account</h1>
-                    <form className="credentials">
+                    <form className="credentials" aria-label="create account credentials">
                         <h2>Email</h2>
                         <input type="email" name="email" id="email" data-testid='email-input' autoComplete="username" value={email} onChange={(e) => setEmail(e.target.value)}/>
                         <h2>Password</h2>

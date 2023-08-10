@@ -289,6 +289,9 @@ function App() {
           />
           <Message />
           <ContentStyles>
+            {!showSidebar && (
+              <ShowSidebar handleClick={() => setShowSidebar(true)}/>
+            )}
             {(selectedBoardId && kanban.boards.length > 0) && (
               <DragDropContext onDragEnd={handleDragEnd}>
                 {getBoardsWithId(selectedBoardId, kanban.boards)[0].columns.map(column => (
@@ -307,9 +310,6 @@ function App() {
             )}
             {selectedBoardId && getSelectedBoard().columns.length === 0 && (
               <EmptyBoard handleNewColumnClick={() => setShowEditBoardOverlay(true)} />
-            )}
-            {!showSidebar && (
-              <ShowSidebar handleClick={() => setShowSidebar(true)}/>
             )}
           </ContentStyles>
         </div>

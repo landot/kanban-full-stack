@@ -60,7 +60,6 @@ export function UpdateBoardModal(
         })
     }
 
-    // something wrong here
     function handleColumnEdit(e: React.ChangeEvent<HTMLInputElement>, index: number) {
         setBoardInfo(prev => {
             const columns = [...prev.columns];
@@ -111,6 +110,13 @@ export function UpdateBoardModal(
         props.hideModal();
     }
 
+    function handleDeleteKeyPress(e: React.KeyboardEvent, index: number) {
+        if(e.key === 'Enter') {
+            e.preventDefault();
+            handleDeleteColumn(index);
+        }
+    }
+
     return (
         <div className='update-board'>
             <HeadingL data-testid='update-board-header'>{props.updateType === 'add' ? 'add new': props.updateType} Board</HeadingL>
@@ -137,10 +143,12 @@ export function UpdateBoardModal(
                                 handleChange={(e) => handleColumnEdit(e, index)} 
                             />
                             <img 
+                                tabIndex={0}
                                 data-testid='column-delete'
                                 src={DeleteIcon} 
                                 alt="delete column" 
                                 onClick={() => handleDeleteColumn(index)}
+                                onKeyDown={(e) => handleDeleteKeyPress(e, index)}
                             />
                         </div>
                     )

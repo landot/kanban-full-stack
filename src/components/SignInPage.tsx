@@ -60,7 +60,7 @@ export function SignInPage() {
           <div className="sign-in-wrapper">
             <div className="sign-in-form">
               <h1>Sign In</h1>
-              <form className="credentials">
+              <form className="credentials" aria-label="sign in credentials">
                   <h2>Email</h2>
                   <input data-testid="email" type="email" name="email" id="email" autoComplete="username" value={email} onChange={(e) => setEmail(e.target.value)}/>
                   <h2>Password</h2>

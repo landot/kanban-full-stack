@@ -10,11 +10,21 @@ export function SidebarBoard(props: {
     handleClick: () => void,
     icon: 'board' | 'hide'
 }) {
+
+    function handleKeyPress(e: React.KeyboardEvent) {
+        if(e.key === 'Enter') {
+            e.preventDefault();
+            props.handleClick();
+        }
+    }
+
     return (
         <div 
+            tabIndex={0}
             data-testid={`sidebar-board${props.selected ? ' selected': ''}`}
             className={`sidebar-board${props.selected ? ' selected': ''}`}
             onClick={props.handleClick}
+            onKeyDown={handleKeyPress}
         >
             {props.icon === 'board' ? (
                 // todo fix later
