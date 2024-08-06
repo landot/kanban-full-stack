@@ -4,6 +4,17 @@ import svgr from 'vite-plugin-svgr'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: "/",
+  preview: {
+    port: 8080,
+    strictPort: true,
+  },
+  server: {
+    port: 8080,
+    strictPort: true,
+    host: true,
+    origin: "http://0.0.0.0:8080",
+  },
   plugins: [
     react(), 
     svgr({ 
@@ -24,7 +35,6 @@ export default defineConfig({
       testMatch: ["./tests/**/*.test.tsx"],
       include: ['src/components', 'features'],
       exclude: ['src/**/*.stories.{ts,tsx}', 'src/components/styles', "**/*.test.{ts,tsx}"]
-
     },
   },
 })
