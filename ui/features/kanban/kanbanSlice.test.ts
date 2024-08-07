@@ -3,14 +3,11 @@ import kanbanReducer, {
     addColumn, 
     addTask, 
     updateBoard, 
-    updateColumn, 
-    updateTask, 
     deleteBoard, 
     deleteColumn, 
     deleteTask,
     KanbanState,
     BoardUpdateValue,
-    ColumnUpdateValue
 } from './kanbanSlice';
 
 const testData = {

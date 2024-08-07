@@ -116,7 +116,7 @@ test('user can update a column name', async ({ page, kanbanPage }) => {
   expect(updatedTasks.length).toEqual(17);
 });
 
-test('user can update a task via the edit task modal', async ({ page, kanbanPage }) => {
+test('user can update a task via the edit task modal', async ({ kanbanPage }) => {
   await kanbanPage.task.nth(0).click();
   await kanbanPage.viewTaskModal.moreActions.click();
   await kanbanPage.viewTaskModal.moreActionsItem.nth(0).click();
@@ -145,7 +145,7 @@ test('user can update a task via the edit task modal', async ({ page, kanbanPage
   expect(await kanbanPage.viewTaskModal.selectedStatus.textContent()).toBe('Doing');
 });
 
-test('user can update a task via the view task modal', async ({ page, kanbanPage }) => {
+test('user can update a task via the view task modal', async ({ kanbanPage }) => {
   await kanbanPage.task.nth(0).click();
   expect(await kanbanPage.viewTaskModal.subtaskCompleted.all()).toHaveLength(1);
   expect(await kanbanPage.viewTaskModal.subtaskNotCompleted.all()).toHaveLength(2);

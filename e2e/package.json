@@ -5,10 +5,11 @@
   "main": "index.js",
   "scripts": {
     "test": "npm run e2e",
+    "build": "echo no e2e build script",
     "e2e": "playwright test",
     "e2e:debug": "playwright test --ui"
   },
-  "devDependencies": {
+  "dependencies": {
     "@playwright/test": "^1.36.2"
   },
   "keywords": [],

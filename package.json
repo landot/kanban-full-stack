@@ -4,73 +4,26 @@
   "version": "0.0.0",
   "type": "module",
   "workspaces": [
-    "e2e"
+    "e2e",
+    "ui"
   ],
   "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "lint": "eslint src --ext ts,tsx --report-unused-disable-directives",
-    "preview": "vite preview",
-    "test": "vitest run",
-    "test:watch": "vitest",
-    "coverage": "vitest run --coverage",
-    "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build",
-    "workspace-test": "npm --workspaces test"
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives",
+    "workspace-test": "npm --workspaces run test",
+    "workspace-build": "npm --workspaces run build"
   },
   "pre-commit": [
-    "test",
     "lint",
-    "build",
+    "workspace-build",
     "workspace-test"
   ],
-  "dependencies": {
-    "@floating-ui/react": "^0.25.0",
-    "@reduxjs/toolkit": "^1.9.5",
-    "@testing-library/user-event": "^14.4.3",
-    "firebase": "^9.22.2",
-    "react": "^18.2.0",
-    "react-beautiful-dnd": "^13.1.1",
-    "react-dom": "^18.2.0",
-    "react-redux": "^8.0.7",
-    "react-router-dom": "^6.13.0",
-    "styled-components": "^5.3.11",
-    "uuid": "^9.0.0",
-    "vite-plugin-svgr": "^3.2.0"
-  },
+  "dependencies": {},
   "devDependencies": {
-    "@storybook/addon-essentials": "^7.0.17",
-    "@storybook/addon-interactions": "^7.0.17",
-    "@storybook/addon-links": "^7.0.17",
-    "@storybook/blocks": "^7.0.17",
-    "@storybook/react": "^7.0.17",
-    "@storybook/react-vite": "^7.0.17",
-    "@testing-library/jest-dom": "^5.16.5",
-    "@testing-library/react": "^14.0.0",
-    "@types/react": "^18.0.28",
-    "@types/react-beautiful-dnd": "^13.1.4",
-    "@types/react-dom": "^18.0.11",
-    "@types/redux-mock-store": "^1.0.3",
-    "@types/styled-components": "^5.1.26",
-    "@types/testing-library__jest-dom": "^5.14.6",
-    "@types/uuid": "^9.0.1",
     "@typescript-eslint/eslint-plugin": "^5.57.1",
     "@typescript-eslint/parser": "^5.57.1",
-    "@vitejs/plugin-react": "^4.0.0",
-    "@vitest/coverage-v8": "^2.0.5",
     "eslint": "^8.38.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.3.4",
-    "eslint-plugin-storybook": "^0.6.12",
-    "jsdom": "^22.1.0",
-    "pre-commit": "^1.2.2",
-    "prop-types": "^15.8.1",
-    "redux-mock-store": "^1.5.4",
-    "storybook": "^7.0.17",
-    "storybook-addon-react-router-v6": "^1.0.2",
-    "typescript": "^5.0.2",
-    "vite": "^4.3.2",
-    "vitest": "^2.0.5",
-    "vitest-mock-extended": "^2.0.0"
+    "eslint-plugin-storybook": "^0.6.12"
   }
 }
