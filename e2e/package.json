@@ -4,10 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "npm run e2e",
+    "test": "echo no unit tests",
     "build": "echo no e2e build script",
     "e2e": "playwright test",
-    "e2e:debug": "playwright test --ui"
+    "e2e:debug": "playwright test --ui",
+    "docker-build": "docker build -t e2e:latest ."
   },
   "dependencies": {
     "@playwright/test": "^1.36.2"

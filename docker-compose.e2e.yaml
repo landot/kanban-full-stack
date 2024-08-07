@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  webapp:
+    image: kanban-webapp:latest
+    build:
+      context: ./ui
+      dockerfile: Dockerfile
+    environment:
+      NODE_ENV: production
+    ports:
+      - 3000:3000
+  playwright:
+    build:
+      context: ./e2e
+      dockerfile: Dockerfile
+    image: e2e:latest
+    environment:
+      BASE_URL: http://webapp:3000
+    depends_on:
+      - webapp

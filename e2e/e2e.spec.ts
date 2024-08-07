@@ -10,7 +10,7 @@ const test = base.extend<{ kanbanPage: KanbanBoardPage, loginPage: LoginPage }>(
   kanbanPage: async ({ page }, use) => {
     const kanbanPage = new KanbanBoardPage(page);
     const loginPage = new LoginPage(page);
-    await page.goto('http://localhost:8080/');
+    await page.goto('/');
     await loginPage.login('timowland+asdf@gmail.com', 'asdfasdf');
     await kanbanPage.resetBoard();
     await use(kanbanPage);
@@ -165,12 +165,12 @@ test('user can update a task via the view task modal', async ({ kanbanPage }) =>
 
 test('user can log out', async ({ page, kanbanPage }) => {
   await kanbanPage.logOut();
-  await page.waitForURL('http://localhost:8080/login')
+  await page.waitForURL('/login')
 });
 
 // // drag and drop not working in playwright between columns
 // test.skip('user can click and drag tasks', async ({ page }) => {
-//   await page.goto('http://localhost:8080/');
+//   await page.goto('http://localhost:3000/');
 //   await login(page, 'timowland+asdf@gmail.com', 'asdfasdf');
 //   await resetBoard(page);
 //   const tasks = await page.getByTestId('task').all();

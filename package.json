@@ -10,12 +10,16 @@
   "scripts": {
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives",
     "workspace-test": "npm --workspaces run test",
-    "workspace-build": "npm --workspaces run build"
+    "workspace-build": "npm --workspaces run build",
+    "workspace-docker-build": "npm --workspaces run docker-build",
+    "e2e": "docker-compose -f docker-compose.e2e.yaml up --abort-on-container-exit"
   },
   "pre-commit": [
     "lint",
     "workspace-build",
-    "workspace-test"
+    "workspace-test",
+    "workspace-docker-build",
+    "e2e"
   ],
   "dependencies": {},
   "devDependencies": {
