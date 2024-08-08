@@ -25,4 +25,4 @@ jobs:
 
       - name: Run tests
         run: |
-          docker run -e BASE_URL=kanban.timlandowski.com ghcr.io/landot/kanban-e2e-test:main
+          docker run -e BASE_URL=https://kanban.timlandowski.com/ ghcr.io/landot/kanban-e2e-test:main
