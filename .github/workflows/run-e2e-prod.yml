@@ -23,9 +23,6 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: pull Docker image
-        run: docker pull ghcr.io/landot/kanban-e2e-test:latest
-
       - name: Run tests
         run: |
-          docker run -e BASE_URL=kanban.timlandowski.com ghcr.io/landot/kanban-e2e-test:latest
+          docker run --platform linux/amd64 -e BASE_URL=kanban.timlandowski.com ghcr.io/landot/kanban-e2e-test:latest
