@@ -5,7 +5,7 @@ import { Dropdown } from "./Dropdown";
 import { MoreAction, MoreActionItem } from "./MoreAction";
 import { Board, Subtask, Task } from "../types/data";
 import { useAppDispatch } from "../../app/hooks";
-import { addTask, deleteTask, updateTask } from "../../features/kanban/kanbanSlice";
+import { addTask, deleteTask, updateTask } from "../features/kanban/kanbanSlice";
 import { getColumnsWithName } from "../utils/filterUtils";
 import { getSubtaskIndexWithId } from "../utils/findIndexUtils";
 import './ViewTaskModal.css';

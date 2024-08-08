@@ -4,7 +4,7 @@ import { AuthContext } from "../context/AuthContext";
 import { login } from "../utils/firebase/login";
 import { signInAsGuest } from "../utils/firebase/signInAsGuest";
 import { useAppDispatch } from "../../app/hooks";
-import { addDummyData } from "../../features/kanban/kanbanSlice";
+import { addDummyData } from "../features/kanban/kanbanSlice";
 import { Overlay } from "./Overlay";
 import './SignInPage.css';
 import { StyledButton } from "./StyledButton";

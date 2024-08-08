@@ -8,7 +8,7 @@ import './UpdateBoardModal.css';
 import { Board } from '../types/data';
 import { getUUID } from '../utils/createUUID';
 import { generateRandomHex } from '../utils/generateRandomHex';
-import { BoardUpdateValue } from '../../features/kanban/kanbanSlice';
+import { BoardUpdateValue } from '../features/kanban/kanbanSlice';
 import { StyledButton } from './StyledButton';
 import { SmallSecondary, SmallPrimary } from './styles/StyledButton.styles';
 

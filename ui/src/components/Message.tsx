@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../app/hooks";
-import { addDummyData } from "../../features/kanban/kanbanSlice";
+import { addDummyData } from "../features/kanban/kanbanSlice";
 import { AuthContext } from "../context/AuthContext";
 import { logout } from "../utils/firebase/logout";
 import { MoreAction, MoreActionItem } from "./MoreAction";

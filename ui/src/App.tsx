@@ -16,7 +16,7 @@ import {
   updateBoard, 
   updateColumn, 
   updateTask
-} from '../features/kanban/kanbanSlice';
+} from './features/kanban/kanbanSlice';
 import { Overlay } from './components/Overlay';
 import { UpdateBoardModal } from './components/UpdateBoardModal';
 import { DeleteModal } from './components/DeleteModal';

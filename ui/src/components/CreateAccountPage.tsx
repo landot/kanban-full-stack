@@ -2,7 +2,7 @@ import { UserCredential } from "firebase/auth";
 import { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../app/hooks";
-import { addDummyData } from "../../features/kanban/kanbanSlice";
+import { addDummyData } from "../features/kanban/kanbanSlice";
 import { AuthContext } from "../context/AuthContext";
 import { convertGuestAccount } from "../utils/firebase/convertGuestAccount";
 import { createAccount } from "../utils/firebase/createAccount";
