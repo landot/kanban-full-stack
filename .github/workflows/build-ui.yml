@@ -1,0 +1,41 @@
+name: Build UI
+
+on:
+  [workflow_dispatch]
+  # push:
+  #   branches: [ "main" ]
+  # pull_request:
+  #   branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18' # Adjust the Node.js version as needed
+
+    - name: Install dependencies
+      working-directory: ./ui
+      run: npm install
+
+    - name: Build Vite app
+      working-directory: ./ui
+      run: npm run build
+
+    - name: Upload build
+      uses: actions/upload-artifact@v3
+      with:
+        name: vite-build
+        path: ui/dist
+
+    # - name: Deploy to server (optional)
+    # Uncomment and adjust this section if you have a deployment step
+    # run: |
+    #   echo "Deploying to server..."
+    #   # Add your deployment script or command here
