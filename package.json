@@ -5,7 +5,8 @@
   "type": "module",
   "workspaces": [
     "e2e",
-    "ui"
+    "ui",
+    "services"
   ],
   "scripts": {
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives",

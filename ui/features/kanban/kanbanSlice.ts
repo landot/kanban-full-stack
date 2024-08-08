@@ -5,14 +5,14 @@ import {
   } from "@reduxjs/toolkit"
   import { 
     RootState, 
-  } from "../../../app/store"
-  import { Board, Column, Data, Task } from '../../types/data';
-import { getBoardsWithId, getColumnsWithName, getColumnsWithId } from "../../utils/filterUtils";
-import { getColumnIndexWithId, getTaskIndexWithId } from "../../utils/findIndexUtils";
-import { generateRandomHex } from "../../utils/generateRandomHex";
-import { getKanban } from "../../utils/firebase/getKanban";
-import { updateKanban } from "../../utils/firebase/updateKanban";
-import sampleData from '../../../data.json';
+  } from "../../app/store";
+  import { Board, Column, Data, Task } from "../../src/types/data";
+import { getBoardsWithId, getColumnsWithName, getColumnsWithId } from "../../src/utils/filterUtils";
+import { getColumnIndexWithId, getTaskIndexWithId } from "../../src/utils/findIndexUtils";
+import { generateRandomHex } from "../../src/utils/generateRandomHex";
+import { getKanban } from "../../src/utils/firebase/getKanban";
+import { updateKanban } from "../../src/utils/firebase/updateKanban";
+import sampleData from "../../data.json";
 
 
   export interface KanbanState {
