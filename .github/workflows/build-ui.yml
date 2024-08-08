@@ -2,10 +2,6 @@ name: Build UI
 
 on:
   [workflow_dispatch]
-  # push:
-  #   branches: [ "main" ]
-  # pull_request:
-  #   branches: [ "main" ]
 
 jobs:
   build:
@@ -18,7 +14,7 @@ jobs:
     - name: Set up Node.js
       uses: actions/setup-node@v3
       with:
-        node-version: '18' # Adjust the Node.js version as needed
+        node-version: '18'
 
     - name: Install dependencies
       working-directory: ./ui
@@ -28,14 +24,19 @@ jobs:
       working-directory: ./ui
       run: npm run build
 
-    - name: Upload build
+    - name: Upload production-ready build
       uses: actions/upload-artifact@v3
       with:
         name: vite-build
-        path: ui/dist
+        path: ui/dist 
 
-    # - name: Deploy to server (optional)
-    # Uncomment and adjust this section if you have a deployment step
-    # run: |
-    #   echo "Deploying to server..."
-    #   # Add your deployment script or command here
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: us-east-2
+
+    - name: Deploy to s3
+      run:
+        aws s3 sync ui/dist s3://${{ secrets.AWS_S3_BUCKET_NAME }}
