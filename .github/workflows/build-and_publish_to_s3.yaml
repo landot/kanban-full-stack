@@ -1,4 +1,4 @@
-name: Build UI
+name: Build and publish to s3
 
 on:
   [workflow_dispatch]
@@ -6,6 +6,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 3
 
     steps:
     - name: Checkout code

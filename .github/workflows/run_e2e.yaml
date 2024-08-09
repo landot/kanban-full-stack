@@ -1,17 +1,17 @@
 name: Run E2E Tests
 
 on:
-  [workflow_dispatch]
-  # push:
-  #   branches: [ "main" ]
-  # pull_request:
-  #   branches: [ "main" ]
+  workflow_dispatch:
+    inputs:
+      BASE_URL:
+        description: 'The base URL for the application'
+        required: false
+        default: 'https://kanban.timlandowski.com/'
 
 jobs:
-
   e2e-tests:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 3
 
     steps:
       - name: Checkout code
@@ -26,4 +26,4 @@ jobs:
 
       - name: Run tests
         run: |
-          docker run -e BASE_URL=https://kanban.timlandowski.com/ ghcr.io/landot/kanban-e2e-test:main
+          docker run -e BASE_URL=${{ github.event.inputs.BASE_URL }} ghcr.io/landot/kanban-e2e-test:main
